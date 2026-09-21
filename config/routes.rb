@@ -2,7 +2,7 @@
 Rails.application.routes.draw do
   resources :users, only: [ :new, :create ]
   resources :places, only: [ :index, :show, :new, :create ]
-  resources :session, only: [ :new, :create, :destroy ]
+  resource :session, only: [ :new, :create, :destroy ]
   resources :check_ins, only: [ :new, :create, :show ]
 
   namespace :admin do
