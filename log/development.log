@@ -1,3 +1,206 @@
   [1m[35m (1.0ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY) /*application='Modul223RelaxSpot'*/[0m
   [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='Modul223RelaxSpot'*/[0m
   [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Modul223RelaxSpot'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Modul223RelaxSpot'*/[0m
+Started GET "/" for 127.0.0.1 at 2026-09-21 14:09:02 +0200
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Modul223RelaxSpot'*/[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /home/yoshi/.local/share/mise/installs/ruby/4.0.6/lib/ruby/gems/4.0.0/gems/railties-8.1.3.1/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /home/yoshi/.local/share/mise/installs/ruby/4.0.6/lib/ruby/gems/4.0.0/gems/railties-8.1.3.1/lib/rails/templates/rails/welcome/index.html.erb (Duration: 0.8ms | GC: 0.0ms)
+Completed 200 OK in 12ms (Views: 5.4ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+  [1m[36mCACHE ActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mCACHE ActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mCACHE ActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='Modul223RelaxSpot'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Create (10.0ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'development', '2026-09-21 12:20:15.838162', '2026-09-21 12:20:15.838164') RETURNING "key" /*application='Modul223RelaxSpot'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Modul223RelaxSpot'*/[0m
+Migrating to CreateUsers (20260921121817)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "email" varchar, "password_digest" varchar, "role" integer, "locked" boolean, "unconfirmed_email" varchar, "confirmation_token" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='Modul223RelaxSpot'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260921121817') RETURNING "version" /*application='Modul223RelaxSpot'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Modul223RelaxSpot'*/[0m
+Migrating to CreatePlaces (20260921121851)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE TABLE "places" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "category" integer, "latitude" decimal, "longitude" decimal, "capacity" integer, "opening_hours" varchar, "status" integer, "approved" boolean, "proposed_by_id" integer, "locked_by_id" integer, "locked_at" datetime(6), "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='Modul223RelaxSpot'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260921121851') RETURNING "version" /*application='Modul223RelaxSpot'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Modul223RelaxSpot'*/[0m
+Migrating to CreateCheckIns (20260921121859)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE TABLE "check_ins" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "place_id" integer NOT NULL, "user_id" integer NOT NULL, "started_at" datetime(6), "ends_at" datetime(6), "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_85b6121b49"
+FOREIGN KEY ("place_id")
+  REFERENCES "places" ("id")
+, CONSTRAINT "fk_rails_b15c016c97"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+) /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_check_ins_on_place_id" ON "check_ins" ("place_id") /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_check_ins_on_user_id" ON "check_ins" ("user_id") /*application='Modul223RelaxSpot'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260921121859') RETURNING "version" /*application='Modul223RelaxSpot'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Modul223RelaxSpot'*/[0m
+Migrating to CreateStatusReports (20260921121922)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE TABLE "status_reports" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "place_id" integer NOT NULL, "user_id" integer NOT NULL, "reported_status" integer, "reviewed" boolean, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_098ec3c1c8"
+FOREIGN KEY ("place_id")
+  REFERENCES "places" ("id")
+, CONSTRAINT "fk_rails_c246968003"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+) /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_status_reports_on_place_id" ON "status_reports" ("place_id") /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_status_reports_on_user_id" ON "status_reports" ("user_id") /*application='Modul223RelaxSpot'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260921121922') RETURNING "version" /*application='Modul223RelaxSpot'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Modul223RelaxSpot'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Modul223RelaxSpot'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Modul223RelaxSpot'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Modul223RelaxSpot'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Modul223RelaxSpot'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Modul223RelaxSpot'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Modul223RelaxSpot'*/[0m
+Reverting CreateStatusReports (20260921121922)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.7ms)[0m  [1m[35mDROP TABLE "status_reports" /*application='Modul223RelaxSpot'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Destroy (0.0ms)[0m  [1m[31mDELETE FROM "schema_migrations" WHERE "schema_migrations"."version" = '20260921121922' /*application='Modul223RelaxSpot'*/[0m
+  [1m[36mTRANSACTION (8.7ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Modul223RelaxSpot'*/[0m
+Reverting CreateCheckIns (20260921121859)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (1.2ms)[0m  [1m[35mDROP TABLE "check_ins" /*application='Modul223RelaxSpot'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Destroy (0.0ms)[0m  [1m[31mDELETE FROM "schema_migrations" WHERE "schema_migrations"."version" = '20260921121859' /*application='Modul223RelaxSpot'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Modul223RelaxSpot'*/[0m
+Reverting CreatePlaces (20260921121851)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.6ms)[0m  [1m[35mDROP TABLE "places" /*application='Modul223RelaxSpot'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Destroy (0.0ms)[0m  [1m[31mDELETE FROM "schema_migrations" WHERE "schema_migrations"."version" = '20260921121851' /*application='Modul223RelaxSpot'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Modul223RelaxSpot'*/[0m
+Reverting CreateUsers (20260921121817)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.6ms)[0m  [1m[35mDROP TABLE "users" /*application='Modul223RelaxSpot'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Destroy (0.0ms)[0m  [1m[31mDELETE FROM "schema_migrations" WHERE "schema_migrations"."version" = '20260921121817' /*application='Modul223RelaxSpot'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Modul223RelaxSpot'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Modul223RelaxSpot'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Modul223RelaxSpot'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='Modul223RelaxSpot'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Modul223RelaxSpot'*/[0m
+Migrating to CreateUsers (20260921121817)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar NOT NULL, "email" varchar NOT NULL, "password_digest" varchar NOT NULL, "role" integer DEFAULT 0 NOT NULL, "locked" boolean DEFAULT FALSE NOT NULL, "unconfirmed_email" varchar, "confirmation_token" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email") /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_confirmation_token" ON "users" ("confirmation_token") /*application='Modul223RelaxSpot'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260921121817') RETURNING "version" /*application='Modul223RelaxSpot'*/[0m
+  [1m[36mTRANSACTION (8.6ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Modul223RelaxSpot'*/[0m
+Migrating to CreatePlaces (20260921121851)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE TABLE "places" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar NOT NULL, "category" integer DEFAULT 0 NOT NULL, "latitude" decimal(10,6) NOT NULL, "longitude" decimal(10,6) NOT NULL, "capacity" integer NOT NULL, "opening_hours" varchar, "status" integer DEFAULT 0 NOT NULL, "approved" boolean DEFAULT FALSE NOT NULL, "proposed_by_id" integer NOT NULL, "locked_by_id" integer, "locked_at" datetime(6), "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TEMPORARY TABLE "aplaces" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar NOT NULL, "category" integer DEFAULT 0 NOT NULL, "latitude" decimal(10,6) NOT NULL, "longitude" decimal(10,6) NOT NULL, "capacity" integer NOT NULL, "opening_hours" varchar, "status" integer DEFAULT 0 NOT NULL, "approved" boolean DEFAULT FALSE NOT NULL, "proposed_by_id" integer NOT NULL, "locked_by_id" integer, "locked_at" datetime(6), "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='Modul223RelaxSpot'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "aplaces" ("id","name","category","latitude","longitude","capacity","opening_hours","status","approved","proposed_by_id","locked_by_id","locked_at","created_at","updated_at")
+                     SELECT "id","name","category","latitude","longitude","capacity","opening_hours","status","approved","proposed_by_id","locked_by_id","locked_at","created_at","updated_at" FROM "places" /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "places" /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "places" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar NOT NULL, "category" integer DEFAULT 0 NOT NULL, "latitude" decimal(10,6) NOT NULL, "longitude" decimal(10,6) NOT NULL, "capacity" integer NOT NULL, "opening_hours" varchar, "status" integer DEFAULT 0 NOT NULL, "approved" boolean DEFAULT FALSE NOT NULL, "proposed_by_id" integer NOT NULL, "locked_by_id" integer, "locked_at" datetime(6), "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT places_capacity_positive CHECK (capacity > 0)) /*application='Modul223RelaxSpot'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "places" ("id","name","category","latitude","longitude","capacity","opening_hours","status","approved","proposed_by_id","locked_by_id","locked_at","created_at","updated_at")
+                     SELECT "id","name","category","latitude","longitude","capacity","opening_hours","status","approved","proposed_by_id","locked_by_id","locked_at","created_at","updated_at" FROM "aplaces" /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "aplaces" /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0 /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1 /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TEMPORARY TABLE "aplaces" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar NOT NULL, "category" integer DEFAULT 0 NOT NULL, "latitude" decimal(10,6) NOT NULL, "longitude" decimal(10,6) NOT NULL, "capacity" integer NOT NULL, "opening_hours" varchar, "status" integer DEFAULT 0 NOT NULL, "approved" boolean DEFAULT FALSE NOT NULL, "proposed_by_id" integer NOT NULL, "locked_by_id" integer, "locked_at" datetime(6), "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='Modul223RelaxSpot'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "aplaces" ("id","name","category","latitude","longitude","capacity","opening_hours","status","approved","proposed_by_id","locked_by_id","locked_at","created_at","updated_at")
+                     SELECT "id","name","category","latitude","longitude","capacity","opening_hours","status","approved","proposed_by_id","locked_by_id","locked_at","created_at","updated_at" FROM "places" /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "places" /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "places" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar NOT NULL, "category" integer DEFAULT 0 NOT NULL, "latitude" decimal(10,6) NOT NULL, "longitude" decimal(10,6) NOT NULL, "capacity" integer NOT NULL, "opening_hours" varchar, "status" integer DEFAULT 0 NOT NULL, "approved" boolean DEFAULT FALSE NOT NULL, "proposed_by_id" integer NOT NULL, "locked_by_id" integer, "locked_at" datetime(6), "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_b4e4683d2a"
+FOREIGN KEY ("proposed_by_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT places_capacity_positive CHECK (capacity > 0)) /*application='Modul223RelaxSpot'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "places" ("id","name","category","latitude","longitude","capacity","opening_hours","status","approved","proposed_by_id","locked_by_id","locked_at","created_at","updated_at")
+                     SELECT "id","name","category","latitude","longitude","capacity","opening_hours","status","approved","proposed_by_id","locked_by_id","locked_at","created_at","updated_at" FROM "aplaces" /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE "aplaces" /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0 /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1 /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TEMPORARY TABLE "aplaces" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar NOT NULL, "category" integer DEFAULT 0 NOT NULL, "latitude" decimal(10,6) NOT NULL, "longitude" decimal(10,6) NOT NULL, "capacity" integer NOT NULL, "opening_hours" varchar, "status" integer DEFAULT 0 NOT NULL, "approved" boolean DEFAULT FALSE NOT NULL, "proposed_by_id" integer NOT NULL, "locked_by_id" integer, "locked_at" datetime(6), "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='Modul223RelaxSpot'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "aplaces" ("id","name","category","latitude","longitude","capacity","opening_hours","status","approved","proposed_by_id","locked_by_id","locked_at","created_at","updated_at")
+                     SELECT "id","name","category","latitude","longitude","capacity","opening_hours","status","approved","proposed_by_id","locked_by_id","locked_at","created_at","updated_at" FROM "places" /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "places" /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "places" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar NOT NULL, "category" integer DEFAULT 0 NOT NULL, "latitude" decimal(10,6) NOT NULL, "longitude" decimal(10,6) NOT NULL, "capacity" integer NOT NULL, "opening_hours" varchar, "status" integer DEFAULT 0 NOT NULL, "approved" boolean DEFAULT FALSE NOT NULL, "proposed_by_id" integer NOT NULL, "locked_by_id" integer, "locked_at" datetime(6), "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_b4e4683d2a"
+FOREIGN KEY ("proposed_by_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT "fk_rails_d1d1f58659"
+FOREIGN KEY ("locked_by_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT places_capacity_positive CHECK (capacity > 0)) /*application='Modul223RelaxSpot'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "places" ("id","name","category","latitude","longitude","capacity","opening_hours","status","approved","proposed_by_id","locked_by_id","locked_at","created_at","updated_at")
+                     SELECT "id","name","category","latitude","longitude","capacity","opening_hours","status","approved","proposed_by_id","locked_by_id","locked_at","created_at","updated_at" FROM "aplaces" /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE "aplaces" /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0 /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1 /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_places_on_category" ON "places" ("category") /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_places_on_status" ON "places" ("status") /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_places_on_approved" ON "places" ("approved") /*application='Modul223RelaxSpot'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260921121851') RETURNING "version" /*application='Modul223RelaxSpot'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Modul223RelaxSpot'*/[0m
+Migrating to CreateCheckIns (20260921121859)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE TABLE "check_ins" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "place_id" integer NOT NULL, "user_id" integer NOT NULL, "started_at" datetime(6) NOT NULL, "ends_at" datetime(6) NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_85b6121b49"
+FOREIGN KEY ("place_id")
+  REFERENCES "places" ("id")
+, CONSTRAINT "fk_rails_b15c016c97"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+) /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_check_ins_on_place_id" ON "check_ins" ("place_id") /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_check_ins_on_user_id" ON "check_ins" ("user_id") /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TEMPORARY TABLE "acheck_ins" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "place_id" integer NOT NULL, "user_id" integer NOT NULL, "started_at" datetime(6) NOT NULL, "ends_at" datetime(6) NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "tindex_acheck_ins_on_user_id" ON "acheck_ins" ("user_id") /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_acheck_ins_on_place_id" ON "acheck_ins" ("place_id") /*application='Modul223RelaxSpot'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "acheck_ins" ("id","place_id","user_id","started_at","ends_at","created_at","updated_at")
+                     SELECT "id","place_id","user_id","started_at","ends_at","created_at","updated_at" FROM "check_ins" /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE "check_ins" /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "check_ins" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "place_id" integer NOT NULL, "user_id" integer NOT NULL, "started_at" datetime(6) NOT NULL, "ends_at" datetime(6) NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_b15c016c97"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT "fk_rails_85b6121b49"
+FOREIGN KEY ("place_id")
+  REFERENCES "places" ("id")
+, CONSTRAINT check_ins_ends_after_start CHECK (ends_at > started_at)) /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_check_ins_on_place_id" ON "check_ins" ("place_id") /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_check_ins_on_user_id" ON "check_ins" ("user_id") /*application='Modul223RelaxSpot'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "check_ins" ("id","place_id","user_id","started_at","ends_at","created_at","updated_at")
+                     SELECT "id","place_id","user_id","started_at","ends_at","created_at","updated_at" FROM "acheck_ins" /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE "acheck_ins" /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0 /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1 /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_check_ins_on_place_id_and_ends_at" ON "check_ins" ("place_id", "ends_at") /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_check_ins_on_user_id_and_place_id" ON "check_ins" ("user_id", "place_id") /*application='Modul223RelaxSpot'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260921121859') RETURNING "version" /*application='Modul223RelaxSpot'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Modul223RelaxSpot'*/[0m
+Migrating to CreateStatusReports (20260921121922)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE TABLE "status_reports" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "place_id" integer NOT NULL, "user_id" integer NOT NULL, "reported_status" integer NOT NULL, "reviewed" boolean DEFAULT FALSE NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_098ec3c1c8"
+FOREIGN KEY ("place_id")
+  REFERENCES "places" ("id")
+, CONSTRAINT "fk_rails_c246968003"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+) /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_status_reports_on_place_id" ON "status_reports" ("place_id") /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_status_reports_on_user_id" ON "status_reports" ("user_id") /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_status_reports_on_reviewed" ON "status_reports" ("reviewed") /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_status_reports_on_place_id_and_reviewed" ON "status_reports" ("place_id", "reviewed") /*application='Modul223RelaxSpot'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260921121922') RETURNING "version" /*application='Modul223RelaxSpot'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Modul223RelaxSpot'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Modul223RelaxSpot'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Modul223RelaxSpot'*/[0m

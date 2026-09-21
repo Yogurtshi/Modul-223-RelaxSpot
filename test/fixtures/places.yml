@@ -1,0 +1,27 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: Central Bench
+  category: 0
+  latitude: 47.3769
+  longitude: 8.5417
+  capacity: 4
+  opening_hours: 08:00-20:00
+  status: 0
+  approved: true
+  proposed_by_id: <%= ActiveRecord::FixtureSet.identify(:one) %>
+  locked_by_id:
+  locked_at:
+
+two:
+  name: Shaded Courtyard
+  category: 2
+  latitude: 47.3779
+  longitude: 8.5427
+  capacity: 2
+  opening_hours: 09:00-18:00
+  status: 0
+  approved: true
+  proposed_by_id: <%= ActiveRecord::FixtureSet.identify(:two) %>
+  locked_by_id:
+  locked_at:

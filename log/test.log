@@ -1,0 +1,1058 @@
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "check_ins"[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE TABLE "check_ins" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime(6) NOT NULL, "ends_at" datetime(6) NOT NULL, "place_id" integer NOT NULL, "started_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "user_id" integer NOT NULL, CONSTRAINT check_ins_ends_after_start CHECK (ends_at > started_at))[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_check_ins_on_place_id_and_ends_at" ON "check_ins" ("place_id", "ends_at")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_check_ins_on_place_id" ON "check_ins" ("place_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_check_ins_on_user_id_and_place_id" ON "check_ins" ("user_id", "place_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_check_ins_on_user_id" ON "check_ins" ("user_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE IF EXISTS "places"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "places" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "approved" boolean DEFAULT FALSE NOT NULL, "capacity" integer NOT NULL, "category" integer DEFAULT 0 NOT NULL, "created_at" datetime(6) NOT NULL, "latitude" decimal(10,6) NOT NULL, "locked_at" datetime(6), "locked_by_id" integer, "longitude" decimal(10,6) NOT NULL, "name" varchar NOT NULL, "opening_hours" varchar, "proposed_by_id" integer NOT NULL, "status" integer DEFAULT 0 NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT places_capacity_positive CHECK (capacity > 0))[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_places_on_approved" ON "places" ("approved")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_places_on_category" ON "places" ("category")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_places_on_status" ON "places" ("status")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE IF EXISTS "status_reports"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "status_reports" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime(6) NOT NULL, "place_id" integer NOT NULL, "reported_status" integer NOT NULL, "reviewed" boolean DEFAULT FALSE NOT NULL, "updated_at" datetime(6) NOT NULL, "user_id" integer NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_status_reports_on_place_id_and_reviewed" ON "status_reports" ("place_id", "reviewed")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_status_reports_on_place_id" ON "status_reports" ("place_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_status_reports_on_reviewed" ON "status_reports" ("reviewed")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_status_reports_on_user_id" ON "status_reports" ("user_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE IF EXISTS "users"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "confirmation_token" varchar, "created_at" datetime(6) NOT NULL, "email" varchar NOT NULL, "locked" boolean DEFAULT FALSE NOT NULL, "name" varchar NOT NULL, "password_digest" varchar NOT NULL, "role" integer DEFAULT 0 NOT NULL, "unconfirmed_email" varchar, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_confirmation_token" ON "users" ("confirmation_token")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TEMPORARY TABLE "acheck_ins" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime(6) NOT NULL, "ends_at" datetime(6) NOT NULL, "place_id" integer NOT NULL, "started_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "user_id" integer NOT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_acheck_ins_on_user_id" ON "acheck_ins" ("user_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_acheck_ins_on_user_id_and_place_id" ON "acheck_ins" ("user_id", "place_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_acheck_ins_on_place_id" ON "acheck_ins" ("place_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_acheck_ins_on_place_id_and_ends_at" ON "acheck_ins" ("place_id", "ends_at")[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "acheck_ins" ("id","created_at","ends_at","place_id","started_at","updated_at","user_id")
+                     SELECT "id","created_at","ends_at","place_id","started_at","updated_at","user_id" FROM "check_ins"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE "check_ins"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "check_ins" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime(6) NOT NULL, "ends_at" datetime(6) NOT NULL, "place_id" integer NOT NULL, "started_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "user_id" integer NOT NULL, CONSTRAINT "fk_rails_85b6121b49"
+FOREIGN KEY ("place_id")
+  REFERENCES "places" ("id")
+, CONSTRAINT check_ins_ends_after_start CHECK (ends_at > started_at))[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_check_ins_on_place_id_and_ends_at" ON "check_ins" ("place_id", "ends_at")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_check_ins_on_place_id" ON "check_ins" ("place_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_check_ins_on_user_id_and_place_id" ON "check_ins" ("user_id", "place_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_check_ins_on_user_id" ON "check_ins" ("user_id")[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "check_ins" ("id","created_at","ends_at","place_id","started_at","updated_at","user_id")
+                     SELECT "id","created_at","ends_at","place_id","started_at","updated_at","user_id" FROM "acheck_ins"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "acheck_ins"[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TEMPORARY TABLE "acheck_ins" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime(6) NOT NULL, "ends_at" datetime(6) NOT NULL, "place_id" integer NOT NULL, "started_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "user_id" integer NOT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_acheck_ins_on_user_id" ON "acheck_ins" ("user_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_acheck_ins_on_user_id_and_place_id" ON "acheck_ins" ("user_id", "place_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_acheck_ins_on_place_id" ON "acheck_ins" ("place_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_acheck_ins_on_place_id_and_ends_at" ON "acheck_ins" ("place_id", "ends_at")[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "acheck_ins" ("id","created_at","ends_at","place_id","started_at","updated_at","user_id")
+                     SELECT "id","created_at","ends_at","place_id","started_at","updated_at","user_id" FROM "check_ins"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "check_ins"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "check_ins" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime(6) NOT NULL, "ends_at" datetime(6) NOT NULL, "place_id" integer NOT NULL, "started_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "user_id" integer NOT NULL, CONSTRAINT "fk_rails_85b6121b49"
+FOREIGN KEY ("place_id")
+  REFERENCES "places" ("id")
+, CONSTRAINT "fk_rails_b15c016c97"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT check_ins_ends_after_start CHECK (ends_at > started_at))[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_check_ins_on_place_id_and_ends_at" ON "check_ins" ("place_id", "ends_at")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_check_ins_on_place_id" ON "check_ins" ("place_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_check_ins_on_user_id_and_place_id" ON "check_ins" ("user_id", "place_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_check_ins_on_user_id" ON "check_ins" ("user_id")[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "check_ins" ("id","created_at","ends_at","place_id","started_at","updated_at","user_id")
+                     SELECT "id","created_at","ends_at","place_id","started_at","updated_at","user_id" FROM "acheck_ins"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "acheck_ins"[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TEMPORARY TABLE "aplaces" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "approved" boolean DEFAULT FALSE NOT NULL, "capacity" integer NOT NULL, "category" integer DEFAULT 0 NOT NULL, "created_at" datetime(6) NOT NULL, "latitude" decimal(10,6) NOT NULL, "locked_at" datetime(6), "locked_by_id" integer, "longitude" decimal(10,6) NOT NULL, "name" varchar NOT NULL, "opening_hours" varchar, "proposed_by_id" integer NOT NULL, "status" integer DEFAULT 0 NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_aplaces_on_status" ON "aplaces" ("status")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_aplaces_on_category" ON "aplaces" ("category")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_aplaces_on_approved" ON "aplaces" ("approved")[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "aplaces" ("id","approved","capacity","category","created_at","latitude","locked_at","locked_by_id","longitude","name","opening_hours","proposed_by_id","status","updated_at")
+                     SELECT "id","approved","capacity","category","created_at","latitude","locked_at","locked_by_id","longitude","name","opening_hours","proposed_by_id","status","updated_at" FROM "places"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE "places"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "places" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "approved" boolean DEFAULT FALSE NOT NULL, "capacity" integer NOT NULL, "category" integer DEFAULT 0 NOT NULL, "created_at" datetime(6) NOT NULL, "latitude" decimal(10,6) NOT NULL, "locked_at" datetime(6), "locked_by_id" integer, "longitude" decimal(10,6) NOT NULL, "name" varchar NOT NULL, "opening_hours" varchar, "proposed_by_id" integer NOT NULL, "status" integer DEFAULT 0 NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_d1d1f58659"
+FOREIGN KEY ("locked_by_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT places_capacity_positive CHECK (capacity > 0))[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_places_on_approved" ON "places" ("approved")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_places_on_category" ON "places" ("category")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_places_on_status" ON "places" ("status")[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "places" ("id","approved","capacity","category","created_at","latitude","locked_at","locked_by_id","longitude","name","opening_hours","proposed_by_id","status","updated_at")
+                     SELECT "id","approved","capacity","category","created_at","latitude","locked_at","locked_by_id","longitude","name","opening_hours","proposed_by_id","status","updated_at" FROM "aplaces"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "aplaces"[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TEMPORARY TABLE "aplaces" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "approved" boolean DEFAULT FALSE NOT NULL, "capacity" integer NOT NULL, "category" integer DEFAULT 0 NOT NULL, "created_at" datetime(6) NOT NULL, "latitude" decimal(10,6) NOT NULL, "locked_at" datetime(6), "locked_by_id" integer, "longitude" decimal(10,6) NOT NULL, "name" varchar NOT NULL, "opening_hours" varchar, "proposed_by_id" integer NOT NULL, "status" integer DEFAULT 0 NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_aplaces_on_status" ON "aplaces" ("status")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "tindex_aplaces_on_category" ON "aplaces" ("category")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_aplaces_on_approved" ON "aplaces" ("approved")[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "aplaces" ("id","approved","capacity","category","created_at","latitude","locked_at","locked_by_id","longitude","name","opening_hours","proposed_by_id","status","updated_at")
+                     SELECT "id","approved","capacity","category","created_at","latitude","locked_at","locked_by_id","longitude","name","opening_hours","proposed_by_id","status","updated_at" FROM "places"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "places"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "places" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "approved" boolean DEFAULT FALSE NOT NULL, "capacity" integer NOT NULL, "category" integer DEFAULT 0 NOT NULL, "created_at" datetime(6) NOT NULL, "latitude" decimal(10,6) NOT NULL, "locked_at" datetime(6), "locked_by_id" integer, "longitude" decimal(10,6) NOT NULL, "name" varchar NOT NULL, "opening_hours" varchar, "proposed_by_id" integer NOT NULL, "status" integer DEFAULT 0 NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_d1d1f58659"
+FOREIGN KEY ("locked_by_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT "fk_rails_b4e4683d2a"
+FOREIGN KEY ("proposed_by_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT places_capacity_positive CHECK (capacity > 0))[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_places_on_approved" ON "places" ("approved")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_places_on_category" ON "places" ("category")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_places_on_status" ON "places" ("status")[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "places" ("id","approved","capacity","category","created_at","latitude","locked_at","locked_by_id","longitude","name","opening_hours","proposed_by_id","status","updated_at")
+                     SELECT "id","approved","capacity","category","created_at","latitude","locked_at","locked_by_id","longitude","name","opening_hours","proposed_by_id","status","updated_at" FROM "aplaces"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "aplaces"[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE TEMPORARY TABLE "astatus_reports" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime(6) NOT NULL, "place_id" integer NOT NULL, "reported_status" integer NOT NULL, "reviewed" boolean DEFAULT FALSE NOT NULL, "updated_at" datetime(6) NOT NULL, "user_id" integer NOT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_astatus_reports_on_user_id" ON "astatus_reports" ("user_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_astatus_reports_on_reviewed" ON "astatus_reports" ("reviewed")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_astatus_reports_on_place_id" ON "astatus_reports" ("place_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_astatus_reports_on_place_id_and_reviewed" ON "astatus_reports" ("place_id", "reviewed")[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "astatus_reports" ("id","created_at","place_id","reported_status","reviewed","updated_at","user_id")
+                     SELECT "id","created_at","place_id","reported_status","reviewed","updated_at","user_id" FROM "status_reports"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "status_reports"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "status_reports" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime(6) NOT NULL, "place_id" integer NOT NULL, "reported_status" integer NOT NULL, "reviewed" boolean DEFAULT FALSE NOT NULL, "updated_at" datetime(6) NOT NULL, "user_id" integer NOT NULL, CONSTRAINT "fk_rails_098ec3c1c8"
+FOREIGN KEY ("place_id")
+  REFERENCES "places" ("id")
+)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_status_reports_on_place_id_and_reviewed" ON "status_reports" ("place_id", "reviewed")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_status_reports_on_place_id" ON "status_reports" ("place_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_status_reports_on_reviewed" ON "status_reports" ("reviewed")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_status_reports_on_user_id" ON "status_reports" ("user_id")[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "status_reports" ("id","created_at","place_id","reported_status","reviewed","updated_at","user_id")
+                     SELECT "id","created_at","place_id","reported_status","reviewed","updated_at","user_id" FROM "astatus_reports"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "astatus_reports"[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE TEMPORARY TABLE "astatus_reports" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime(6) NOT NULL, "place_id" integer NOT NULL, "reported_status" integer NOT NULL, "reviewed" boolean DEFAULT FALSE NOT NULL, "updated_at" datetime(6) NOT NULL, "user_id" integer NOT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_astatus_reports_on_user_id" ON "astatus_reports" ("user_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_astatus_reports_on_reviewed" ON "astatus_reports" ("reviewed")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_astatus_reports_on_place_id" ON "astatus_reports" ("place_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_astatus_reports_on_place_id_and_reviewed" ON "astatus_reports" ("place_id", "reviewed")[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "astatus_reports" ("id","created_at","place_id","reported_status","reviewed","updated_at","user_id")
+                     SELECT "id","created_at","place_id","reported_status","reviewed","updated_at","user_id" FROM "status_reports"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "status_reports"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "status_reports" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime(6) NOT NULL, "place_id" integer NOT NULL, "reported_status" integer NOT NULL, "reviewed" boolean DEFAULT FALSE NOT NULL, "updated_at" datetime(6) NOT NULL, "user_id" integer NOT NULL, CONSTRAINT "fk_rails_098ec3c1c8"
+FOREIGN KEY ("place_id")
+  REFERENCES "places" ("id")
+, CONSTRAINT "fk_rails_c246968003"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_status_reports_on_place_id_and_reviewed" ON "status_reports" ("place_id", "reviewed")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_status_reports_on_place_id" ON "status_reports" ("place_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_status_reports_on_reviewed" ON "status_reports" ("reviewed")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_status_reports_on_user_id" ON "status_reports" ("user_id")[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "status_reports" ("id","created_at","place_id","reported_status","reviewed","updated_at","user_id")
+                     SELECT "id","created_at","place_id","reported_status","reviewed","updated_at","user_id" FROM "astatus_reports"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "astatus_reports"[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20260921121922)[0m
+  [1m[35m (0.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20260921121859),
+(20260921121851),
+(20260921121817);[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::InternalMetadata Create (0.1ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'test', '2026-09-21 12:25:50.360158', '2026-09-21 12:25:50.360159') RETURNING "key"[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::InternalMetadata Create (0.0ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('schema_sha1', 'e1703f9762d29a6f5705d590bc3d35930623a9f8', '2026-09-21 12:25:50.360675', '2026-09-21 12:25:50.360676') RETURNING "key"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.2ms)[0m  [1m[31mDELETE FROM "check_ins";
+DELETE FROM "places";
+DELETE FROM "status_reports";
+DELETE FROM "users";
+INSERT INTO "check_ins" ("id", "created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:25:50.420564', '2026-09-21 14:18:59', 980190962, '2026-09-21 14:18:59', '2026-09-21 12:25:50.420564', 980190962), (298486374, '2026-09-21 12:25:50.420564', '2026-09-21 14:18:59', 298486374, '2026-09-21 14:18:59', '2026-09-21 12:25:50.420564', 298486374);
+INSERT INTO "places" ("id", "approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (980190962, FALSE, 1, 1, '2026-09-21 12:25:50.422966', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:25:50.422966'), (298486374, FALSE, 1, 1, '2026-09-21 12:25:50.422966', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:25:50.422966');
+INSERT INTO "status_reports" ("id", "created_at", "place_id", "reported_status", "reviewed", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:25:50.423579', 980190962, 1, FALSE, '2026-09-21 12:25:50.423579', 980190962), (298486374, '2026-09-21 12:25:50.423579', 298486374, 1, FALSE, '2026-09-21 12:25:50.423579', 298486374);
+INSERT INTO "users" ("id", "confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (980190962, 'MyString', '2026-09-21 12:25:50.424332', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:25:50.424332'), (298486374, 'MyString', '2026-09-21 12:25:50.424332', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:25:50.424332')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.2ms)[0m  [1m[31mDELETE FROM "check_ins";
+DELETE FROM "places";
+DELETE FROM "status_reports";
+DELETE FROM "users";
+INSERT INTO "check_ins" ("id", "created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:25:50.440272', '2026-09-21 14:18:59', 980190962, '2026-09-21 14:18:59', '2026-09-21 12:25:50.440272', 980190962), (298486374, '2026-09-21 12:25:50.440272', '2026-09-21 14:18:59', 298486374, '2026-09-21 14:18:59', '2026-09-21 12:25:50.440272', 298486374);
+INSERT INTO "places" ("id", "approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (980190962, FALSE, 1, 1, '2026-09-21 12:25:50.440349', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:25:50.440349'), (298486374, FALSE, 1, 1, '2026-09-21 12:25:50.440349', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:25:50.440349');
+INSERT INTO "status_reports" ("id", "created_at", "place_id", "reported_status", "reviewed", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:25:50.440369', 980190962, 1, FALSE, '2026-09-21 12:25:50.440369', 980190962), (298486374, '2026-09-21 12:25:50.440369', 298486374, 1, FALSE, '2026-09-21 12:25:50.440369', 298486374);
+INSERT INTO "users" ("id", "confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (980190962, 'MyString', '2026-09-21 12:25:50.440390', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:25:50.440390'), (298486374, 'MyString', '2026-09-21 12:25:50.440390', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:25:50.440390')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.1ms)[0m  [1m[31mDELETE FROM "check_ins";
+DELETE FROM "places";
+DELETE FROM "status_reports";
+DELETE FROM "users";
+INSERT INTO "check_ins" ("id", "created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:25:50.442574', '2026-09-21 14:18:59', 980190962, '2026-09-21 14:18:59', '2026-09-21 12:25:50.442574', 980190962), (298486374, '2026-09-21 12:25:50.442574', '2026-09-21 14:18:59', 298486374, '2026-09-21 14:18:59', '2026-09-21 12:25:50.442574', 298486374);
+INSERT INTO "places" ("id", "approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (980190962, FALSE, 1, 1, '2026-09-21 12:25:50.442637', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:25:50.442637'), (298486374, FALSE, 1, 1, '2026-09-21 12:25:50.442637', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:25:50.442637');
+INSERT INTO "status_reports" ("id", "created_at", "place_id", "reported_status", "reviewed", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:25:50.442655', 980190962, 1, FALSE, '2026-09-21 12:25:50.442655', 980190962), (298486374, '2026-09-21 12:25:50.442655', 298486374, 1, FALSE, '2026-09-21 12:25:50.442655', 298486374);
+INSERT INTO "users" ("id", "confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (980190962, 'MyString', '2026-09-21 12:25:50.442676', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:25:50.442676'), (298486374, 'MyString', '2026-09-21 12:25:50.442676', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:25:50.442676')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.2ms)[0m  [1m[31mDELETE FROM "check_ins";
+DELETE FROM "places";
+DELETE FROM "status_reports";
+DELETE FROM "users";
+INSERT INTO "check_ins" ("id", "created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:25:50.444625', '2026-09-21 14:18:59', 980190962, '2026-09-21 14:18:59', '2026-09-21 12:25:50.444625', 980190962), (298486374, '2026-09-21 12:25:50.444625', '2026-09-21 14:18:59', 298486374, '2026-09-21 14:18:59', '2026-09-21 12:25:50.444625', 298486374);
+INSERT INTO "places" ("id", "approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (980190962, FALSE, 1, 1, '2026-09-21 12:25:50.444701', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:25:50.444701'), (298486374, FALSE, 1, 1, '2026-09-21 12:25:50.444701', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:25:50.444701');
+INSERT INTO "status_reports" ("id", "created_at", "place_id", "reported_status", "reviewed", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:25:50.444720', 980190962, 1, FALSE, '2026-09-21 12:25:50.444720', 980190962), (298486374, '2026-09-21 12:25:50.444720', 298486374, 1, FALSE, '2026-09-21 12:25:50.444720', 298486374);
+INSERT INTO "users" ("id", "confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (980190962, 'MyString', '2026-09-21 12:25:50.444739', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:25:50.444739'), (298486374, 'MyString', '2026-09-21 12:25:50.444739', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:25:50.444739')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.2ms)[0m  [1m[31mDELETE FROM "check_ins";
+DELETE FROM "places";
+DELETE FROM "status_reports";
+DELETE FROM "users";
+INSERT INTO "check_ins" ("id", "created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:25:50.446927', '2026-09-21 14:18:59', 980190962, '2026-09-21 14:18:59', '2026-09-21 12:25:50.446927', 980190962), (298486374, '2026-09-21 12:25:50.446927', '2026-09-21 14:18:59', 298486374, '2026-09-21 14:18:59', '2026-09-21 12:25:50.446927', 298486374);
+INSERT INTO "places" ("id", "approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (980190962, FALSE, 1, 1, '2026-09-21 12:25:50.447001', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:25:50.447001'), (298486374, FALSE, 1, 1, '2026-09-21 12:25:50.447001', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:25:50.447001');
+INSERT INTO "status_reports" ("id", "created_at", "place_id", "reported_status", "reviewed", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:25:50.447023', 980190962, 1, FALSE, '2026-09-21 12:25:50.447023', 980190962), (298486374, '2026-09-21 12:25:50.447023', 298486374, 1, FALSE, '2026-09-21 12:25:50.447023', 298486374);
+INSERT INTO "users" ("id", "confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (980190962, 'MyString', '2026-09-21 12:25:50.447045', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:25:50.447045'), (298486374, 'MyString', '2026-09-21 12:25:50.447045', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:25:50.447045')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.1ms)[0m  [1m[31mDELETE FROM "check_ins";
+DELETE FROM "places";
+DELETE FROM "status_reports";
+DELETE FROM "users";
+INSERT INTO "check_ins" ("id", "created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:25:50.449309', '2026-09-21 14:18:59', 980190962, '2026-09-21 14:18:59', '2026-09-21 12:25:50.449309', 980190962), (298486374, '2026-09-21 12:25:50.449309', '2026-09-21 14:18:59', 298486374, '2026-09-21 14:18:59', '2026-09-21 12:25:50.449309', 298486374);
+INSERT INTO "places" ("id", "approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (980190962, FALSE, 1, 1, '2026-09-21 12:25:50.449385', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:25:50.449385'), (298486374, FALSE, 1, 1, '2026-09-21 12:25:50.449385', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:25:50.449385');
+INSERT INTO "status_reports" ("id", "created_at", "place_id", "reported_status", "reviewed", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:25:50.449405', 980190962, 1, FALSE, '2026-09-21 12:25:50.449405', 980190962), (298486374, '2026-09-21 12:25:50.449405', 298486374, 1, FALSE, '2026-09-21 12:25:50.449405', 298486374);
+INSERT INTO "users" ("id", "confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (980190962, 'MyString', '2026-09-21 12:25:50.449426', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:25:50.449426'), (298486374, 'MyString', '2026-09-21 12:25:50.449426', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:25:50.449426')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.3ms)[0m  [1m[31mDELETE FROM "check_ins";
+DELETE FROM "places";
+DELETE FROM "status_reports";
+DELETE FROM "users";
+INSERT INTO "check_ins" ("id", "created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:25:50.451470', '2026-09-21 14:18:59', 980190962, '2026-09-21 14:18:59', '2026-09-21 12:25:50.451470', 980190962), (298486374, '2026-09-21 12:25:50.451470', '2026-09-21 14:18:59', 298486374, '2026-09-21 14:18:59', '2026-09-21 12:25:50.451470', 298486374);
+INSERT INTO "places" ("id", "approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (980190962, FALSE, 1, 1, '2026-09-21 12:25:50.451550', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:25:50.451550'), (298486374, FALSE, 1, 1, '2026-09-21 12:25:50.451550', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:25:50.451550');
+INSERT INTO "status_reports" ("id", "created_at", "place_id", "reported_status", "reviewed", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:25:50.451571', 980190962, 1, FALSE, '2026-09-21 12:25:50.451571', 980190962), (298486374, '2026-09-21 12:25:50.451571', 298486374, 1, FALSE, '2026-09-21 12:25:50.451571', 298486374);
+INSERT INTO "users" ("id", "confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (980190962, 'MyString', '2026-09-21 12:25:50.451592', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:25:50.451592'), (298486374, 'MyString', '2026-09-21 12:25:50.451592', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:25:50.451592')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.3ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.3ms)[0m  [1m[31mDELETE FROM "check_ins";
+DELETE FROM "places";
+DELETE FROM "status_reports";
+DELETE FROM "users";
+INSERT INTO "check_ins" ("id", "created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:25:50.455709', '2026-09-21 14:18:59', 980190962, '2026-09-21 14:18:59', '2026-09-21 12:25:50.455709', 980190962), (298486374, '2026-09-21 12:25:50.455709', '2026-09-21 14:18:59', 298486374, '2026-09-21 14:18:59', '2026-09-21 12:25:50.455709', 298486374);
+INSERT INTO "places" ("id", "approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (980190962, FALSE, 1, 1, '2026-09-21 12:25:50.455827', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:25:50.455827'), (298486374, FALSE, 1, 1, '2026-09-21 12:25:50.455827', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:25:50.455827');
+INSERT INTO "status_reports" ("id", "created_at", "place_id", "reported_status", "reviewed", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:25:50.455867', 980190962, 1, FALSE, '2026-09-21 12:25:50.455867', 980190962), (298486374, '2026-09-21 12:25:50.455867', 298486374, 1, FALSE, '2026-09-21 12:25:50.455867', 298486374);
+INSERT INTO "users" ("id", "confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (980190962, 'MyString', '2026-09-21 12:25:50.455914', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:25:50.455914'), (298486374, 'MyString', '2026-09-21 12:25:50.455914', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:25:50.455914')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.2ms)[0m  [1m[31mDELETE FROM "check_ins";
+DELETE FROM "places";
+DELETE FROM "status_reports";
+DELETE FROM "users";
+INSERT INTO "check_ins" ("id", "created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:25:50.460004', '2026-09-21 14:18:59', 980190962, '2026-09-21 14:18:59', '2026-09-21 12:25:50.460004', 980190962), (298486374, '2026-09-21 12:25:50.460004', '2026-09-21 14:18:59', 298486374, '2026-09-21 14:18:59', '2026-09-21 12:25:50.460004', 298486374);
+INSERT INTO "places" ("id", "approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (980190962, FALSE, 1, 1, '2026-09-21 12:25:50.460107', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:25:50.460107'), (298486374, FALSE, 1, 1, '2026-09-21 12:25:50.460107', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:25:50.460107');
+INSERT INTO "status_reports" ("id", "created_at", "place_id", "reported_status", "reviewed", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:25:50.460144', 980190962, 1, FALSE, '2026-09-21 12:25:50.460144', 980190962), (298486374, '2026-09-21 12:25:50.460144', 298486374, 1, FALSE, '2026-09-21 12:25:50.460144', 298486374);
+INSERT INTO "users" ("id", "confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (980190962, 'MyString', '2026-09-21 12:25:50.460196', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:25:50.460196'), (298486374, 'MyString', '2026-09-21 12:25:50.460196', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:25:50.460196')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.2ms)[0m  [1m[31mDELETE FROM "check_ins";
+DELETE FROM "places";
+DELETE FROM "status_reports";
+DELETE FROM "users";
+INSERT INTO "check_ins" ("id", "created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:25:50.462633', '2026-09-21 14:18:59', 980190962, '2026-09-21 14:18:59', '2026-09-21 12:25:50.462633', 980190962), (298486374, '2026-09-21 12:25:50.462633', '2026-09-21 14:18:59', 298486374, '2026-09-21 14:18:59', '2026-09-21 12:25:50.462633', 298486374);
+INSERT INTO "places" ("id", "approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (980190962, FALSE, 1, 1, '2026-09-21 12:25:50.462672', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:25:50.462672'), (298486374, FALSE, 1, 1, '2026-09-21 12:25:50.462672', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:25:50.462672');
+INSERT INTO "status_reports" ("id", "created_at", "place_id", "reported_status", "reviewed", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:25:50.462689', 980190962, 1, FALSE, '2026-09-21 12:25:50.462689', 980190962), (298486374, '2026-09-21 12:25:50.462689', 298486374, 1, FALSE, '2026-09-21 12:25:50.462689', 298486374);
+INSERT INTO "users" ("id", "confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (980190962, 'MyString', '2026-09-21 12:25:50.462708', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:25:50.462708'), (298486374, 'MyString', '2026-09-21 12:25:50.462708', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:25:50.462708')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.1ms)[0m  [1m[31mDELETE FROM "check_ins";
+DELETE FROM "places";
+DELETE FROM "status_reports";
+DELETE FROM "users";
+INSERT INTO "check_ins" ("id", "created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:25:50.464671', '2026-09-21 14:18:59', 980190962, '2026-09-21 14:18:59', '2026-09-21 12:25:50.464671', 980190962), (298486374, '2026-09-21 12:25:50.464671', '2026-09-21 14:18:59', 298486374, '2026-09-21 14:18:59', '2026-09-21 12:25:50.464671', 298486374);
+INSERT INTO "places" ("id", "approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (980190962, FALSE, 1, 1, '2026-09-21 12:25:50.464724', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:25:50.464724'), (298486374, FALSE, 1, 1, '2026-09-21 12:25:50.464724', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:25:50.464724');
+INSERT INTO "status_reports" ("id", "created_at", "place_id", "reported_status", "reviewed", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:25:50.464743', 980190962, 1, FALSE, '2026-09-21 12:25:50.464743', 980190962), (298486374, '2026-09-21 12:25:50.464743', 298486374, 1, FALSE, '2026-09-21 12:25:50.464743', 298486374);
+INSERT INTO "users" ("id", "confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (980190962, 'MyString', '2026-09-21 12:25:50.464762', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:25:50.464762'), (298486374, 'MyString', '2026-09-21 12:25:50.464762', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:25:50.464762')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.2ms)[0m  [1m[31mDELETE FROM "check_ins";
+DELETE FROM "places";
+DELETE FROM "status_reports";
+DELETE FROM "users";
+INSERT INTO "check_ins" ("id", "created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:25:50.466562', '2026-09-21 14:18:59', 980190962, '2026-09-21 14:18:59', '2026-09-21 12:25:50.466562', 980190962), (298486374, '2026-09-21 12:25:50.466562', '2026-09-21 14:18:59', 298486374, '2026-09-21 14:18:59', '2026-09-21 12:25:50.466562', 298486374);
+INSERT INTO "places" ("id", "approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (980190962, FALSE, 1, 1, '2026-09-21 12:25:50.466613', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:25:50.466613'), (298486374, FALSE, 1, 1, '2026-09-21 12:25:50.466613', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:25:50.466613');
+INSERT INTO "status_reports" ("id", "created_at", "place_id", "reported_status", "reviewed", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:25:50.466631', 980190962, 1, FALSE, '2026-09-21 12:25:50.466631', 980190962), (298486374, '2026-09-21 12:25:50.466631', 298486374, 1, FALSE, '2026-09-21 12:25:50.466631', 298486374);
+INSERT INTO "users" ("id", "confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (980190962, 'MyString', '2026-09-21 12:25:50.466649', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:25:50.466649'), (298486374, 'MyString', '2026-09-21 12:25:50.466649', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:25:50.466649')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.1ms)[0m  [1m[31mDELETE FROM "check_ins";
+DELETE FROM "places";
+DELETE FROM "status_reports";
+DELETE FROM "users";
+INSERT INTO "check_ins" ("id", "created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:25:50.468673', '2026-09-21 14:18:59', 980190962, '2026-09-21 14:18:59', '2026-09-21 12:25:50.468673', 980190962), (298486374, '2026-09-21 12:25:50.468673', '2026-09-21 14:18:59', 298486374, '2026-09-21 14:18:59', '2026-09-21 12:25:50.468673', 298486374);
+INSERT INTO "places" ("id", "approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (980190962, FALSE, 1, 1, '2026-09-21 12:25:50.468721', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:25:50.468721'), (298486374, FALSE, 1, 1, '2026-09-21 12:25:50.468721', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:25:50.468721');
+INSERT INTO "status_reports" ("id", "created_at", "place_id", "reported_status", "reviewed", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:25:50.468739', 980190962, 1, FALSE, '2026-09-21 12:25:50.468739', 980190962), (298486374, '2026-09-21 12:25:50.468739', 298486374, 1, FALSE, '2026-09-21 12:25:50.468739', 298486374);
+INSERT INTO "users" ("id", "confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (980190962, 'MyString', '2026-09-21 12:25:50.468759', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:25:50.468759'), (298486374, 'MyString', '2026-09-21 12:25:50.468759', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:25:50.468759')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.1ms)[0m  [1m[31mDELETE FROM "check_ins";
+DELETE FROM "places";
+DELETE FROM "status_reports";
+DELETE FROM "users";
+INSERT INTO "check_ins" ("id", "created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:25:50.470665', '2026-09-21 14:18:59', 980190962, '2026-09-21 14:18:59', '2026-09-21 12:25:50.470665', 980190962), (298486374, '2026-09-21 12:25:50.470665', '2026-09-21 14:18:59', 298486374, '2026-09-21 14:18:59', '2026-09-21 12:25:50.470665', 298486374);
+INSERT INTO "places" ("id", "approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (980190962, FALSE, 1, 1, '2026-09-21 12:25:50.470729', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:25:50.470729'), (298486374, FALSE, 1, 1, '2026-09-21 12:25:50.470729', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:25:50.470729');
+INSERT INTO "status_reports" ("id", "created_at", "place_id", "reported_status", "reviewed", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:25:50.470749', 980190962, 1, FALSE, '2026-09-21 12:25:50.470749', 980190962), (298486374, '2026-09-21 12:25:50.470749', 298486374, 1, FALSE, '2026-09-21 12:25:50.470749', 298486374);
+INSERT INTO "users" ("id", "confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (980190962, 'MyString', '2026-09-21 12:25:50.470769', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:25:50.470769'), (298486374, 'MyString', '2026-09-21 12:25:50.470769', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:25:50.470769')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.1ms)[0m  [1m[31mDELETE FROM "check_ins";
+DELETE FROM "places";
+DELETE FROM "status_reports";
+DELETE FROM "users";
+INSERT INTO "check_ins" ("id", "created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:25:50.472702', '2026-09-21 14:18:59', 980190962, '2026-09-21 14:18:59', '2026-09-21 12:25:50.472702', 980190962), (298486374, '2026-09-21 12:25:50.472702', '2026-09-21 14:18:59', 298486374, '2026-09-21 14:18:59', '2026-09-21 12:25:50.472702', 298486374);
+INSERT INTO "places" ("id", "approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (980190962, FALSE, 1, 1, '2026-09-21 12:25:50.472761', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:25:50.472761'), (298486374, FALSE, 1, 1, '2026-09-21 12:25:50.472761', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:25:50.472761');
+INSERT INTO "status_reports" ("id", "created_at", "place_id", "reported_status", "reviewed", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:25:50.472779', 980190962, 1, FALSE, '2026-09-21 12:25:50.472779', 980190962), (298486374, '2026-09-21 12:25:50.472779', 298486374, 1, FALSE, '2026-09-21 12:25:50.472779', 298486374);
+INSERT INTO "users" ("id", "confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (980190962, 'MyString', '2026-09-21 12:25:50.472799', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:25:50.472799'), (298486374, 'MyString', '2026-09-21 12:25:50.472799', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:25:50.472799')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.2ms)[0m  [1m[31mDELETE FROM "check_ins";
+DELETE FROM "places";
+DELETE FROM "status_reports";
+DELETE FROM "users";
+INSERT INTO "check_ins" ("id", "created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:25:50.474854', '2026-09-21 14:18:59', 980190962, '2026-09-21 14:18:59', '2026-09-21 12:25:50.474854', 980190962), (298486374, '2026-09-21 12:25:50.474854', '2026-09-21 14:18:59', 298486374, '2026-09-21 14:18:59', '2026-09-21 12:25:50.474854', 298486374);
+INSERT INTO "places" ("id", "approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (980190962, FALSE, 1, 1, '2026-09-21 12:25:50.474921', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:25:50.474921'), (298486374, FALSE, 1, 1, '2026-09-21 12:25:50.474921', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:25:50.474921');
+INSERT INTO "status_reports" ("id", "created_at", "place_id", "reported_status", "reviewed", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:25:50.474940', 980190962, 1, FALSE, '2026-09-21 12:25:50.474940', 980190962), (298486374, '2026-09-21 12:25:50.474940', 298486374, 1, FALSE, '2026-09-21 12:25:50.474940', 298486374);
+INSERT INTO "users" ("id", "confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (980190962, 'MyString', '2026-09-21 12:25:50.474960', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:25:50.474960'), (298486374, 'MyString', '2026-09-21 12:25:50.474960', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:25:50.474960')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.3ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.2ms)[0m  [1m[31mDELETE FROM "check_ins";
+DELETE FROM "places";
+DELETE FROM "status_reports";
+DELETE FROM "users";
+INSERT INTO "check_ins" ("id", "created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:25:50.491461', '2026-09-21 14:18:59', 980190962, '2026-09-21 14:18:59', '2026-09-21 12:25:50.491461', 980190962), (298486374, '2026-09-21 12:25:50.491461', '2026-09-21 14:18:59', 298486374, '2026-09-21 14:18:59', '2026-09-21 12:25:50.491461', 298486374);
+INSERT INTO "places" ("id", "approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (980190962, FALSE, 1, 1, '2026-09-21 12:25:50.491542', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:25:50.491542'), (298486374, FALSE, 1, 1, '2026-09-21 12:25:50.491542', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:25:50.491542');
+INSERT INTO "status_reports" ("id", "created_at", "place_id", "reported_status", "reviewed", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:25:50.491565', 980190962, 1, FALSE, '2026-09-21 12:25:50.491565', 980190962), (298486374, '2026-09-21 12:25:50.491565', 298486374, 1, FALSE, '2026-09-21 12:25:50.491565', 298486374);
+INSERT INTO "users" ("id", "confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (980190962, 'MyString', '2026-09-21 12:25:50.491589', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:25:50.491589'), (298486374, 'MyString', '2026-09-21 12:25:50.491589', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:25:50.491589')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.2ms)[0m  [1m[31mDELETE FROM "check_ins";
+DELETE FROM "places";
+DELETE FROM "status_reports";
+DELETE FROM "users";
+INSERT INTO "check_ins" ("id", "created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:25:50.494592', '2026-09-21 14:18:59', 980190962, '2026-09-21 14:18:59', '2026-09-21 12:25:50.494592', 980190962), (298486374, '2026-09-21 12:25:50.494592', '2026-09-21 14:18:59', 298486374, '2026-09-21 14:18:59', '2026-09-21 12:25:50.494592', 298486374);
+INSERT INTO "places" ("id", "approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (980190962, FALSE, 1, 1, '2026-09-21 12:25:50.494658', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:25:50.494658'), (298486374, FALSE, 1, 1, '2026-09-21 12:25:50.494658', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:25:50.494658');
+INSERT INTO "status_reports" ("id", "created_at", "place_id", "reported_status", "reviewed", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:25:50.494679', 980190962, 1, FALSE, '2026-09-21 12:25:50.494679', 980190962), (298486374, '2026-09-21 12:25:50.494679', 298486374, 1, FALSE, '2026-09-21 12:25:50.494679', 298486374);
+INSERT INTO "users" ("id", "confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (980190962, 'MyString', '2026-09-21 12:25:50.494701', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:25:50.494701'), (298486374, 'MyString', '2026-09-21 12:25:50.494701', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:25:50.494701')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.2ms)[0m  [1m[31mDELETE FROM "check_ins";
+DELETE FROM "places";
+DELETE FROM "status_reports";
+DELETE FROM "users";
+INSERT INTO "check_ins" ("id", "created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:25:50.497626', '2026-09-21 14:18:59', 980190962, '2026-09-21 14:18:59', '2026-09-21 12:25:50.497626', 980190962), (298486374, '2026-09-21 12:25:50.497626', '2026-09-21 14:18:59', 298486374, '2026-09-21 14:18:59', '2026-09-21 12:25:50.497626', 298486374);
+INSERT INTO "places" ("id", "approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (980190962, FALSE, 1, 1, '2026-09-21 12:25:50.497690', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:25:50.497690'), (298486374, FALSE, 1, 1, '2026-09-21 12:25:50.497690', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:25:50.497690');
+INSERT INTO "status_reports" ("id", "created_at", "place_id", "reported_status", "reviewed", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:25:50.497711', 980190962, 1, FALSE, '2026-09-21 12:25:50.497711', 980190962), (298486374, '2026-09-21 12:25:50.497711', 298486374, 1, FALSE, '2026-09-21 12:25:50.497711', 298486374);
+INSERT INTO "users" ("id", "confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (980190962, 'MyString', '2026-09-21 12:25:50.497735', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:25:50.497735'), (298486374, 'MyString', '2026-09-21 12:25:50.497735', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:25:50.497735')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.2ms)[0m  [1m[31mDELETE FROM "check_ins";
+DELETE FROM "places";
+DELETE FROM "status_reports";
+DELETE FROM "users";
+INSERT INTO "check_ins" ("id", "created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:25:50.500627', '2026-09-21 14:18:59', 980190962, '2026-09-21 14:18:59', '2026-09-21 12:25:50.500627', 980190962), (298486374, '2026-09-21 12:25:50.500627', '2026-09-21 14:18:59', 298486374, '2026-09-21 14:18:59', '2026-09-21 12:25:50.500627', 298486374);
+INSERT INTO "places" ("id", "approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (980190962, FALSE, 1, 1, '2026-09-21 12:25:50.500704', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:25:50.500704'), (298486374, FALSE, 1, 1, '2026-09-21 12:25:50.500704', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:25:50.500704');
+INSERT INTO "status_reports" ("id", "created_at", "place_id", "reported_status", "reviewed", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:25:50.500725', 980190962, 1, FALSE, '2026-09-21 12:25:50.500725', 980190962), (298486374, '2026-09-21 12:25:50.500725', 298486374, 1, FALSE, '2026-09-21 12:25:50.500725', 298486374);
+INSERT INTO "users" ("id", "confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (980190962, 'MyString', '2026-09-21 12:25:50.500746', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:25:50.500746'), (298486374, 'MyString', '2026-09-21 12:25:50.500746', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:25:50.500746')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.2ms)[0m  [1m[31mDELETE FROM "check_ins";
+DELETE FROM "places";
+DELETE FROM "status_reports";
+DELETE FROM "users";
+INSERT INTO "check_ins" ("id", "created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:25:50.503809', '2026-09-21 14:18:59', 980190962, '2026-09-21 14:18:59', '2026-09-21 12:25:50.503809', 980190962), (298486374, '2026-09-21 12:25:50.503809', '2026-09-21 14:18:59', 298486374, '2026-09-21 14:18:59', '2026-09-21 12:25:50.503809', 298486374);
+INSERT INTO "places" ("id", "approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (980190962, FALSE, 1, 1, '2026-09-21 12:25:50.503894', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:25:50.503894'), (298486374, FALSE, 1, 1, '2026-09-21 12:25:50.503894', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:25:50.503894');
+INSERT INTO "status_reports" ("id", "created_at", "place_id", "reported_status", "reviewed", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:25:50.503917', 980190962, 1, FALSE, '2026-09-21 12:25:50.503917', 980190962), (298486374, '2026-09-21 12:25:50.503917', 298486374, 1, FALSE, '2026-09-21 12:25:50.503917', 298486374);
+INSERT INTO "users" ("id", "confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (980190962, 'MyString', '2026-09-21 12:25:50.503941', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:25:50.503941'), (298486374, 'MyString', '2026-09-21 12:25:50.503941', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:25:50.503941')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.3ms)[0m  [1m[31mDELETE FROM "check_ins";
+DELETE FROM "places";
+DELETE FROM "status_reports";
+DELETE FROM "users";
+INSERT INTO "check_ins" ("id", "created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:25:50.506500', '2026-09-21 14:18:59', 980190962, '2026-09-21 14:18:59', '2026-09-21 12:25:50.506500', 980190962), (298486374, '2026-09-21 12:25:50.506500', '2026-09-21 14:18:59', 298486374, '2026-09-21 14:18:59', '2026-09-21 12:25:50.506500', 298486374);
+INSERT INTO "places" ("id", "approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (980190962, FALSE, 1, 1, '2026-09-21 12:25:50.506574', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:25:50.506574'), (298486374, FALSE, 1, 1, '2026-09-21 12:25:50.506574', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:25:50.506574');
+INSERT INTO "status_reports" ("id", "created_at", "place_id", "reported_status", "reviewed", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:25:50.506594', 980190962, 1, FALSE, '2026-09-21 12:25:50.506594', 980190962), (298486374, '2026-09-21 12:25:50.506594', 298486374, 1, FALSE, '2026-09-21 12:25:50.506594', 298486374);
+INSERT INTO "users" ("id", "confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (980190962, 'MyString', '2026-09-21 12:25:50.506618', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:25:50.506618'), (298486374, 'MyString', '2026-09-21 12:25:50.506618', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:25:50.506618')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.1ms)[0m  [1m[31mDELETE FROM "check_ins";
+DELETE FROM "places";
+DELETE FROM "status_reports";
+DELETE FROM "users";
+INSERT INTO "check_ins" ("id", "created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:25:50.509790', '2026-09-21 14:18:59', 980190962, '2026-09-21 14:18:59', '2026-09-21 12:25:50.509790', 980190962), (298486374, '2026-09-21 12:25:50.509790', '2026-09-21 14:18:59', 298486374, '2026-09-21 14:18:59', '2026-09-21 12:25:50.509790', 298486374);
+INSERT INTO "places" ("id", "approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (980190962, FALSE, 1, 1, '2026-09-21 12:25:50.509867', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:25:50.509867'), (298486374, FALSE, 1, 1, '2026-09-21 12:25:50.509867', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:25:50.509867');
+INSERT INTO "status_reports" ("id", "created_at", "place_id", "reported_status", "reviewed", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:25:50.509887', 980190962, 1, FALSE, '2026-09-21 12:25:50.509887', 980190962), (298486374, '2026-09-21 12:25:50.509887', 298486374, 1, FALSE, '2026-09-21 12:25:50.509887', 298486374);
+INSERT INTO "users" ("id", "confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (980190962, 'MyString', '2026-09-21 12:25:50.509908', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:25:50.509908'), (298486374, 'MyString', '2026-09-21 12:25:50.509908', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:25:50.509908')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.1ms)[0m  [1m[31mDELETE FROM "check_ins";
+DELETE FROM "places";
+DELETE FROM "status_reports";
+DELETE FROM "users";
+INSERT INTO "check_ins" ("id", "created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:25:50.512402', '2026-09-21 14:18:59', 980190962, '2026-09-21 14:18:59', '2026-09-21 12:25:50.512402', 980190962), (298486374, '2026-09-21 12:25:50.512402', '2026-09-21 14:18:59', 298486374, '2026-09-21 14:18:59', '2026-09-21 12:25:50.512402', 298486374);
+INSERT INTO "places" ("id", "approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (980190962, FALSE, 1, 1, '2026-09-21 12:25:50.512459', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:25:50.512459'), (298486374, FALSE, 1, 1, '2026-09-21 12:25:50.512459', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:25:50.512459');
+INSERT INTO "status_reports" ("id", "created_at", "place_id", "reported_status", "reviewed", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:25:50.512477', 980190962, 1, FALSE, '2026-09-21 12:25:50.512477', 980190962), (298486374, '2026-09-21 12:25:50.512477', 298486374, 1, FALSE, '2026-09-21 12:25:50.512477', 298486374);
+INSERT INTO "users" ("id", "confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (980190962, 'MyString', '2026-09-21 12:25:50.512496', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:25:50.512496'), (298486374, 'MyString', '2026-09-21 12:25:50.512496', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:25:50.512496')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.1ms)[0m  [1m[31mDELETE FROM "check_ins";
+DELETE FROM "places";
+DELETE FROM "status_reports";
+DELETE FROM "users";
+INSERT INTO "check_ins" ("id", "created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:25:50.514275', '2026-09-21 14:18:59', 980190962, '2026-09-21 14:18:59', '2026-09-21 12:25:50.514275', 980190962), (298486374, '2026-09-21 12:25:50.514275', '2026-09-21 14:18:59', 298486374, '2026-09-21 14:18:59', '2026-09-21 12:25:50.514275', 298486374);
+INSERT INTO "places" ("id", "approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (980190962, FALSE, 1, 1, '2026-09-21 12:25:50.514322', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:25:50.514322'), (298486374, FALSE, 1, 1, '2026-09-21 12:25:50.514322', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:25:50.514322');
+INSERT INTO "status_reports" ("id", "created_at", "place_id", "reported_status", "reviewed", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:25:50.514340', 980190962, 1, FALSE, '2026-09-21 12:25:50.514340', 980190962), (298486374, '2026-09-21 12:25:50.514340', 298486374, 1, FALSE, '2026-09-21 12:25:50.514340', 298486374);
+INSERT INTO "users" ("id", "confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (980190962, 'MyString', '2026-09-21 12:25:50.514359', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:25:50.514359'), (298486374, 'MyString', '2026-09-21 12:25:50.514359', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:25:50.514359')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.1ms)[0m  [1m[31mDELETE FROM "check_ins";
+DELETE FROM "places";
+DELETE FROM "status_reports";
+DELETE FROM "users";
+INSERT INTO "check_ins" ("id", "created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:25:50.516947', '2026-09-21 14:18:59', 980190962, '2026-09-21 14:18:59', '2026-09-21 12:25:50.516947', 980190962), (298486374, '2026-09-21 12:25:50.516947', '2026-09-21 14:18:59', 298486374, '2026-09-21 14:18:59', '2026-09-21 12:25:50.516947', 298486374);
+INSERT INTO "places" ("id", "approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (980190962, FALSE, 1, 1, '2026-09-21 12:25:50.516997', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:25:50.516997'), (298486374, FALSE, 1, 1, '2026-09-21 12:25:50.516997', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:25:50.516997');
+INSERT INTO "status_reports" ("id", "created_at", "place_id", "reported_status", "reviewed", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:25:50.517013', 980190962, 1, FALSE, '2026-09-21 12:25:50.517013', 980190962), (298486374, '2026-09-21 12:25:50.517013', 298486374, 1, FALSE, '2026-09-21 12:25:50.517013', 298486374);
+INSERT INTO "users" ("id", "confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (980190962, 'MyString', '2026-09-21 12:25:50.517034', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:25:50.517034'), (298486374, 'MyString', '2026-09-21 12:25:50.517034', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:25:50.517034')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.1ms)[0m  [1m[31mDELETE FROM "check_ins";
+DELETE FROM "places";
+DELETE FROM "status_reports";
+DELETE FROM "users";
+INSERT INTO "check_ins" ("id", "created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:25:50.519576', '2026-09-21 14:18:59', 980190962, '2026-09-21 14:18:59', '2026-09-21 12:25:50.519576', 980190962), (298486374, '2026-09-21 12:25:50.519576', '2026-09-21 14:18:59', 298486374, '2026-09-21 14:18:59', '2026-09-21 12:25:50.519576', 298486374);
+INSERT INTO "places" ("id", "approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (980190962, FALSE, 1, 1, '2026-09-21 12:25:50.519625', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:25:50.519625'), (298486374, FALSE, 1, 1, '2026-09-21 12:25:50.519625', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:25:50.519625');
+INSERT INTO "status_reports" ("id", "created_at", "place_id", "reported_status", "reviewed", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:25:50.519644', 980190962, 1, FALSE, '2026-09-21 12:25:50.519644', 980190962), (298486374, '2026-09-21 12:25:50.519644', 298486374, 1, FALSE, '2026-09-21 12:25:50.519644', 298486374);
+INSERT INTO "users" ("id", "confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (980190962, 'MyString', '2026-09-21 12:25:50.519665', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:25:50.519665'), (298486374, 'MyString', '2026-09-21 12:25:50.519665', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:25:50.519665')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.2ms)[0m  [1m[31mDELETE FROM "check_ins";
+DELETE FROM "places";
+DELETE FROM "status_reports";
+DELETE FROM "users";
+INSERT INTO "check_ins" ("id", "created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:25:50.522053', '2026-09-21 14:18:59', 980190962, '2026-09-21 14:18:59', '2026-09-21 12:25:50.522053', 980190962), (298486374, '2026-09-21 12:25:50.522053', '2026-09-21 14:18:59', 298486374, '2026-09-21 14:18:59', '2026-09-21 12:25:50.522053', 298486374);
+INSERT INTO "places" ("id", "approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (980190962, FALSE, 1, 1, '2026-09-21 12:25:50.522124', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:25:50.522124'), (298486374, FALSE, 1, 1, '2026-09-21 12:25:50.522124', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:25:50.522124');
+INSERT INTO "status_reports" ("id", "created_at", "place_id", "reported_status", "reviewed", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:25:50.522144', 980190962, 1, FALSE, '2026-09-21 12:25:50.522144', 980190962), (298486374, '2026-09-21 12:25:50.522144', 298486374, 1, FALSE, '2026-09-21 12:25:50.522144', 298486374);
+INSERT INTO "users" ("id", "confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (980190962, 'MyString', '2026-09-21 12:25:50.522166', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:25:50.522166'), (298486374, 'MyString', '2026-09-21 12:25:50.522166', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:25:50.522166')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.2ms)[0m  [1m[31mDELETE FROM "check_ins";
+DELETE FROM "places";
+DELETE FROM "status_reports";
+DELETE FROM "users";
+INSERT INTO "check_ins" ("id", "created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:25:50.524612', '2026-09-21 14:18:59', 980190962, '2026-09-21 14:18:59', '2026-09-21 12:25:50.524612', 980190962), (298486374, '2026-09-21 12:25:50.524612', '2026-09-21 14:18:59', 298486374, '2026-09-21 14:18:59', '2026-09-21 12:25:50.524612', 298486374);
+INSERT INTO "places" ("id", "approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (980190962, FALSE, 1, 1, '2026-09-21 12:25:50.524687', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:25:50.524687'), (298486374, FALSE, 1, 1, '2026-09-21 12:25:50.524687', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:25:50.524687');
+INSERT INTO "status_reports" ("id", "created_at", "place_id", "reported_status", "reviewed", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:25:50.524710', 980190962, 1, FALSE, '2026-09-21 12:25:50.524710', 980190962), (298486374, '2026-09-21 12:25:50.524710', 298486374, 1, FALSE, '2026-09-21 12:25:50.524710', 298486374);
+INSERT INTO "users" ("id", "confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (980190962, 'MyString', '2026-09-21 12:25:50.524735', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:25:50.524735'), (298486374, 'MyString', '2026-09-21 12:25:50.524735', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:25:50.524735')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.1ms)[0m  [1m[31mDELETE FROM "check_ins";
+DELETE FROM "places";
+DELETE FROM "status_reports";
+DELETE FROM "users";
+INSERT INTO "check_ins" ("id", "created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:25:50.527088', '2026-09-21 14:18:59', 980190962, '2026-09-21 14:18:59', '2026-09-21 12:25:50.527088', 980190962), (298486374, '2026-09-21 12:25:50.527088', '2026-09-21 14:18:59', 298486374, '2026-09-21 14:18:59', '2026-09-21 12:25:50.527088', 298486374);
+INSERT INTO "places" ("id", "approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (980190962, FALSE, 1, 1, '2026-09-21 12:25:50.527149', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:25:50.527149'), (298486374, FALSE, 1, 1, '2026-09-21 12:25:50.527149', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:25:50.527149');
+INSERT INTO "status_reports" ("id", "created_at", "place_id", "reported_status", "reviewed", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:25:50.527168', 980190962, 1, FALSE, '2026-09-21 12:25:50.527168', 980190962), (298486374, '2026-09-21 12:25:50.527168', 298486374, 1, FALSE, '2026-09-21 12:25:50.527168', 298486374);
+INSERT INTO "users" ("id", "confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (980190962, 'MyString', '2026-09-21 12:25:50.527195', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:25:50.527195'), (298486374, 'MyString', '2026-09-21 12:25:50.527195', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:25:50.527195')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.1ms)[0m  [1m[31mDELETE FROM "check_ins";
+DELETE FROM "places";
+DELETE FROM "status_reports";
+DELETE FROM "users";
+INSERT INTO "check_ins" ("id", "created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:25:50.529219', '2026-09-21 14:18:59', 980190962, '2026-09-21 14:18:59', '2026-09-21 12:25:50.529219', 980190962), (298486374, '2026-09-21 12:25:50.529219', '2026-09-21 14:18:59', 298486374, '2026-09-21 14:18:59', '2026-09-21 12:25:50.529219', 298486374);
+INSERT INTO "places" ("id", "approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (980190962, FALSE, 1, 1, '2026-09-21 12:25:50.529271', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:25:50.529271'), (298486374, FALSE, 1, 1, '2026-09-21 12:25:50.529271', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:25:50.529271');
+INSERT INTO "status_reports" ("id", "created_at", "place_id", "reported_status", "reviewed", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:25:50.529291', 980190962, 1, FALSE, '2026-09-21 12:25:50.529291', 980190962), (298486374, '2026-09-21 12:25:50.529291', 298486374, 1, FALSE, '2026-09-21 12:25:50.529291', 298486374);
+INSERT INTO "users" ("id", "confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (980190962, 'MyString', '2026-09-21 12:25:50.529311', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:25:50.529311'), (298486374, 'MyString', '2026-09-21 12:25:50.529311', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:25:50.529311')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.1ms)[0m  [1m[31mDELETE FROM "check_ins";
+DELETE FROM "places";
+DELETE FROM "status_reports";
+DELETE FROM "users";
+INSERT INTO "check_ins" ("id", "created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:25:50.531547', '2026-09-21 14:18:59', 980190962, '2026-09-21 14:18:59', '2026-09-21 12:25:50.531547', 980190962), (298486374, '2026-09-21 12:25:50.531547', '2026-09-21 14:18:59', 298486374, '2026-09-21 14:18:59', '2026-09-21 12:25:50.531547', 298486374);
+INSERT INTO "places" ("id", "approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (980190962, FALSE, 1, 1, '2026-09-21 12:25:50.531590', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:25:50.531590'), (298486374, FALSE, 1, 1, '2026-09-21 12:25:50.531590', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:25:50.531590');
+INSERT INTO "status_reports" ("id", "created_at", "place_id", "reported_status", "reviewed", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:25:50.531607', 980190962, 1, FALSE, '2026-09-21 12:25:50.531607', 980190962), (298486374, '2026-09-21 12:25:50.531607', 298486374, 1, FALSE, '2026-09-21 12:25:50.531607', 298486374);
+INSERT INTO "users" ("id", "confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (980190962, 'MyString', '2026-09-21 12:25:50.531625', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:25:50.531625'), (298486374, 'MyString', '2026-09-21 12:25:50.531625', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:25:50.531625')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.3ms)[0m  [1m[31mDELETE FROM "check_ins";
+DELETE FROM "places";
+DELETE FROM "status_reports";
+DELETE FROM "users";
+INSERT INTO "check_ins" ("id", "created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:25:50.533456', '2026-09-21 14:18:59', 980190962, '2026-09-21 14:18:59', '2026-09-21 12:25:50.533456', 980190962), (298486374, '2026-09-21 12:25:50.533456', '2026-09-21 14:18:59', 298486374, '2026-09-21 14:18:59', '2026-09-21 12:25:50.533456', 298486374);
+INSERT INTO "places" ("id", "approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (980190962, FALSE, 1, 1, '2026-09-21 12:25:50.533491', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:25:50.533491'), (298486374, FALSE, 1, 1, '2026-09-21 12:25:50.533491', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:25:50.533491');
+INSERT INTO "status_reports" ("id", "created_at", "place_id", "reported_status", "reviewed", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:25:50.533507', 980190962, 1, FALSE, '2026-09-21 12:25:50.533507', 980190962), (298486374, '2026-09-21 12:25:50.533507', 298486374, 1, FALSE, '2026-09-21 12:25:50.533507', 298486374);
+INSERT INTO "users" ("id", "confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (980190962, 'MyString', '2026-09-21 12:25:50.533524', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:25:50.533524'), (298486374, 'MyString', '2026-09-21 12:25:50.533524', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:25:50.533524')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.3ms)[0m  [1m[31mDELETE FROM "check_ins";
+DELETE FROM "places";
+DELETE FROM "status_reports";
+DELETE FROM "users";
+INSERT INTO "check_ins" ("id", "created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:26:45.730826', '2026-09-21 14:18:59', 980190962, '2026-09-21 14:18:59', '2026-09-21 12:26:45.730826', 980190962), (298486374, '2026-09-21 12:26:45.730826', '2026-09-21 14:18:59', 298486374, '2026-09-21 14:18:59', '2026-09-21 12:26:45.730826', 298486374);
+INSERT INTO "places" ("id", "approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (980190962, FALSE, 1, 1, '2026-09-21 12:26:45.732840', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:26:45.732840'), (298486374, FALSE, 1, 1, '2026-09-21 12:26:45.732840', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:26:45.732840');
+INSERT INTO "status_reports" ("id", "created_at", "place_id", "reported_status", "reviewed", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:26:45.733626', 980190962, 1, FALSE, '2026-09-21 12:26:45.733626', 980190962), (298486374, '2026-09-21 12:26:45.733626', 298486374, 1, FALSE, '2026-09-21 12:26:45.733626', 298486374);
+INSERT INTO "users" ("id", "confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (980190962, 'MyString', '2026-09-21 12:26:45.734438', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:26:45.734438'), (298486374, 'MyString', '2026-09-21 12:26:45.734438', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:26:45.734438')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.2ms)[0m  [1m[31mDELETE FROM "check_ins";
+DELETE FROM "places";
+DELETE FROM "status_reports";
+DELETE FROM "users";
+INSERT INTO "check_ins" ("id", "created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:26:55.423886', '2026-09-21 14:18:59', 980190962, '2026-09-21 14:18:59', '2026-09-21 12:26:55.423886', 980190962), (298486374, '2026-09-21 12:26:55.423886', '2026-09-21 14:18:59', 298486374, '2026-09-21 14:18:59', '2026-09-21 12:26:55.423886', 298486374);
+INSERT INTO "places" ("id", "approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (980190962, FALSE, 1, 1, '2026-09-21 12:26:55.425446', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:26:55.425446'), (298486374, FALSE, 1, 1, '2026-09-21 12:26:55.425446', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:26:55.425446');
+INSERT INTO "status_reports" ("id", "created_at", "place_id", "reported_status", "reviewed", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:26:55.425974', 980190962, 1, FALSE, '2026-09-21 12:26:55.425974', 980190962), (298486374, '2026-09-21 12:26:55.425974', 298486374, 1, FALSE, '2026-09-21 12:26:55.425974', 298486374);
+INSERT INTO "users" ("id", "confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (980190962, 'MyString', '2026-09-21 12:26:55.426588', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:26:55.426588'), (298486374, 'MyString', '2026-09-21 12:26:55.426588', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:26:55.426588')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.2ms)[0m  [1m[31mDELETE FROM "check_ins";
+DELETE FROM "places";
+DELETE FROM "status_reports";
+DELETE FROM "users";
+INSERT INTO "check_ins" ("id", "created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:26:55.437540', '2026-09-21 14:18:59', 980190962, '2026-09-21 14:18:59', '2026-09-21 12:26:55.437540', 980190962), (298486374, '2026-09-21 12:26:55.437540', '2026-09-21 14:18:59', 298486374, '2026-09-21 14:18:59', '2026-09-21 12:26:55.437540', 298486374);
+INSERT INTO "places" ("id", "approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (980190962, FALSE, 1, 1, '2026-09-21 12:26:55.437606', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:26:55.437606'), (298486374, FALSE, 1, 1, '2026-09-21 12:26:55.437606', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:26:55.437606');
+INSERT INTO "status_reports" ("id", "created_at", "place_id", "reported_status", "reviewed", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:26:55.437626', 980190962, 1, FALSE, '2026-09-21 12:26:55.437626', 980190962), (298486374, '2026-09-21 12:26:55.437626', 298486374, 1, FALSE, '2026-09-21 12:26:55.437626', 298486374);
+INSERT INTO "users" ("id", "confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (980190962, 'MyString', '2026-09-21 12:26:55.437645', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:26:55.437645'), (298486374, 'MyString', '2026-09-21 12:26:55.437645', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:26:55.437645')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.2ms)[0m  [1m[31mDELETE FROM "check_ins";
+DELETE FROM "places";
+DELETE FROM "status_reports";
+DELETE FROM "users";
+INSERT INTO "check_ins" ("id", "created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:27:27.726356', '2026-09-21 14:18:59', 980190962, '2026-09-21 14:18:59', '2026-09-21 12:27:27.726356', 980190962), (298486374, '2026-09-21 12:27:27.726356', '2026-09-21 14:18:59', 298486374, '2026-09-21 14:18:59', '2026-09-21 12:27:27.726356', 298486374);
+INSERT INTO "places" ("id", "approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (980190962, FALSE, 1, 1, '2026-09-21 12:27:27.727871', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:27:27.727871'), (298486374, FALSE, 1, 1, '2026-09-21 12:27:27.727871', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:27:27.727871');
+INSERT INTO "status_reports" ("id", "created_at", "place_id", "reported_status", "reviewed", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:27:27.728397', 980190962, 1, FALSE, '2026-09-21 12:27:27.728397', 980190962), (298486374, '2026-09-21 12:27:27.728397', 298486374, 1, FALSE, '2026-09-21 12:27:27.728397', 298486374);
+INSERT INTO "users" ("id", "confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (980190962, 'MyString', '2026-09-21 12:27:27.728945', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:27:27.728945'), (298486374, 'MyString', '2026-09-21 12:27:27.728945', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:27:27.728945')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.2ms)[0m  [1m[31mDELETE FROM "check_ins";
+DELETE FROM "places";
+DELETE FROM "status_reports";
+DELETE FROM "users";
+INSERT INTO "check_ins" ("id", "created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:27:27.738925', '2026-09-21 14:18:59', 980190962, '2026-09-21 14:18:59', '2026-09-21 12:27:27.738925', 980190962), (298486374, '2026-09-21 12:27:27.738925', '2026-09-21 14:18:59', 298486374, '2026-09-21 14:18:59', '2026-09-21 12:27:27.738925', 298486374);
+INSERT INTO "places" ("id", "approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (980190962, FALSE, 1, 1, '2026-09-21 12:27:27.738987', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:27:27.738987'), (298486374, FALSE, 1, 1, '2026-09-21 12:27:27.738987', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:27:27.738987');
+INSERT INTO "status_reports" ("id", "created_at", "place_id", "reported_status", "reviewed", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:27:27.739007', 980190962, 1, FALSE, '2026-09-21 12:27:27.739007', 980190962), (298486374, '2026-09-21 12:27:27.739007', 298486374, 1, FALSE, '2026-09-21 12:27:27.739007', 298486374);
+INSERT INTO "users" ("id", "confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (980190962, 'MyString', '2026-09-21 12:27:27.739027', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:27:27.739027'), (298486374, 'MyString', '2026-09-21 12:27:27.739027', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:27:27.739027')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.3ms)[0m  [1m[31mDELETE FROM "check_ins";
+DELETE FROM "places";
+DELETE FROM "status_reports";
+DELETE FROM "users";
+INSERT INTO "check_ins" ("id", "created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:28:29.105291', '2026-09-21 15:18:59', 980190962, '2026-09-21 14:18:59', '2026-09-21 12:28:29.105291', 980190962), (298486374, '2026-09-21 12:28:29.105291', '2026-09-21 15:18:59', 298486374, '2026-09-21 14:18:59', '2026-09-21 12:28:29.105291', 298486374);
+INSERT INTO "places" ("id", "approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (980190962, FALSE, 1, 1, '2026-09-21 12:28:29.106839', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:28:29.106839'), (298486374, FALSE, 1, 1, '2026-09-21 12:28:29.106839', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:28:29.106839');
+INSERT INTO "status_reports" ("id", "created_at", "place_id", "reported_status", "reviewed", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:28:29.107389', 980190962, 1, FALSE, '2026-09-21 12:28:29.107389', 980190962), (298486374, '2026-09-21 12:28:29.107389', 298486374, 1, FALSE, '2026-09-21 12:28:29.107389', 298486374);
+INSERT INTO "users" ("id", "confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (980190962, 'MyString', '2026-09-21 12:28:29.108005', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:28:29.108005'), (298486374, 'MyString', '2026-09-21 12:28:29.108005', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:28:29.108005')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.3ms)[0m  [1m[31mDELETE FROM "check_ins";
+DELETE FROM "places";
+DELETE FROM "status_reports";
+DELETE FROM "users";
+INSERT INTO "check_ins" ("id", "created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:28:29.119144', '2026-09-21 15:18:59', 980190962, '2026-09-21 14:18:59', '2026-09-21 12:28:29.119144', 980190962), (298486374, '2026-09-21 12:28:29.119144', '2026-09-21 15:18:59', 298486374, '2026-09-21 14:18:59', '2026-09-21 12:28:29.119144', 298486374);
+INSERT INTO "places" ("id", "approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (980190962, FALSE, 1, 1, '2026-09-21 12:28:29.119222', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:28:29.119222'), (298486374, FALSE, 1, 1, '2026-09-21 12:28:29.119222', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:28:29.119222');
+INSERT INTO "status_reports" ("id", "created_at", "place_id", "reported_status", "reviewed", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:28:29.119243', 980190962, 1, FALSE, '2026-09-21 12:28:29.119243', 980190962), (298486374, '2026-09-21 12:28:29.119243', 298486374, 1, FALSE, '2026-09-21 12:28:29.119243', 298486374);
+INSERT INTO "users" ("id", "confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (980190962, 'MyString', '2026-09-21 12:28:29.119263', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:28:29.119263'), (298486374, 'MyString', '2026-09-21 12:28:29.119263', 'MyString', FALSE, 'MyString', 'MyString', 1, 'MyString', '2026-09-21 12:28:29.119263')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.1ms)[0m  [1m[31mDELETE FROM "check_ins";
+DELETE FROM "places";
+DELETE FROM "status_reports";
+DELETE FROM "users";
+INSERT INTO "check_ins" ("id", "created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:29:27.312433', '2026-09-21 15:18:59', 980190962, '2026-09-21 14:18:59', '2026-09-21 12:29:27.312433', 980190962), (298486374, '2026-09-21 12:29:27.312433', '2026-09-21 15:18:59', 298486374, '2026-09-21 14:18:59', '2026-09-21 12:29:27.312433', 298486374);
+INSERT INTO "places" ("id", "approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (980190962, FALSE, 1, 1, '2026-09-21 12:29:27.313895', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:29:27.313895'), (298486374, FALSE, 1, 1, '2026-09-21 12:29:27.313895', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:29:27.313895');
+INSERT INTO "status_reports" ("id", "created_at", "place_id", "reported_status", "reviewed", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:29:27.314392', 980190962, 1, FALSE, '2026-09-21 12:29:27.314392', 980190962), (298486374, '2026-09-21 12:29:27.314392', 298486374, 1, FALSE, '2026-09-21 12:29:27.314392', 298486374);
+INSERT INTO "users" ("id", "confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (980190962, 'confirmation-token-one', '2026-09-21 12:29:27.314928', 'alice@example.com', FALSE, 'Alice', 'fixture-password-one', 1, NULL, '2026-09-21 12:29:27.314928'), (298486374, 'confirmation-token-two', '2026-09-21 12:29:27.314928', 'bob@example.com', FALSE, 'Bob', 'fixture-password-two', 1, NULL, '2026-09-21 12:29:27.314928')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (8.7ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_key_check[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.2ms)[0m  [1m[31mDELETE FROM "check_ins";
+DELETE FROM "places";
+DELETE FROM "status_reports";
+DELETE FROM "users";
+INSERT INTO "check_ins" ("id", "created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:29:27.334642', '2026-09-21 15:18:59', 980190962, '2026-09-21 14:18:59', '2026-09-21 12:29:27.334642', 980190962), (298486374, '2026-09-21 12:29:27.334642', '2026-09-21 15:18:59', 298486374, '2026-09-21 14:18:59', '2026-09-21 12:29:27.334642', 298486374);
+INSERT INTO "places" ("id", "approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (980190962, FALSE, 1, 1, '2026-09-21 12:29:27.334709', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:29:27.334709'), (298486374, FALSE, 1, 1, '2026-09-21 12:29:27.334709', 9.99, '2026-09-21 14:18:51', 1, 9.99, 'MyString', 'MyString', 1, 1, '2026-09-21 12:29:27.334709');
+INSERT INTO "status_reports" ("id", "created_at", "place_id", "reported_status", "reviewed", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:29:27.334730', 980190962, 1, FALSE, '2026-09-21 12:29:27.334730', 980190962), (298486374, '2026-09-21 12:29:27.334730', 298486374, 1, FALSE, '2026-09-21 12:29:27.334730', 298486374);
+INSERT INTO "users" ("id", "confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (980190962, 'confirmation-token-one', '2026-09-21 12:29:27.334750', 'alice@example.com', FALSE, 'Alice', 'fixture-password-one', 1, NULL, '2026-09-21 12:29:27.334750'), (298486374, 'confirmation-token-two', '2026-09-21 12:29:27.334750', 'bob@example.com', FALSE, 'Bob', 'fixture-password-two', 1, NULL, '2026-09-21 12:29:27.334750')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_key_check[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.2ms)[0m  [1m[31mDELETE FROM "check_ins";
+DELETE FROM "places";
+DELETE FROM "status_reports";
+DELETE FROM "users";
+INSERT INTO "check_ins" ("id", "created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:30:10.786507', '2026-09-21 15:18:59', 980190962, '2026-09-21 14:18:59', '2026-09-21 12:30:10.786507', 980190962), (298486374, '2026-09-21 12:30:10.786507', '2026-09-21 15:18:59', 298486374, '2026-09-21 14:18:59', '2026-09-21 12:30:10.786507', 298486374);
+INSERT INTO "places" ("id", "approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (980190962, TRUE, 4, 0, '2026-09-21 12:30:10.788082', 47.3769, NULL, NULL, 8.5417, 'Central Bench', '08:00-20:00', 980190962, 0, '2026-09-21 12:30:10.788082'), (298486374, TRUE, 2, 2, '2026-09-21 12:30:10.788082', 47.3779, NULL, NULL, 8.5427, 'Shaded Courtyard', '09:00-18:00', 298486374, 0, '2026-09-21 12:30:10.788082');
+INSERT INTO "status_reports" ("id", "created_at", "place_id", "reported_status", "reviewed", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:30:10.788662', 980190962, 1, FALSE, '2026-09-21 12:30:10.788662', 980190962), (298486374, '2026-09-21 12:30:10.788662', 298486374, 1, FALSE, '2026-09-21 12:30:10.788662', 298486374);
+INSERT INTO "users" ("id", "confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (980190962, 'confirmation-token-one', '2026-09-21 12:30:10.789282', 'alice@example.com', FALSE, 'Alice', 'fixture-password-one', 1, NULL, '2026-09-21 12:30:10.789282'), (298486374, 'confirmation-token-two', '2026-09-21 12:30:10.789282', 'bob@example.com', FALSE, 'Bob', 'fixture-password-two', 1, NULL, '2026-09-21 12:30:10.789282')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (8.6ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_key_check[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+----------------------------------------
+UsersControllerTest: test_should_get_new
+----------------------------------------
+Started GET "/users/new" for 127.0.0.1 at 2026-09-21 14:30:10 +0200
+Processing by UsersController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering users/new.html.erb within layouts/application
+  Rendered users/new.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 4.7ms | GC: 0.9ms)
+Completed 200 OK in 14ms (Views: 6.2ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 1.4ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-------------------------------------------
+UsersControllerTest: test_should_get_create
+-------------------------------------------
+Started GET "/users/create" for 127.0.0.1 at 2026-09-21 14:30:10 +0200
+Processing by UsersController#create as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering users/create.html.erb within layouts/application
+  Rendered users/create.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.3ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.4ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.2ms)[0m  [1m[31mDELETE FROM "check_ins";
+DELETE FROM "places";
+DELETE FROM "status_reports";
+DELETE FROM "users";
+INSERT INTO "check_ins" ("id", "created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:30:26.900590', '2026-09-21 15:18:59', 980190962, '2026-09-21 14:18:59', '2026-09-21 12:30:26.900590', 980190962), (298486374, '2026-09-21 12:30:26.900590', '2026-09-21 15:18:59', 298486374, '2026-09-21 14:18:59', '2026-09-21 12:30:26.900590', 298486374);
+INSERT INTO "places" ("id", "approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (980190962, TRUE, 4, 0, '2026-09-21 12:30:26.902068', 47.3769, NULL, NULL, 8.5417, 'Central Bench', '08:00-20:00', 980190962, 0, '2026-09-21 12:30:26.902068'), (298486374, TRUE, 2, 2, '2026-09-21 12:30:26.902068', 47.3779, NULL, NULL, 8.5427, 'Shaded Courtyard', '09:00-18:00', 298486374, 0, '2026-09-21 12:30:26.902068');
+INSERT INTO "status_reports" ("id", "created_at", "place_id", "reported_status", "reviewed", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:30:26.902584', 980190962, 1, FALSE, '2026-09-21 12:30:26.902584', 980190962), (298486374, '2026-09-21 12:30:26.902584', 298486374, 1, FALSE, '2026-09-21 12:30:26.902584', 298486374);
+INSERT INTO "users" ("id", "confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (980190962, 'confirmation-token-one', '2026-09-21 12:30:26.903135', 'alice@example.com', FALSE, 'Alice', 'fixture-password-one', 1, NULL, '2026-09-21 12:30:26.903135'), (298486374, 'confirmation-token-two', '2026-09-21 12:30:26.903135', 'bob@example.com', FALSE, 'Bob', 'fixture-password-two', 1, NULL, '2026-09-21 12:30:26.903135')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (7.9ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_key_check[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+----------------------------------------
+UsersControllerTest: test_should_get_new
+----------------------------------------
+Started GET "/users/new" for 127.0.0.1 at 2026-09-21 14:30:26 +0200
+Processing by UsersController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering users/new.html.erb within layouts/application
+  Rendered users/new.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 4.3ms | GC: 0.8ms)
+Completed 200 OK in 9ms (Views: 5.5ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 1.1ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-------------------------------------------
+UsersControllerTest: test_should_get_create
+-------------------------------------------
+Started GET "/users/create" for 127.0.0.1 at 2026-09-21 14:30:26 +0200
+Processing by UsersController#create as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering users/create.html.erb within layouts/application
+  Rendered users/create.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.3ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.4ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.2ms)[0m  [1m[31mDELETE FROM "check_ins";
+DELETE FROM "places";
+DELETE FROM "status_reports";
+DELETE FROM "users";
+INSERT INTO "check_ins" ("id", "created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:30:27.474268', '2026-09-21 15:18:59', 980190962, '2026-09-21 14:18:59', '2026-09-21 12:30:27.474268', 980190962), (298486374, '2026-09-21 12:30:27.474268', '2026-09-21 15:18:59', 298486374, '2026-09-21 14:18:59', '2026-09-21 12:30:27.474268', 298486374);
+INSERT INTO "places" ("id", "approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (980190962, TRUE, 4, 0, '2026-09-21 12:30:27.475782', 47.3769, NULL, NULL, 8.5417, 'Central Bench', '08:00-20:00', 980190962, 0, '2026-09-21 12:30:27.475782'), (298486374, TRUE, 2, 2, '2026-09-21 12:30:27.475782', 47.3779, NULL, NULL, 8.5427, 'Shaded Courtyard', '09:00-18:00', 298486374, 0, '2026-09-21 12:30:27.475782');
+INSERT INTO "status_reports" ("id", "created_at", "place_id", "reported_status", "reviewed", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:30:27.476349', 980190962, 1, FALSE, '2026-09-21 12:30:27.476349', 980190962), (298486374, '2026-09-21 12:30:27.476349', 298486374, 1, FALSE, '2026-09-21 12:30:27.476349', 298486374);
+INSERT INTO "users" ("id", "confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (980190962, 'confirmation-token-one', '2026-09-21 12:30:27.476985', 'alice@example.com', FALSE, 'Alice', 'fixture-password-one', 1, NULL, '2026-09-21 12:30:27.476985'), (298486374, 'confirmation-token-two', '2026-09-21 12:30:27.476985', 'bob@example.com', FALSE, 'Bob', 'fixture-password-two', 1, NULL, '2026-09-21 12:30:27.476985')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (9.1ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_key_check[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-------------------------------------------
+UsersControllerTest: test_should_get_create
+-------------------------------------------
+Started GET "/users/create" for 127.0.0.1 at 2026-09-21 14:30:27 +0200
+Processing by UsersController#create as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering users/create.html.erb within layouts/application
+  Rendered users/create.html.erb within layouts/application (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 5.6ms | GC: 1.2ms)
+Completed 200 OK in 10ms (Views: 6.8ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 1.5ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+----------------------------------------
+UsersControllerTest: test_should_get_new
+----------------------------------------
+Started GET "/users/new" for 127.0.0.1 at 2026-09-21 14:30:27 +0200
+Processing by UsersController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering users/new.html.erb within layouts/application
+  Rendered users/new.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.3ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.5ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.1ms)[0m  [1m[31mDELETE FROM "check_ins";
+DELETE FROM "places";
+DELETE FROM "status_reports";
+DELETE FROM "users";
+INSERT INTO "check_ins" ("id", "created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:30:32.494798', '2026-09-21 15:18:59', 980190962, '2026-09-21 14:18:59', '2026-09-21 12:30:32.494798', 980190962), (298486374, '2026-09-21 12:30:32.494798', '2026-09-21 15:18:59', 298486374, '2026-09-21 14:18:59', '2026-09-21 12:30:32.494798', 298486374);
+INSERT INTO "places" ("id", "approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (980190962, TRUE, 4, 0, '2026-09-21 12:30:32.496329', 47.3769, NULL, NULL, 8.5417, 'Central Bench', '08:00-20:00', 980190962, 0, '2026-09-21 12:30:32.496329'), (298486374, TRUE, 2, 2, '2026-09-21 12:30:32.496329', 47.3779, NULL, NULL, 8.5427, 'Shaded Courtyard', '09:00-18:00', 298486374, 0, '2026-09-21 12:30:32.496329');
+INSERT INTO "status_reports" ("id", "created_at", "place_id", "reported_status", "reviewed", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:30:32.496824', 980190962, 1, FALSE, '2026-09-21 12:30:32.496824', 980190962), (298486374, '2026-09-21 12:30:32.496824', 298486374, 1, FALSE, '2026-09-21 12:30:32.496824', 298486374);
+INSERT INTO "users" ("id", "confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (980190962, 'confirmation-token-one', '2026-09-21 12:30:32.497399', 'alice@example.com', FALSE, 'Alice', 'fixture-password-one', 1, NULL, '2026-09-21 12:30:32.497399'), (298486374, 'confirmation-token-two', '2026-09-21 12:30:32.497399', 'bob@example.com', FALSE, 'Bob', 'fixture-password-two', 1, NULL, '2026-09-21 12:30:32.497399')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (8.1ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_key_check[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-------------------------------------------
+UsersControllerTest: test_should_get_create
+-------------------------------------------
+Started GET "/users/create" for 127.0.0.1 at 2026-09-21 14:30:32 +0200
+Processing by UsersController#create as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering users/create.html.erb within layouts/application
+  Rendered users/create.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 4.4ms | GC: 0.9ms)
+Completed 200 OK in 10ms (Views: 5.9ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 1.7ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+----------------------------------------
+UsersControllerTest: test_should_get_new
+----------------------------------------
+Started GET "/users/new" for 127.0.0.1 at 2026-09-21 14:30:32 +0200
+Processing by UsersController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering users/new.html.erb within layouts/application
+  Rendered users/new.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.3ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.5ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
