@@ -1099,3 +1099,418 @@ Processing by UsersController#new as HTML
   Rendered layout layouts/application.html.erb (Duration: 0.2ms | GC: 0.0ms)
 Completed 200 OK in 1ms (Views: 0.4ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
   [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.2ms)[0m  [1m[31mDELETE FROM "check_ins";
+DELETE FROM "places";
+DELETE FROM "status_reports";
+DELETE FROM "users";
+INSERT INTO "check_ins" ("id", "created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:56:51.575211', '2026-09-21 15:18:59', 980190962, '2026-09-21 14:18:59', '2026-09-21 12:56:51.575211', 980190962), (298486374, '2026-09-21 12:56:51.575211', '2026-09-21 15:18:59', 298486374, '2026-09-21 14:18:59', '2026-09-21 12:56:51.575211', 298486374);
+INSERT INTO "places" ("id", "approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (980190962, TRUE, 4, 0, '2026-09-21 12:56:51.576864', 47.3769, NULL, NULL, 8.5417, 'Central Bench', '08:00-20:00', 980190962, 0, '2026-09-21 12:56:51.576864'), (298486374, TRUE, 2, 2, '2026-09-21 12:56:51.576864', 47.3779, NULL, NULL, 8.5427, 'Shaded Courtyard', '09:00-18:00', 298486374, 0, '2026-09-21 12:56:51.576864');
+INSERT INTO "status_reports" ("id", "created_at", "place_id", "reported_status", "reviewed", "updated_at", "user_id") VALUES (980190962, '2026-09-21 12:56:51.577447', 980190962, 1, FALSE, '2026-09-21 12:56:51.577447', 980190962), (298486374, '2026-09-21 12:56:51.577447', 298486374, 1, FALSE, '2026-09-21 12:56:51.577447', 298486374);
+INSERT INTO "users" ("id", "confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (980190962, 'confirmation-token-one', '2026-09-21 12:56:51.578063', 'alice@example.com', FALSE, 'Alice', 'fixture-password-one', 1, NULL, '2026-09-21 12:56:51.578063'), (298486374, 'confirmation-token-two', '2026-09-21 12:56:51.578063', 'bob@example.com', FALSE, 'Bob', 'fixture-password-two', 1, NULL, '2026-09-21 12:56:51.578063')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (9.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_key_check[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+----------------------------------------------
+SessionsControllerTest: test_should_get_create
+----------------------------------------------
+Started GET "/sessions/create" for 127.0.0.1 at 2026-09-21 14:56:51 +0200
+Processing by SessionsController#create as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering sessions/create.html.erb within layouts/application
+  Rendered sessions/create.html.erb within layouts/application (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 3.6ms | GC: 0.0ms)
+Completed 200 OK in 8ms (Views: 4.8ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-----------------------------------------------
+SessionsControllerTest: test_should_get_destroy
+-----------------------------------------------
+Started GET "/sessions/destroy" for 127.0.0.1 at 2026-09-21 14:56:51 +0200
+Processing by SessionsController#destroy as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering sessions/destroy.html.erb within layouts/application
+  Rendered sessions/destroy.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.3ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.5ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-------------------------------------------
+SessionsControllerTest: test_should_get_new
+-------------------------------------------
+Started GET "/sessions/new" for 127.0.0.1 at 2026-09-21 14:56:51 +0200
+Processing by SessionsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/new.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.3ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.5ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+------------------------------------------
+PlacesControllerTest: test_should_get_show
+------------------------------------------
+Started GET "/places/show" for 127.0.0.1 at 2026-09-21 14:56:51 +0200
+Processing by PlacesController#show as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering places/show.html.erb within layouts/application
+  Rendered places/show.html.erb within layouts/application (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.4ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.7ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+--------------------------------------------
+PlacesControllerTest: test_should_get_create
+--------------------------------------------
+Started GET "/places/create" for 127.0.0.1 at 2026-09-21 14:56:51 +0200
+Processing by PlacesController#create as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering places/create.html.erb within layouts/application
+  Rendered places/create.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.3ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.5ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-------------------------------------------
+PlacesControllerTest: test_should_get_index
+-------------------------------------------
+Started GET "/places/index" for 127.0.0.1 at 2026-09-21 14:56:51 +0200
+Processing by PlacesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering places/index.html.erb within layouts/application
+  Rendered places/index.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.2ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.4ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-----------------------------------------
+PlacesControllerTest: test_should_get_new
+-----------------------------------------
+Started GET "/places/new" for 127.0.0.1 at 2026-09-21 14:56:51 +0200
+Processing by PlacesController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering places/new.html.erb within layouts/application
+  Rendered places/new.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.2ms | GC: 0.0ms)
+Completed 200 OK in 0ms (Views: 0.4ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+------------------------------------------------
+StatusReportsControllerTest: test_should_get_new
+------------------------------------------------
+Started GET "/status_reports/new" for 127.0.0.1 at 2026-09-21 14:56:51 +0200
+Processing by StatusReportsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering status_reports/new.html.erb within layouts/application
+  Rendered status_reports/new.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.3ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.6ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+---------------------------------------------------
+StatusReportsControllerTest: test_should_get_create
+---------------------------------------------------
+Started GET "/status_reports/create" for 127.0.0.1 at 2026-09-21 14:56:51 +0200
+Processing by StatusReportsController#create as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering status_reports/create.html.erb within layouts/application
+  Rendered status_reports/create.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.4ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.6ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+------------------------------------------------
+Admin::UsersControllerTest: test_should_get_show
+------------------------------------------------
+Started GET "/admin/users/show" for 127.0.0.1 at 2026-09-21 14:56:51 +0200
+Processing by Admin::UsersController#show as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering admin/users/show.html.erb within layouts/application
+  Rendered admin/users/show.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.4ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.7ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+---------------------------------------------------
+Admin::UsersControllerTest: test_should_get_promote
+---------------------------------------------------
+Started GET "/admin/users/promote" for 127.0.0.1 at 2026-09-21 14:56:51 +0200
+Processing by Admin::UsersController#promote as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering admin/users/promote.html.erb within layouts/application
+  Rendered admin/users/promote.html.erb within layouts/application (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.4ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.6ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+--------------------------------------------------
+Admin::UsersControllerTest: test_should_get_unlock
+--------------------------------------------------
+Started GET "/admin/users/unlock" for 127.0.0.1 at 2026-09-21 14:56:51 +0200
+Processing by Admin::UsersController#unlock as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering admin/users/unlock.html.erb within layouts/application
+  Rendered admin/users/unlock.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.3ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.5ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+--------------------------------------------------
+Admin::UsersControllerTest: test_should_get_demote
+--------------------------------------------------
+Started GET "/admin/users/demote" for 127.0.0.1 at 2026-09-21 14:56:51 +0200
+Processing by Admin::UsersController#demote as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering admin/users/demote.html.erb within layouts/application
+  Rendered admin/users/demote.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.3ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.4ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-------------------------------------------------
+Admin::UsersControllerTest: test_should_get_index
+-------------------------------------------------
+Started GET "/admin/users/index" for 127.0.0.1 at 2026-09-21 14:56:51 +0200
+Processing by Admin::UsersController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering admin/users/index.html.erb within layouts/application
+  Rendered admin/users/index.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.3ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.5ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+------------------------------------------------
+Admin::UsersControllerTest: test_should_get_lock
+------------------------------------------------
+Started GET "/admin/users/lock" for 127.0.0.1 at 2026-09-21 14:56:51 +0200
+Processing by Admin::UsersController#lock as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering admin/users/lock.html.erb within layouts/application
+  Rendered admin/users/lock.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.3ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.4ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+--------------------------------------------------------
+Moderation::PlacesControllerTest: test_should_get_unlock
+--------------------------------------------------------
+Started GET "/moderation/places/unlock" for 127.0.0.1 at 2026-09-21 14:56:51 +0200
+Processing by Moderation::PlacesController#unlock as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering moderation/places/unlock.html.erb within layouts/application
+  Rendered moderation/places/unlock.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.2ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.5ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+------------------------------------------------------
+Moderation::PlacesControllerTest: test_should_get_show
+------------------------------------------------------
+Started GET "/moderation/places/show" for 127.0.0.1 at 2026-09-21 14:56:51 +0200
+Processing by Moderation::PlacesController#show as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering moderation/places/show.html.erb within layouts/application
+  Rendered moderation/places/show.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.3ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.5ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+--------------------------------------------------------
+Moderation::PlacesControllerTest: test_should_get_update
+--------------------------------------------------------
+Started GET "/moderation/places/update" for 127.0.0.1 at 2026-09-21 14:56:51 +0200
+Processing by Moderation::PlacesController#update as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering moderation/places/update.html.erb within layouts/application
+  Rendered moderation/places/update.html.erb within layouts/application (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.8ms | GC: 0.0ms)
+Completed 200 OK in 2ms (Views: 1.3ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+---------------------------------------------------------
+Moderation::PlacesControllerTest: test_should_get_approve
+---------------------------------------------------------
+Started GET "/moderation/places/approve" for 127.0.0.1 at 2026-09-21 14:56:51 +0200
+Processing by Moderation::PlacesController#approve as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering moderation/places/approve.html.erb within layouts/application
+  Rendered moderation/places/approve.html.erb within layouts/application (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.6ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.8ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+------------------------------------------------------
+Moderation::PlacesControllerTest: test_should_get_edit
+------------------------------------------------------
+Started GET "/moderation/places/edit" for 127.0.0.1 at 2026-09-21 14:56:51 +0200
+Processing by Moderation::PlacesController#edit as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering moderation/places/edit.html.erb within layouts/application
+  Rendered moderation/places/edit.html.erb within layouts/application (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.5ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.7ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+--------------------------------------------------------
+Moderation::PlacesControllerTest: test_should_get_reject
+--------------------------------------------------------
+Started GET "/moderation/places/reject" for 127.0.0.1 at 2026-09-21 14:56:51 +0200
+Processing by Moderation::PlacesController#reject as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering moderation/places/reject.html.erb within layouts/application
+  Rendered moderation/places/reject.html.erb within layouts/application (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.5ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.8ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-------------------------------------------
+ProfileControllerTest: test_should_get_edit
+-------------------------------------------
+Started GET "/profile/edit" for 127.0.0.1 at 2026-09-21 14:56:51 +0200
+Processing by ProfileController#edit as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering profile/edit.html.erb within layouts/application
+  Rendered profile/edit.html.erb within layouts/application (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.6ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.9ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-------------------------------------------
+ProfileControllerTest: test_should_get_show
+-------------------------------------------
+Started GET "/profile/show" for 127.0.0.1 at 2026-09-21 14:56:51 +0200
+Processing by ProfileController#show as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering profile/show.html.erb within layouts/application
+  Rendered profile/show.html.erb within layouts/application (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.6ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.9ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+---------------------------------------------
+ProfileControllerTest: test_should_get_update
+---------------------------------------------
+Started GET "/profile/update" for 127.0.0.1 at 2026-09-21 14:56:51 +0200
+Processing by ProfileController#update as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering profile/update.html.erb within layouts/application
+  Rendered profile/update.html.erb within layouts/application (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.5ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.7ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+----------------------------------------
+UsersControllerTest: test_should_get_new
+----------------------------------------
+Started GET "/users/new" for 127.0.0.1 at 2026-09-21 14:56:51 +0200
+Processing by UsersController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering users/new.html.erb within layouts/application
+  Rendered users/new.html.erb within layouts/application (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.5ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.9ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-------------------------------------------
+UsersControllerTest: test_should_get_create
+-------------------------------------------
+Started GET "/users/create" for 127.0.0.1 at 2026-09-21 14:56:51 +0200
+Processing by UsersController#create as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering users/create.html.erb within layouts/application
+  Rendered users/create.html.erb within layouts/application (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.5ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.8ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+----------------------------------------------------------------
+Moderation::StatusReportsControllerTest: test_should_get_approve
+----------------------------------------------------------------
+Started GET "/moderation/status_reports/approve" for 127.0.0.1 at 2026-09-21 14:56:51 +0200
+Processing by Moderation::StatusReportsController#approve as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering moderation/status_reports/approve.html.erb within layouts/application
+  Rendered moderation/status_reports/approve.html.erb within layouts/application (Duration: 0.3ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.8ms | GC: 0.0ms)
+Completed 200 OK in 2ms (Views: 1.3ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+---------------------------------------------------------------
+Moderation::StatusReportsControllerTest: test_should_get_reject
+---------------------------------------------------------------
+Started GET "/moderation/status_reports/reject" for 127.0.0.1 at 2026-09-21 14:56:51 +0200
+Processing by Moderation::StatusReportsController#reject as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering moderation/status_reports/reject.html.erb within layouts/application
+  Rendered moderation/status_reports/reject.html.erb within layouts/application (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.4ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.7ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-------------------------------------------------------------
+Moderation::StatusReportsControllerTest: test_should_get_show
+-------------------------------------------------------------
+Started GET "/moderation/status_reports/show" for 127.0.0.1 at 2026-09-21 14:56:51 +0200
+Processing by Moderation::StatusReportsController#show as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering moderation/status_reports/show.html.erb within layouts/application
+  Rendered moderation/status_reports/show.html.erb within layouts/application (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.5ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.7ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+----------------------------------------------------------
+Moderation::DashboardsControllerTest: test_should_get_show
+----------------------------------------------------------
+Started GET "/moderation/dashboards/show" for 127.0.0.1 at 2026-09-21 14:56:51 +0200
+Processing by Moderation::DashboardsController#show as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering moderation/dashboards/show.html.erb within layouts/application
+  Rendered moderation/dashboards/show.html.erb within layouts/application (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.5ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.8ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+----------------------------------------------
+CheckInsControllerTest: test_should_get_create
+----------------------------------------------
+Started GET "/check_ins/create" for 127.0.0.1 at 2026-09-21 14:56:51 +0200
+Processing by CheckInsController#create as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering check_ins/create.html.erb within layouts/application
+  Rendered check_ins/create.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.4ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.7ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-------------------------------------------
+CheckInsControllerTest: test_should_get_new
+-------------------------------------------
+Started GET "/check_ins/new" for 127.0.0.1 at 2026-09-21 14:56:51 +0200
+Processing by CheckInsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering check_ins/new.html.erb within layouts/application
+  Rendered check_ins/new.html.erb within layouts/application (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.5ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.7ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+--------------------------------------------
+CheckInsControllerTest: test_should_get_show
+--------------------------------------------
+Started GET "/check_ins/show" for 127.0.0.1 at 2026-09-21 14:56:51 +0200
+Processing by CheckInsController#show as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering check_ins/show.html.erb within layouts/application
+  Rendered check_ins/show.html.erb within layouts/application (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.6ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.9ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
