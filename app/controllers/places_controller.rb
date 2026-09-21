@@ -1,13 +1,37 @@
 class PlacesController < ApplicationController
+  before_action :require_authentication, only: [ :new, :create ]
   def index
+    @places = Place.where(approved: true).order(:name)
   end
 
   def show
+    @place = Place.find(params[:id])
   end
 
   def new
+    @place = Place.new
   end
 
   def create
+    @place = current_user.proposed_places.build(place_params)
+
+    if @place.save
+      redirect_to @place
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+  private
+
+  def place_params
+    params.require(:place).permit(
+      :name,
+      :category,
+      :latitude,
+      :longitude,
+      :capacity,
+      :opening_hours
+    )
   end
 end

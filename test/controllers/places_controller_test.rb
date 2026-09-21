@@ -2,22 +2,45 @@ require "test_helper"
 
 class PlacesControllerTest < ActionDispatch::IntegrationTest
   test "should get index" do
-    get places_index_url
+    get places_url
     assert_response :success
+  end
+
+  test "anonymous users cannot get new place form" do
+    get new_place_url
+    assert_redirected_to new_session_url
   end
 
   test "should get show" do
-    get places_show_url
+    get place_url(places(:one))
     assert_response :success
   end
 
-  test "should get new" do
-    get places_new_url
-    assert_response :success
-  end
+  test "authenticated users can create places" do
+    user = User.create!(
+      name: "Place Proposer",
+      email: "place-proposer@example.com",
+      password: "secure-password"
+    )
 
-  test "should get create" do
-    get places_create_url
-    assert_response :success
+    post session_url, params: {
+      email: user.email,
+      password: "secure-password"
+    }
+
+    assert_difference("Place.count", 1) do
+      post places_url, params: {
+        place: {
+          name: "New Place",
+          category: "seating",
+          latitude: 47.3769,
+          longitude: 8.5417,
+          capacity: 2
+        }
+      }
+    end
+
+    created_place = Place.order(:created_at).last
+    assert_redirected_to place_url(created_place)
   end
 end
