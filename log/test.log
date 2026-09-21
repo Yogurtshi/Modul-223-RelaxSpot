@@ -9175,3 +9175,1447 @@ Processing by SessionsController#create as HTML
   Rendered layout layouts/application.html.erb (Duration: 2.3ms | GC: 1.5ms)
 Completed 422 Unprocessable Content in 6ms (Views: 3.3ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 2.8ms)
   [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.2ms)[0m  [1m[31mDELETE FROM "check_ins";
+DELETE FROM "places";
+DELETE FROM "status_reports";
+DELETE FROM "users";
+INSERT INTO "check_ins" ("id", "created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (980190962, '2026-09-21 13:47:36.835567', '2026-09-21 15:18:59', 980190962, '2026-09-21 14:18:59', '2026-09-21 13:47:36.835567', 980190962), (298486374, '2026-09-21 13:47:36.835567', '2026-09-21 15:18:59', 298486374, '2026-09-21 14:18:59', '2026-09-21 13:47:36.835567', 298486374);
+INSERT INTO "places" ("id", "approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (980190962, TRUE, 4, 0, '2026-09-21 13:47:36.837225', 47.3769, NULL, NULL, 8.5417, 'Central Bench', '08:00-20:00', 980190962, 0, '2026-09-21 13:47:36.837225'), (298486374, TRUE, 2, 2, '2026-09-21 13:47:36.837225', 47.3779, NULL, NULL, 8.5427, 'Shaded Courtyard', '09:00-18:00', 298486374, 0, '2026-09-21 13:47:36.837225');
+INSERT INTO "status_reports" ("id", "created_at", "place_id", "reported_status", "reviewed", "updated_at", "user_id") VALUES (980190962, '2026-09-21 13:47:36.837897', 980190962, 1, FALSE, '2026-09-21 13:47:36.837897', 980190962), (298486374, '2026-09-21 13:47:36.837897', 298486374, 1, FALSE, '2026-09-21 13:47:36.837897', 298486374);
+INSERT INTO "users" ("id", "confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (980190962, 'confirmation-token-one', '2026-09-21 13:47:36.838575', 'alice@example.com', FALSE, 'Alice', 'fixture-password-one', 1, NULL, '2026-09-21 13:47:36.838575'), (298486374, 'confirmation-token-two', '2026-09-21 13:47:36.838575', 'bob@example.com', FALSE, 'Bob', 'fixture-password-two', 1, NULL, '2026-09-21 13:47:36.838575')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (9.3ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_key_check[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+---------------------------------------------------
+CheckInsControllerTest: test_should_create_check-in
+---------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-21 13:47:36.863814"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Check-in User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-21 13:47:36.863814"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-21 15:47:36 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 5ms (ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mCheckIn Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins"[0m
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started POST "/check_ins" for 127.0.0.1 at 2026-09-21 15:47:36 +0200
+Processing by CheckInsController#create as HTML
+  Parameters: {"check_in" => {"place_id" => "980190962", "expected_minutes" => "30"}}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mPlace Load (0.0ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = ? LIMIT ? [0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mCheckIn Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = ? AND (ends_at > ?)[0m  [["place_id", 980190962], [nil, "2026-09-21 13:47:36.918404"]]
+  [1m[36mCheckIn Create (0.1ms)[0m  [1m[32mINSERT INTO "check_ins" ("created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["created_at", "2026-09-21 13:47:36.920991"], ["ends_at", "2026-09-21 14:17:36.918755"], ["place_id", 980190962], ["started_at", "2026-09-21 13:47:36.918755"], ["updated_at", "2026-09-21 13:47:36.920991"], ["user_id", 980190963]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://www.example.com/check_ins/980190963
+Completed 302 Found in 7ms (ActiveRecord: 0.4ms (5 queries, 0 cached) | GC: 0.3ms)
+  [1m[36mCheckIn Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins"[0m
+  [1m[36mCheckIn Load (0.1ms)[0m  [1m[34mSELECT "check_ins".* FROM "check_ins" ORDER BY "check_ins"."created_at" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+----------------------------------------------------
+CheckInsControllerTest: test_should_get_own_check-in
+----------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-21 13:47:36.926072"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Check-in User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-21 13:47:36.926072"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-21 15:47:36 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 2ms (ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCheckIn Create (0.1ms)[0m  [1m[32mINSERT INTO "check_ins" ("created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["created_at", "2026-09-21 13:47:36.930618"], ["ends_at", "2026-09-21 14:17:36.930257"], ["place_id", 980190962], ["started_at", "2026-09-21 13:47:36.930236"], ["updated_at", "2026-09-21 13:47:36.930618"], ["user_id", 980190963]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/check_ins/980190963" for 127.0.0.1 at 2026-09-21 15:47:36 +0200
+Processing by CheckInsController#show as HTML
+  Parameters: {"id" => "980190963"}
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mCheckIn Load (0.1ms)[0m  [1m[34mSELECT "check_ins".* FROM "check_ins" WHERE "check_ins"."user_id" = ? AND "check_ins"."id" = ? LIMIT ?[0m  [["user_id", 980190963], ["id", 980190963], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering check_ins/show.html.erb within layouts/application
+  [1m[36mPlace Load (0.0ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  Rendered check_ins/show.html.erb within layouts/application (Duration: 0.9ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 4.5ms | GC: 0.0ms)
+Completed 200 OK in 8ms (Views: 5.7ms | ActiveRecord: 0.1ms (3 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-------------------------------------------
+CheckInsControllerTest: test_should_get_new
+-------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-21 13:47:36.944209"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Check-in User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-21 13:47:36.944209"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-21 15:47:36 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 3ms (ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started GET "/check_ins/new?place_id=980190962" for 127.0.0.1 at 2026-09-21 15:47:36 +0200
+Processing by CheckInsController#new as HTML
+  Parameters: {"place_id" => "980190962"}
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mPlace Load (0.0ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering check_ins/new.html.erb within layouts/application
+  Rendered check_ins/new.html.erb within layouts/application (Duration: 1.0ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 1.2ms | GC: 0.0ms)
+Completed 200 OK in 2ms (Views: 1.5ms | ActiveRecord: 0.1ms (2 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+--------------------------------------------------------------------
+CheckInsControllerTest: test_rejects_check-in_when_the_place_is_full
+--------------------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-21 13:47:36.955412"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Check-in User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-21 13:47:36.955412"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-21 15:47:36 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 3ms (ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mPlace Update (0.1ms)[0m  [1m[33mUPDATE "places" SET "capacity" = ?, "updated_at" = ? WHERE "places"."id" = ?[0m  [["capacity", 1], ["updated_at", "2026-09-21 13:47:36.960578"], ["id", 980190962]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCheckIn Create (0.1ms)[0m  [1m[32mINSERT INTO "check_ins" ("created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["created_at", "2026-09-21 13:47:36.961908"], ["ends_at", "2026-09-21 14:17:36.961640"], ["place_id", 980190962], ["started_at", "2026-09-21 13:47:36.961619"], ["updated_at", "2026-09-21 13:47:36.961908"], ["user_id", 980190962]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mCheckIn Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins"[0m
+Started POST "/check_ins" for 127.0.0.1 at 2026-09-21 15:47:36 +0200
+Processing by CheckInsController#create as HTML
+  Parameters: {"check_in" => {"place_id" => "980190962", "expected_minutes" => "30"}}
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mPlace Load (0.0ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = ? LIMIT ? [0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mCheckIn Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = ? AND (ends_at > ?)[0m  [["place_id", 980190962], [nil, "2026-09-21 13:47:36.964368"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  Rendering layout layouts/application.html.erb
+  Rendering check_ins/new.html.erb within layouts/application
+  Rendered check_ins/new.html.erb within layouts/application (Duration: 0.3ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.6ms | GC: 0.0ms)
+Completed 422 Unprocessable Content in 3ms (Views: 0.9ms | ActiveRecord: 0.2ms (4 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mCheckIn Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins"[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.2ms)[0m  [1m[31mDELETE FROM "check_ins";
+DELETE FROM "places";
+DELETE FROM "status_reports";
+DELETE FROM "users";
+INSERT INTO "check_ins" ("id", "created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (980190962, '2026-09-21 13:47:49.284052', '2026-09-21 15:18:59', 980190962, '2026-09-21 14:18:59', '2026-09-21 13:47:49.284052', 980190962), (298486374, '2026-09-21 13:47:49.284052', '2026-09-21 15:18:59', 298486374, '2026-09-21 14:18:59', '2026-09-21 13:47:49.284052', 298486374);
+INSERT INTO "places" ("id", "approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (980190962, TRUE, 4, 0, '2026-09-21 13:47:49.285795', 47.3769, NULL, NULL, 8.5417, 'Central Bench', '08:00-20:00', 980190962, 0, '2026-09-21 13:47:49.285795'), (298486374, TRUE, 2, 2, '2026-09-21 13:47:49.285795', 47.3779, NULL, NULL, 8.5427, 'Shaded Courtyard', '09:00-18:00', 298486374, 0, '2026-09-21 13:47:49.285795');
+INSERT INTO "status_reports" ("id", "created_at", "place_id", "reported_status", "reviewed", "updated_at", "user_id") VALUES (980190962, '2026-09-21 13:47:49.286414', 980190962, 1, FALSE, '2026-09-21 13:47:49.286414', 980190962), (298486374, '2026-09-21 13:47:49.286414', 298486374, 1, FALSE, '2026-09-21 13:47:49.286414', 298486374);
+INSERT INTO "users" ("id", "confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (980190962, 'confirmation-token-one', '2026-09-21 13:47:49.287114', 'alice@example.com', FALSE, 'Alice', 'fixture-password-one', 1, NULL, '2026-09-21 13:47:49.287114'), (298486374, 'confirmation-token-two', '2026-09-21 13:47:49.287114', 'bob@example.com', FALSE, 'Bob', 'fixture-password-two', 1, NULL, '2026-09-21 13:47:49.287114')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (8.4ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_key_check[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+--------------------------------------------------------------------
+CheckInsControllerTest: test_rejects_check-in_when_the_place_is_full
+--------------------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-21 13:47:49.311814"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Check-in User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-21 13:47:49.311814"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-21 15:47:49 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 5ms (ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mPlace Update (0.1ms)[0m  [1m[33mUPDATE "places" SET "capacity" = ?, "updated_at" = ? WHERE "places"."id" = ?[0m  [["capacity", 1], ["updated_at", "2026-09-21 13:47:49.365117"], ["id", 980190962]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCheckIn Create (0.2ms)[0m  [1m[32mINSERT INTO "check_ins" ("created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["created_at", "2026-09-21 13:47:49.368549"], ["ends_at", "2026-09-21 14:17:49.366142"], ["place_id", 980190962], ["started_at", "2026-09-21 13:47:49.366124"], ["updated_at", "2026-09-21 13:47:49.368549"], ["user_id", 980190962]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mCheckIn Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins"[0m
+Started POST "/check_ins" for 127.0.0.1 at 2026-09-21 15:47:49 +0200
+Processing by CheckInsController#create as HTML
+  Parameters: {"check_in" => {"place_id" => "980190962", "expected_minutes" => "30"}}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = ? LIMIT ? [0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mCheckIn Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = ? AND (ends_at > ?)[0m  [["place_id", 980190962], [nil, "2026-09-21 13:47:49.374474"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  Rendering layout layouts/application.html.erb
+  Rendering check_ins/new.html.erb within layouts/application
+  Rendered check_ins/new.html.erb within layouts/application (Duration: 1.0ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 4.7ms | GC: 0.0ms)
+Completed 422 Unprocessable Content in 12ms (Views: 7.4ms | ActiveRecord: 0.3ms (4 queries, 0 cached) | GC: 0.1ms)
+  [1m[36mCheckIn Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins"[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+----------------------------------------------------
+CheckInsControllerTest: test_should_get_own_check-in
+----------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-21 13:47:49.388149"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Check-in User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-21 13:47:49.388149"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-21 15:47:49 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 3ms (ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCheckIn Create (0.1ms)[0m  [1m[32mINSERT INTO "check_ins" ("created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["created_at", "2026-09-21 13:47:49.393835"], ["ends_at", "2026-09-21 14:17:49.393483"], ["place_id", 980190962], ["started_at", "2026-09-21 13:47:49.393455"], ["updated_at", "2026-09-21 13:47:49.393835"], ["user_id", 980190963]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/check_ins/980190963" for 127.0.0.1 at 2026-09-21 15:47:49 +0200
+Processing by CheckInsController#show as HTML
+  Parameters: {"id" => "980190963"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mCheckIn Load (0.1ms)[0m  [1m[34mSELECT "check_ins".* FROM "check_ins" WHERE "check_ins"."user_id" = ? AND "check_ins"."id" = ? LIMIT ?[0m  [["user_id", 980190963], ["id", 980190963], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering check_ins/show.html.erb within layouts/application
+  [1m[36mPlace Load (0.0ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  Rendered check_ins/show.html.erb within layouts/application (Duration: 0.9ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 1.1ms | GC: 0.0ms)
+Completed 200 OK in 3ms (Views: 1.3ms | ActiveRecord: 0.2ms (3 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-------------------------------------------
+CheckInsControllerTest: test_should_get_new
+-------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-21 13:47:49.401147"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Check-in User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-21 13:47:49.401147"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-21 15:47:49 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 3ms (ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started GET "/check_ins/new?place_id=980190962" for 127.0.0.1 at 2026-09-21 15:47:49 +0200
+Processing by CheckInsController#new as HTML
+  Parameters: {"place_id" => "980190962"}
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mPlace Load (0.0ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering check_ins/new.html.erb within layouts/application
+  Rendered check_ins/new.html.erb within layouts/application (Duration: 0.3ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.5ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.7ms | ActiveRecord: 0.1ms (2 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+---------------------------------------------------
+CheckInsControllerTest: test_should_create_check-in
+---------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-21 13:47:49.412126"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Check-in User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-21 13:47:49.412126"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-21 15:47:49 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 3ms (ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mCheckIn Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins"[0m
+  [1m[36mPlace Load (0.0ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started POST "/check_ins" for 127.0.0.1 at 2026-09-21 15:47:49 +0200
+Processing by CheckInsController#create as HTML
+  Parameters: {"check_in" => {"place_id" => "980190962", "expected_minutes" => "30"}}
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mPlace Load (0.0ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = ? LIMIT ? [0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mCheckIn Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = ? AND (ends_at > ?)[0m  [["place_id", 980190962], [nil, "2026-09-21 13:47:49.419034"]]
+  [1m[36mCheckIn Create (0.1ms)[0m  [1m[32mINSERT INTO "check_ins" ("created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["created_at", "2026-09-21 13:47:49.419777"], ["ends_at", "2026-09-21 14:17:49.419360"], ["place_id", 980190962], ["started_at", "2026-09-21 13:47:49.419360"], ["updated_at", "2026-09-21 13:47:49.419777"], ["user_id", 980190963]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://www.example.com/check_ins/980190963
+Completed 302 Found in 3ms (ActiveRecord: 0.4ms (5 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mCheckIn Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins"[0m
+  [1m[36mCheckIn Load (0.1ms)[0m  [1m[34mSELECT "check_ins".* FROM "check_ins" ORDER BY "check_ins"."created_at" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.1ms)[0m  [1m[31mDELETE FROM "check_ins";
+DELETE FROM "places";
+DELETE FROM "status_reports";
+DELETE FROM "users";
+INSERT INTO "check_ins" ("id", "created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (980190962, '2026-09-21 13:47:52.981772', '2026-09-21 15:18:59', 980190962, '2026-09-21 14:18:59', '2026-09-21 13:47:52.981772', 980190962), (298486374, '2026-09-21 13:47:52.981772', '2026-09-21 15:18:59', 298486374, '2026-09-21 14:18:59', '2026-09-21 13:47:52.981772', 298486374);
+INSERT INTO "places" ("id", "approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (980190962, TRUE, 4, 0, '2026-09-21 13:47:52.983768', 47.3769, NULL, NULL, 8.5417, 'Central Bench', '08:00-20:00', 980190962, 0, '2026-09-21 13:47:52.983768'), (298486374, TRUE, 2, 2, '2026-09-21 13:47:52.983768', 47.3779, NULL, NULL, 8.5427, 'Shaded Courtyard', '09:00-18:00', 298486374, 0, '2026-09-21 13:47:52.983768');
+INSERT INTO "status_reports" ("id", "created_at", "place_id", "reported_status", "reviewed", "updated_at", "user_id") VALUES (980190962, '2026-09-21 13:47:52.984332', 980190962, 1, FALSE, '2026-09-21 13:47:52.984332', 980190962), (298486374, '2026-09-21 13:47:52.984332', 298486374, 1, FALSE, '2026-09-21 13:47:52.984332', 298486374);
+INSERT INTO "users" ("id", "confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (980190962, 'confirmation-token-one', '2026-09-21 13:47:52.984886', 'alice@example.com', FALSE, 'Alice', 'fixture-password-one', 1, NULL, '2026-09-21 13:47:52.984886'), (298486374, 'confirmation-token-two', '2026-09-21 13:47:52.984886', 'bob@example.com', FALSE, 'Bob', 'fixture-password-two', 1, NULL, '2026-09-21 13:47:52.984886')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (9.5ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_key_check[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-------------------------------------------------
+Admin::UsersControllerTest: test_should_get_index
+-------------------------------------------------
+Started GET "/admin/users/index" for 127.0.0.1 at 2026-09-21 15:47:53 +0200
+Processing by Admin::UsersController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering admin/users/index.html.erb within layouts/application
+  Rendered admin/users/index.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 3.4ms | GC: 0.0ms)
+Completed 200 OK in 6ms (Views: 4.5ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+--------------------------------------------------
+Admin::UsersControllerTest: test_should_get_demote
+--------------------------------------------------
+Started GET "/admin/users/demote" for 127.0.0.1 at 2026-09-21 15:47:53 +0200
+Processing by Admin::UsersController#demote as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering admin/users/demote.html.erb within layouts/application
+  Rendered admin/users/demote.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.3ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.4ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+---------------------------------------------------
+Admin::UsersControllerTest: test_should_get_promote
+---------------------------------------------------
+Started GET "/admin/users/promote" for 127.0.0.1 at 2026-09-21 15:47:53 +0200
+Processing by Admin::UsersController#promote as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering admin/users/promote.html.erb within layouts/application
+  Rendered admin/users/promote.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.3ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.4ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+------------------------------------------------
+Admin::UsersControllerTest: test_should_get_show
+------------------------------------------------
+Started GET "/admin/users/show" for 127.0.0.1 at 2026-09-21 15:47:53 +0200
+Processing by Admin::UsersController#show as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering admin/users/show.html.erb within layouts/application
+  Rendered admin/users/show.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.3ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.4ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+------------------------------------------------
+Admin::UsersControllerTest: test_should_get_lock
+------------------------------------------------
+Started GET "/admin/users/lock" for 127.0.0.1 at 2026-09-21 15:47:53 +0200
+Processing by Admin::UsersController#lock as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering admin/users/lock.html.erb within layouts/application
+  Rendered admin/users/lock.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.3ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.4ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+--------------------------------------------------
+Admin::UsersControllerTest: test_should_get_unlock
+--------------------------------------------------
+Started GET "/admin/users/unlock" for 127.0.0.1 at 2026-09-21 15:47:53 +0200
+Processing by Admin::UsersController#unlock as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering admin/users/unlock.html.erb within layouts/application
+  Rendered admin/users/unlock.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.4ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.5ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+------------------------------------------------------
+Moderation::PlacesControllerTest: test_should_get_edit
+------------------------------------------------------
+Started GET "/moderation/places/edit" for 127.0.0.1 at 2026-09-21 15:47:53 +0200
+Processing by Moderation::PlacesController#edit as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering moderation/places/edit.html.erb within layouts/application
+  Rendered moderation/places/edit.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.3ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.6ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+---------------------------------------------------------
+Moderation::PlacesControllerTest: test_should_get_approve
+---------------------------------------------------------
+Started GET "/moderation/places/approve" for 127.0.0.1 at 2026-09-21 15:47:53 +0200
+Processing by Moderation::PlacesController#approve as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering moderation/places/approve.html.erb within layouts/application
+  Rendered moderation/places/approve.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.3ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.4ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+------------------------------------------------------
+Moderation::PlacesControllerTest: test_should_get_show
+------------------------------------------------------
+Started GET "/moderation/places/show" for 127.0.0.1 at 2026-09-21 15:47:53 +0200
+Processing by Moderation::PlacesController#show as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering moderation/places/show.html.erb within layouts/application
+  Rendered moderation/places/show.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.4ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.6ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+--------------------------------------------------------
+Moderation::PlacesControllerTest: test_should_get_unlock
+--------------------------------------------------------
+Started GET "/moderation/places/unlock" for 127.0.0.1 at 2026-09-21 15:47:53 +0200
+Processing by Moderation::PlacesController#unlock as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering moderation/places/unlock.html.erb within layouts/application
+  Rendered moderation/places/unlock.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.4ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.6ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+--------------------------------------------------------
+Moderation::PlacesControllerTest: test_should_get_reject
+--------------------------------------------------------
+Started GET "/moderation/places/reject" for 127.0.0.1 at 2026-09-21 15:47:53 +0200
+Processing by Moderation::PlacesController#reject as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering moderation/places/reject.html.erb within layouts/application
+  Rendered moderation/places/reject.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.3ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.5ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+--------------------------------------------------------
+Moderation::PlacesControllerTest: test_should_get_update
+--------------------------------------------------------
+Started GET "/moderation/places/update" for 127.0.0.1 at 2026-09-21 15:47:53 +0200
+Processing by Moderation::PlacesController#update as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering moderation/places/update.html.erb within layouts/application
+  Rendered moderation/places/update.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.3ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.5ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+--------------------------------------------------------------
+UserTest: test_requires_a_password_with_at_least_12_characters
+--------------------------------------------------------------
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+----------------------------------------
+UserTest: test_defaults_to_the_user_role
+----------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-----------------------------------------
+UserTest: test_normalizes_email_addresses
+-----------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+------------------------------------------
+PlacesControllerTest: test_should_get_show
+------------------------------------------
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started GET "/places/980190962" for 127.0.0.1 at 2026-09-21 15:47:53 +0200
+Processing by PlacesController#show as HTML
+  Parameters: {"id" => "980190962"}
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering places/show.html.erb within layouts/application
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  Rendered places/show.html.erb within layouts/application (Duration: 1.9ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 2.1ms | GC: 0.0ms)
+Completed 200 OK in 3ms (Views: 2.4ms | ActiveRecord: 0.1ms (2 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+--------------------------------------------------------------------
+PlacesControllerTest: test_anonymous_users_cannot_get_new_place_form
+--------------------------------------------------------------------
+Started GET "/places/new" for 127.0.0.1 at 2026-09-21 15:47:53 +0200
+Processing by PlacesController#new as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Redirected to http://www.example.com/session/new
+Filter chain halted as :require_authentication rendered or redirected
+Completed 302 Found in 1ms (ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-------------------------------------------
+PlacesControllerTest: test_should_get_index
+-------------------------------------------
+Started GET "/places" for 127.0.0.1 at 2026-09-21 15:47:53 +0200
+Processing by PlacesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering places/index.html.erb within layouts/application
+  [1m[36mPlace Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "places" WHERE "places"."approved" = ? LIMIT ?[0m  [["approved", 1], ["LIMIT", 1]]
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."approved" = ? ORDER BY "places"."name" ASC[0m  [["approved", 1]]
+  Rendered places/index.html.erb within layouts/application (Duration: 0.9ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 1.1ms | GC: 0.0ms)
+Completed 200 OK in 2ms (Views: 1.1ms | ActiveRecord: 0.1ms (2 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+----------------------------------------------------------------
+PlacesControllerTest: test_authenticated_users_can_create_places
+----------------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-21 13:47:53.083564"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Place Proposer"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-21 13:47:53.083564"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-21 15:47:53 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 3ms (ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mPlace Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "places"[0m
+Started POST "/places" for 127.0.0.1 at 2026-09-21 15:47:53 +0200
+Processing by PlacesController#create as HTML
+  Parameters: {"place" => {"name" => "New Place", "category" => "seating", "latitude" => "47.3769", "longitude" => "8.5417", "capacity" => "2"}}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mPlace Create (0.2ms)[0m  [1m[32mINSERT INTO "places" ("approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["approved", 0], ["capacity", 2], ["category", 0], ["created_at", "2026-09-21 13:47:53.094999"], ["latitude", 47.3769], ["locked_at", nil], ["locked_by_id", nil], ["longitude", 8.5417], ["name", "New Place"], ["opening_hours", nil], ["proposed_by_id", 980190963], ["status", 0], ["updated_at", "2026-09-21 13:47:53.094999"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://www.example.com/places/980190963
+Completed 302 Found in 5ms (ActiveRecord: 0.4ms (2 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mPlace Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "places"[0m
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" ORDER BY "places"."created_at" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+---------------------------------------------
+ProfileControllerTest: test_should_get_update
+---------------------------------------------
+Started GET "/profile/update" for 127.0.0.1 at 2026-09-21 15:47:53 +0200
+Processing by ProfileController#update as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering profile/update.html.erb within layouts/application
+  Rendered profile/update.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.4ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.7ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-------------------------------------------
+ProfileControllerTest: test_should_get_edit
+-------------------------------------------
+Started GET "/profile/edit" for 127.0.0.1 at 2026-09-21 15:47:53 +0200
+Processing by ProfileController#edit as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering profile/edit.html.erb within layouts/application
+  Rendered profile/edit.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.4ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.7ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-------------------------------------------
+ProfileControllerTest: test_should_get_show
+-------------------------------------------
+Started GET "/profile/show" for 127.0.0.1 at 2026-09-21 15:47:53 +0200
+Processing by ProfileController#show as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering profile/show.html.erb within layouts/application
+  Rendered profile/show.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.4ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.5ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+--------------------------------------------------------------
+SessionsControllerTest: test_should_reject_invalid_credentials
+--------------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-21 13:47:53.107541"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Login User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-21 13:47:53.107541"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-21 15:47:53 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/new.html.erb within layouts/application (Duration: 1.3ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 1.5ms | GC: 0.0ms)
+Completed 422 Unprocessable Content in 5ms (Views: 2.0ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-------------------------------------------
+SessionsControllerTest: test_should_get_new
+-------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-21 13:47:53.117930"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Login User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-21 13:47:53.117930"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/session/new" for 127.0.0.1 at 2026-09-21 15:47:53 +0200
+Processing by SessionsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/new.html.erb within layouts/application (Duration: 0.4ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.6ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.8ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-------------------------------------------
+SessionsControllerTest: test_should_log_out
+-------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-21 13:47:53.123513"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Login User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-21 13:47:53.123513"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-21 15:47:53 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 3ms (ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.0ms)
+Started DELETE "/session" for 127.0.0.1 at 2026-09-21 15:47:53 +0200
+Processing by SessionsController#destroy as HTML
+Redirected to http://www.example.com/session/new
+Completed 302 Found in 0ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-----------------------------------------------------------------
+SessionsControllerTest: test_should_log_in_with_valid_credentials
+-----------------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-21 13:47:53.132975"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Login User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-21 13:47:53.132975"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-21 15:47:53 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 3ms (ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+----------------------------------------------------
+CheckInsControllerTest: test_should_get_own_check-in
+----------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-21 13:47:53.140756"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Check-in User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-21 13:47:53.140756"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-21 15:47:53 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 3ms (ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCheckIn Create (0.2ms)[0m  [1m[32mINSERT INTO "check_ins" ("created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["created_at", "2026-09-21 13:47:53.147904"], ["ends_at", "2026-09-21 14:17:53.145798"], ["place_id", 980190962], ["started_at", "2026-09-21 13:47:53.145764"], ["updated_at", "2026-09-21 13:47:53.147904"], ["user_id", 980190963]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/check_ins/980190963" for 127.0.0.1 at 2026-09-21 15:47:53 +0200
+Processing by CheckInsController#show as HTML
+  Parameters: {"id" => "980190963"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mCheckIn Load (0.1ms)[0m  [1m[34mSELECT "check_ins".* FROM "check_ins" WHERE "check_ins"."user_id" = ? AND "check_ins"."id" = ? LIMIT ?[0m  [["user_id", 980190963], ["id", 980190963], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering check_ins/show.html.erb within layouts/application
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  Rendered check_ins/show.html.erb within layouts/application (Duration: 0.9ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 1.2ms | GC: 0.0ms)
+Completed 200 OK in 3ms (Views: 1.4ms | ActiveRecord: 0.2ms (3 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+--------------------------------------------------------------------
+CheckInsControllerTest: test_rejects_check-in_when_the_place_is_full
+--------------------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-21 13:47:53.156804"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Check-in User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-21 13:47:53.156804"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-21 15:47:53 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 3ms (ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mPlace Update (0.1ms)[0m  [1m[33mUPDATE "places" SET "capacity" = ?, "updated_at" = ? WHERE "places"."id" = ?[0m  [["capacity", 1], ["updated_at", "2026-09-21 13:47:53.162046"], ["id", 980190962]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCheckIn Create (0.2ms)[0m  [1m[32mINSERT INTO "check_ins" ("created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["created_at", "2026-09-21 13:47:53.163439"], ["ends_at", "2026-09-21 14:17:53.163144"], ["place_id", 980190962], ["started_at", "2026-09-21 13:47:53.163125"], ["updated_at", "2026-09-21 13:47:53.163439"], ["user_id", 980190962]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mCheckIn Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins"[0m
+Started POST "/check_ins" for 127.0.0.1 at 2026-09-21 15:47:53 +0200
+Processing by CheckInsController#create as HTML
+  Parameters: {"check_in" => {"place_id" => "980190962", "expected_minutes" => "30"}}
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mPlace Load (0.0ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mPlace Load (0.2ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = ? LIMIT ? [0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mCheckIn Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = ? AND (ends_at > ?)[0m  [["place_id", 980190962], [nil, "2026-09-21 13:47:53.166459"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  Rendering layout layouts/application.html.erb
+  Rendering check_ins/new.html.erb within layouts/application
+  Rendered check_ins/new.html.erb within layouts/application (Duration: 0.8ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 1.0ms | GC: 0.0ms)
+Completed 422 Unprocessable Content in 4ms (Views: 1.4ms | ActiveRecord: 0.3ms (4 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mCheckIn Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins"[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-------------------------------------------
+CheckInsControllerTest: test_should_get_new
+-------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-21 13:47:53.172509"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Check-in User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-21 13:47:53.172509"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-21 15:47:53 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 3ms (ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started GET "/check_ins/new?place_id=980190962" for 127.0.0.1 at 2026-09-21 15:47:53 +0200
+Processing by CheckInsController#new as HTML
+  Parameters: {"place_id" => "980190962"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mPlace Load (0.0ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering check_ins/new.html.erb within layouts/application
+  Rendered check_ins/new.html.erb within layouts/application (Duration: 0.3ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.5ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.7ms | ActiveRecord: 0.1ms (2 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+---------------------------------------------------
+CheckInsControllerTest: test_should_create_check-in
+---------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-21 13:47:53.183727"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Check-in User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-21 13:47:53.183727"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-21 15:47:53 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 3ms (ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mCheckIn Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins"[0m
+  [1m[36mPlace Load (0.0ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started POST "/check_ins" for 127.0.0.1 at 2026-09-21 15:47:53 +0200
+Processing by CheckInsController#create as HTML
+  Parameters: {"check_in" => {"place_id" => "980190962", "expected_minutes" => "30"}}
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mPlace Load (0.0ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = ? LIMIT ? [0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mCheckIn Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = ? AND (ends_at > ?)[0m  [["place_id", 980190962], [nil, "2026-09-21 13:47:53.190511"]]
+  [1m[36mCheckIn Create (0.1ms)[0m  [1m[32mINSERT INTO "check_ins" ("created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["created_at", "2026-09-21 13:47:53.191460"], ["ends_at", "2026-09-21 14:17:53.191156"], ["place_id", 980190962], ["started_at", "2026-09-21 13:47:53.191156"], ["updated_at", "2026-09-21 13:47:53.191460"], ["user_id", 980190963]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://www.example.com/check_ins/980190963
+Completed 302 Found in 3ms (ActiveRecord: 0.3ms (5 queries, 0 cached) | GC: 0.6ms)
+  [1m[36mCheckIn Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins"[0m
+  [1m[36mCheckIn Load (0.1ms)[0m  [1m[34mSELECT "check_ins".* FROM "check_ins" ORDER BY "check_ins"."created_at" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+----------------------------------------------------------
+Moderation::DashboardsControllerTest: test_should_get_show
+----------------------------------------------------------
+Started GET "/moderation/dashboards/show" for 127.0.0.1 at 2026-09-21 15:47:53 +0200
+Processing by Moderation::DashboardsController#show as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering moderation/dashboards/show.html.erb within layouts/application
+  Rendered moderation/dashboards/show.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.6ms | GC: 0.2ms)
+Completed 200 OK in 2ms (Views: 1.7ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 1.1ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-------------------------------------------------------------
+Moderation::StatusReportsControllerTest: test_should_get_show
+-------------------------------------------------------------
+Started GET "/moderation/status_reports/show" for 127.0.0.1 at 2026-09-21 15:47:53 +0200
+Processing by Moderation::StatusReportsController#show as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering moderation/status_reports/show.html.erb within layouts/application
+  Rendered moderation/status_reports/show.html.erb within layouts/application (Duration: 0.5ms | GC: 0.3ms)
+  Rendered layout layouts/application.html.erb (Duration: 1.8ms | GC: 1.4ms)
+Completed 200 OK in 3ms (Views: 2.1ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 1.7ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+----------------------------------------------------------------
+Moderation::StatusReportsControllerTest: test_should_get_approve
+----------------------------------------------------------------
+Started GET "/moderation/status_reports/approve" for 127.0.0.1 at 2026-09-21 15:47:53 +0200
+Processing by Moderation::StatusReportsController#approve as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering moderation/status_reports/approve.html.erb within layouts/application
+  Rendered moderation/status_reports/approve.html.erb within layouts/application (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 2.4ms | GC: 1.9ms)
+Completed 200 OK in 3ms (Views: 2.7ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 1.9ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+---------------------------------------------------------------
+Moderation::StatusReportsControllerTest: test_should_get_reject
+---------------------------------------------------------------
+Started GET "/moderation/status_reports/reject" for 127.0.0.1 at 2026-09-21 15:47:53 +0200
+Processing by Moderation::StatusReportsController#reject as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering moderation/status_reports/reject.html.erb within layouts/application
+  Rendered moderation/status_reports/reject.html.erb within layouts/application (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 1.2ms | GC: 0.7ms)
+Completed 200 OK in 2ms (Views: 1.5ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.7ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+---------------------------------------------------
+StatusReportsControllerTest: test_should_get_create
+---------------------------------------------------
+Started GET "/status_reports/create" for 127.0.0.1 at 2026-09-21 15:47:53 +0200
+Processing by StatusReportsController#create as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering status_reports/create.html.erb within layouts/application
+  Rendered status_reports/create.html.erb within layouts/application (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 1.7ms | GC: 1.1ms)
+Completed 200 OK in 3ms (Views: 2.6ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 1.7ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+------------------------------------------------
+StatusReportsControllerTest: test_should_get_new
+------------------------------------------------
+Started GET "/status_reports/new" for 127.0.0.1 at 2026-09-21 15:47:53 +0200
+Processing by StatusReportsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering status_reports/new.html.erb within layouts/application
+  Rendered status_reports/new.html.erb within layouts/application (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 1.3ms | GC: 0.8ms)
+Completed 200 OK in 3ms (Views: 1.6ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 1.5ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+--------------------------------------------
+UsersControllerTest: test_should_create_user
+--------------------------------------------
+  [1m[36mUser Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "users"[0m
+Started POST "/users" for 127.0.0.1 at 2026-09-21 15:47:53 +0200
+Processing by UsersController#create as HTML
+  Parameters: {"user" => {"name" => "New User", "email" => "[FILTERED]", "password" => "[FILTERED]", "password_confirmation" => "[FILTERED]"}}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-21 13:47:53.245104"], ["email", "[FILTERED]"], ["locked", 0], ["name", "New User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-21 13:47:53.245104"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://www.example.com/places
+Completed 302 Found in 7ms (ActiveRecord: 0.4ms (2 queries, 0 cached) | GC: 2.9ms)
+  [1m[36mUser Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "users"[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+----------------------------------------
+UsersControllerTest: test_should_get_new
+----------------------------------------
+Started GET "/users/new" for 127.0.0.1 at 2026-09-21 15:47:53 +0200
+Processing by UsersController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering users/new.html.erb within layouts/application
+  Rendered users/new.html.erb within layouts/application (Duration: 2.8ms | GC: 1.8ms)
+  Rendered layout layouts/application.html.erb (Duration: 3.1ms | GC: 1.8ms)
+Completed 200 OK in 4ms (Views: 3.4ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 2.3ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.2ms)[0m  [1m[31mDELETE FROM "check_ins";
+DELETE FROM "places";
+DELETE FROM "status_reports";
+DELETE FROM "users";
+INSERT INTO "check_ins" ("id", "created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (980190962, '2026-09-21 13:48:56.567248', '2026-09-21 15:18:59', 980190962, '2026-09-21 14:18:59', '2026-09-21 13:48:56.567248', 980190962), (298486374, '2026-09-21 13:48:56.567248', '2026-09-21 15:18:59', 298486374, '2026-09-21 14:18:59', '2026-09-21 13:48:56.567248', 298486374);
+INSERT INTO "places" ("id", "approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (980190962, TRUE, 4, 0, '2026-09-21 13:48:56.568994', 47.3769, NULL, NULL, 8.5417, 'Central Bench', '08:00-20:00', 980190962, 0, '2026-09-21 13:48:56.568994'), (298486374, TRUE, 2, 2, '2026-09-21 13:48:56.568994', 47.3779, NULL, NULL, 8.5427, 'Shaded Courtyard', '09:00-18:00', 298486374, 0, '2026-09-21 13:48:56.568994');
+INSERT INTO "status_reports" ("id", "created_at", "place_id", "reported_status", "reviewed", "updated_at", "user_id") VALUES (980190962, '2026-09-21 13:48:56.569656', 980190962, 1, FALSE, '2026-09-21 13:48:56.569656', 980190962), (298486374, '2026-09-21 13:48:56.569656', 298486374, 1, FALSE, '2026-09-21 13:48:56.569656', 298486374);
+INSERT INTO "users" ("id", "confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (980190962, 'confirmation-token-one', '2026-09-21 13:48:56.570362', 'alice@example.com', FALSE, 'Alice', 'fixture-password-one', 1, NULL, '2026-09-21 13:48:56.570362'), (298486374, 'confirmation-token-two', '2026-09-21 13:48:56.570362', 'bob@example.com', FALSE, 'Bob', 'fixture-password-two', 1, NULL, '2026-09-21 13:48:56.570362')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (9.4ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_key_check[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+------------------------------------------
+PlacesControllerTest: test_should_get_show
+------------------------------------------
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started GET "/places/980190962" for 127.0.0.1 at 2026-09-21 15:48:56 +0200
+Processing by PlacesController#show as HTML
+  Parameters: {"id" => "980190962"}
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering places/show.html.erb within layouts/application
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  Rendered places/show.html.erb within layouts/application (Duration: 1.9ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 5.1ms | GC: 0.0ms)
+Completed 200 OK in 9ms (Views: 6.2ms | ActiveRecord: 0.2ms (2 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+----------------------------------------------------------------
+PlacesControllerTest: test_authenticated_users_can_create_places
+----------------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-21 13:48:56.648257"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Place Proposer"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-21 13:48:56.648257"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-21 15:48:56 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 3ms (ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mPlace Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "places"[0m
+Started POST "/places" for 127.0.0.1 at 2026-09-21 15:48:56 +0200
+Processing by PlacesController#create as HTML
+  Parameters: {"place" => {"name" => "New Place", "category" => "seating", "latitude" => "47.3769", "longitude" => "8.5417", "capacity" => "2"}}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mPlace Create (0.2ms)[0m  [1m[32mINSERT INTO "places" ("approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["approved", 0], ["capacity", 2], ["category", 0], ["created_at", "2026-09-21 13:48:56.659472"], ["latitude", 47.3769], ["locked_at", nil], ["locked_by_id", nil], ["longitude", 8.5417], ["name", "New Place"], ["opening_hours", nil], ["proposed_by_id", 980190963], ["status", 0], ["updated_at", "2026-09-21 13:48:56.659472"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://www.example.com/places/980190963
+Completed 302 Found in 5ms (ActiveRecord: 0.4ms (2 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mPlace Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "places"[0m
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" ORDER BY "places"."created_at" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-------------------------------------------
+PlacesControllerTest: test_should_get_index
+-------------------------------------------
+Started GET "/places" for 127.0.0.1 at 2026-09-21 15:48:56 +0200
+Processing by PlacesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering places/index.html.erb within layouts/application
+  [1m[36mPlace Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "places" WHERE "places"."approved" = ? LIMIT ?[0m  [["approved", 1], ["LIMIT", 1]]
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."approved" = ? ORDER BY "places"."name" ASC[0m  [["approved", 1]]
+  Rendered places/index.html.erb within layouts/application (Duration: 0.8ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 1.1ms | GC: 0.0ms)
+Completed 200 OK in 2ms (Views: 1.2ms | ActiveRecord: 0.1ms (2 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+--------------------------------------------------------------------
+PlacesControllerTest: test_anonymous_users_cannot_get_new_place_form
+--------------------------------------------------------------------
+Started GET "/places/new" for 127.0.0.1 at 2026-09-21 15:48:56 +0200
+Processing by PlacesController#new as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Redirected to http://www.example.com/session/new
+Filter chain halted as :require_authentication rendered or redirected
+Completed 302 Found in 1ms (ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+------------------------------------------------
+StatusReportsControllerTest: test_should_get_new
+------------------------------------------------
+Started GET "/status_reports/new" for 127.0.0.1 at 2026-09-21 15:48:56 +0200
+Processing by StatusReportsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering status_reports/new.html.erb within layouts/application
+  Rendered status_reports/new.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.4ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.7ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+---------------------------------------------------
+StatusReportsControllerTest: test_should_get_create
+---------------------------------------------------
+Started GET "/status_reports/create" for 127.0.0.1 at 2026-09-21 15:48:56 +0200
+Processing by StatusReportsController#create as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering status_reports/create.html.erb within layouts/application
+  Rendered status_reports/create.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.3ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.5ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+---------------------------------------------------------------
+Moderation::StatusReportsControllerTest: test_should_get_reject
+---------------------------------------------------------------
+Started GET "/moderation/status_reports/reject" for 127.0.0.1 at 2026-09-21 15:48:56 +0200
+Processing by Moderation::StatusReportsController#reject as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering moderation/status_reports/reject.html.erb within layouts/application
+  Rendered moderation/status_reports/reject.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.3ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.5ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-------------------------------------------------------------
+Moderation::StatusReportsControllerTest: test_should_get_show
+-------------------------------------------------------------
+Started GET "/moderation/status_reports/show" for 127.0.0.1 at 2026-09-21 15:48:56 +0200
+Processing by Moderation::StatusReportsController#show as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering moderation/status_reports/show.html.erb within layouts/application
+  Rendered moderation/status_reports/show.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.3ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.5ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+----------------------------------------------------------------
+Moderation::StatusReportsControllerTest: test_should_get_approve
+----------------------------------------------------------------
+Started GET "/moderation/status_reports/approve" for 127.0.0.1 at 2026-09-21 15:48:56 +0200
+Processing by Moderation::StatusReportsController#approve as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering moderation/status_reports/approve.html.erb within layouts/application
+  Rendered moderation/status_reports/approve.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.3ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.5ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+------------------------------------------------------
+Moderation::PlacesControllerTest: test_should_get_edit
+------------------------------------------------------
+Started GET "/moderation/places/edit" for 127.0.0.1 at 2026-09-21 15:48:56 +0200
+Processing by Moderation::PlacesController#edit as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering moderation/places/edit.html.erb within layouts/application
+  Rendered moderation/places/edit.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.3ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.5ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+---------------------------------------------------------
+Moderation::PlacesControllerTest: test_should_get_approve
+---------------------------------------------------------
+Started GET "/moderation/places/approve" for 127.0.0.1 at 2026-09-21 15:48:56 +0200
+Processing by Moderation::PlacesController#approve as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering moderation/places/approve.html.erb within layouts/application
+  Rendered moderation/places/approve.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.4ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.6ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+--------------------------------------------------------
+Moderation::PlacesControllerTest: test_should_get_reject
+--------------------------------------------------------
+Started GET "/moderation/places/reject" for 127.0.0.1 at 2026-09-21 15:48:56 +0200
+Processing by Moderation::PlacesController#reject as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering moderation/places/reject.html.erb within layouts/application
+  Rendered moderation/places/reject.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.4ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.5ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+--------------------------------------------------------
+Moderation::PlacesControllerTest: test_should_get_update
+--------------------------------------------------------
+Started GET "/moderation/places/update" for 127.0.0.1 at 2026-09-21 15:48:56 +0200
+Processing by Moderation::PlacesController#update as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering moderation/places/update.html.erb within layouts/application
+  Rendered moderation/places/update.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.3ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.4ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+------------------------------------------------------
+Moderation::PlacesControllerTest: test_should_get_show
+------------------------------------------------------
+Started GET "/moderation/places/show" for 127.0.0.1 at 2026-09-21 15:48:56 +0200
+Processing by Moderation::PlacesController#show as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering moderation/places/show.html.erb within layouts/application
+  Rendered moderation/places/show.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.2ms | GC: 0.0ms)
+Completed 200 OK in 0ms (Views: 0.4ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+--------------------------------------------------------
+Moderation::PlacesControllerTest: test_should_get_unlock
+--------------------------------------------------------
+Started GET "/moderation/places/unlock" for 127.0.0.1 at 2026-09-21 15:48:56 +0200
+Processing by Moderation::PlacesController#unlock as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering moderation/places/unlock.html.erb within layouts/application
+  Rendered moderation/places/unlock.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.3ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.4ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+----------------------------------------------------
+CheckInsControllerTest: test_should_get_own_check-in
+----------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-21 13:48:56.692380"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Check-in User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-21 13:48:56.692380"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-21 15:48:56 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 3ms (ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mPlace Load (0.0ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCheckIn Create (0.3ms)[0m  [1m[32mINSERT INTO "check_ins" ("created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["created_at", "2026-09-21 13:48:56.699846"], ["ends_at", "2026-09-21 14:18:56.697571"], ["place_id", 980190962], ["started_at", "2026-09-21 13:48:56.697540"], ["updated_at", "2026-09-21 13:48:56.699846"], ["user_id", 980190963]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/check_ins/980190963" for 127.0.0.1 at 2026-09-21 15:48:56 +0200
+Processing by CheckInsController#show as HTML
+  Parameters: {"id" => "980190963"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mCheckIn Load (0.1ms)[0m  [1m[34mSELECT "check_ins".* FROM "check_ins" WHERE "check_ins"."user_id" = ? AND "check_ins"."id" = ? LIMIT ?[0m  [["user_id", 980190963], ["id", 980190963], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering check_ins/show.html.erb within layouts/application
+  [1m[36mPlace Load (0.0ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  Rendered check_ins/show.html.erb within layouts/application (Duration: 0.9ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 1.1ms | GC: 0.0ms)
+Completed 200 OK in 3ms (Views: 1.3ms | ActiveRecord: 0.2ms (3 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+---------------------------------------------------
+CheckInsControllerTest: test_should_create_check-in
+---------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-21 13:48:56.708586"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Check-in User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-21 13:48:56.708586"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-21 15:48:56 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 3ms (ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mCheckIn Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins"[0m
+  [1m[36mPlace Load (0.0ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started POST "/check_ins" for 127.0.0.1 at 2026-09-21 15:48:56 +0200
+Processing by CheckInsController#create as HTML
+  Parameters: {"check_in" => {"place_id" => "980190962", "expected_minutes" => "30"}}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mPlace Load (0.0ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = ? LIMIT ? [0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mCheckIn Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = ? AND (ends_at > ?)[0m  [["place_id", 980190962], [nil, "2026-09-21 13:48:56.716114"]]
+  [1m[36mCheckIn Create (0.1ms)[0m  [1m[32mINSERT INTO "check_ins" ("created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["created_at", "2026-09-21 13:48:56.716846"], ["ends_at", "2026-09-21 14:18:56.716501"], ["place_id", 980190962], ["started_at", "2026-09-21 13:48:56.716501"], ["updated_at", "2026-09-21 13:48:56.716846"], ["user_id", 980190963]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://www.example.com/check_ins/980190963
+Completed 302 Found in 3ms (ActiveRecord: 0.4ms (5 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mCheckIn Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins"[0m
+  [1m[36mCheckIn Load (0.1ms)[0m  [1m[34mSELECT "check_ins".* FROM "check_ins" ORDER BY "check_ins"."created_at" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-------------------------------------------
+CheckInsControllerTest: test_should_get_new
+-------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-21 13:48:56.721707"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Check-in User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-21 13:48:56.721707"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-21 15:48:56 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 3ms (ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started GET "/check_ins/new?place_id=980190962" for 127.0.0.1 at 2026-09-21 15:48:56 +0200
+Processing by CheckInsController#new as HTML
+  Parameters: {"place_id" => "980190962"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mPlace Load (0.0ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering check_ins/new.html.erb within layouts/application
+  Rendered check_ins/new.html.erb within layouts/application (Duration: 1.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 1.3ms | GC: 0.0ms)
+Completed 200 OK in 2ms (Views: 1.5ms | ActiveRecord: 0.1ms (2 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+--------------------------------------------------------------------
+CheckInsControllerTest: test_rejects_check-in_when_the_place_is_full
+--------------------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-21 13:48:56.733388"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Check-in User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-21 13:48:56.733388"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-21 15:48:56 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 3ms (ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mPlace Update (0.1ms)[0m  [1m[33mUPDATE "places" SET "capacity" = ?, "updated_at" = ? WHERE "places"."id" = ?[0m  [["capacity", 1], ["updated_at", "2026-09-21 13:48:56.738482"], ["id", 980190962]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCheckIn Create (0.1ms)[0m  [1m[32mINSERT INTO "check_ins" ("created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["created_at", "2026-09-21 13:48:56.739655"], ["ends_at", "2026-09-21 14:18:56.739403"], ["place_id", 980190962], ["started_at", "2026-09-21 13:48:56.739371"], ["updated_at", "2026-09-21 13:48:56.739655"], ["user_id", 980190962]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mCheckIn Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins"[0m
+Started POST "/check_ins" for 127.0.0.1 at 2026-09-21 15:48:56 +0200
+Processing by CheckInsController#create as HTML
+  Parameters: {"check_in" => {"place_id" => "980190962", "expected_minutes" => "30"}}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mPlace Load (0.0ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = ? LIMIT ? [0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mCheckIn Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = ? AND (ends_at > ?)[0m  [["place_id", 980190962], [nil, "2026-09-21 13:48:56.742111"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  Rendering layout layouts/application.html.erb
+  Rendering check_ins/new.html.erb within layouts/application
+  Rendered check_ins/new.html.erb within layouts/application (Duration: 0.4ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.6ms | GC: 0.0ms)
+Completed 422 Unprocessable Content in 3ms (Views: 0.8ms | ActiveRecord: 0.3ms (4 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mCheckIn Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins"[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+----------------------------------------------------------
+Moderation::DashboardsControllerTest: test_should_get_show
+----------------------------------------------------------
+Started GET "/moderation/dashboards/show" for 127.0.0.1 at 2026-09-21 15:48:56 +0200
+Processing by Moderation::DashboardsController#show as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering moderation/dashboards/show.html.erb within layouts/application
+  Rendered moderation/dashboards/show.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.3ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.6ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-------------------------------------------
+ProfileControllerTest: test_should_get_show
+-------------------------------------------
+Started GET "/profile/show" for 127.0.0.1 at 2026-09-21 15:48:56 +0200
+Processing by ProfileController#show as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering profile/show.html.erb within layouts/application
+  Rendered profile/show.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.4ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.8ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+---------------------------------------------
+ProfileControllerTest: test_should_get_update
+---------------------------------------------
+Started GET "/profile/update" for 127.0.0.1 at 2026-09-21 15:48:56 +0200
+Processing by ProfileController#update as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering profile/update.html.erb within layouts/application
+  Rendered profile/update.html.erb within layouts/application (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.4ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.6ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-------------------------------------------
+ProfileControllerTest: test_should_get_edit
+-------------------------------------------
+Started GET "/profile/edit" for 127.0.0.1 at 2026-09-21 15:48:56 +0200
+Processing by ProfileController#edit as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering profile/edit.html.erb within layouts/application
+  Rendered profile/edit.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.3ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.4ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+----------------------------------------
+UsersControllerTest: test_should_get_new
+----------------------------------------
+Started GET "/users/new" for 127.0.0.1 at 2026-09-21 15:48:56 +0200
+Processing by UsersController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering users/new.html.erb within layouts/application
+  Rendered users/new.html.erb within layouts/application (Duration: 1.3ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 1.5ms | GC: 0.0ms)
+Completed 200 OK in 2ms (Views: 1.7ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+--------------------------------------------
+UsersControllerTest: test_should_create_user
+--------------------------------------------
+  [1m[36mUser Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "users"[0m
+Started POST "/users" for 127.0.0.1 at 2026-09-21 15:48:56 +0200
+Processing by UsersController#create as HTML
+  Parameters: {"user" => {"name" => "New User", "email" => "[FILTERED]", "password" => "[FILTERED]", "password_confirmation" => "[FILTERED]"}}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-21 13:48:56.762714"], ["email", "[FILTERED]"], ["locked", 0], ["name", "New User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-21 13:48:56.762714"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://www.example.com/places
+Completed 302 Found in 4ms (ActiveRecord: 0.3ms (2 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mUser Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "users"[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-----------------------------------------
+UserTest: test_normalizes_email_addresses
+-----------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+--------------------------------------------------------------
+UserTest: test_requires_a_password_with_at_least_12_characters
+--------------------------------------------------------------
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+----------------------------------------
+UserTest: test_defaults_to_the_user_role
+----------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+--------------------------------------------------------------
+SessionsControllerTest: test_should_reject_invalid_credentials
+--------------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-21 13:48:56.774395"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Login User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-21 13:48:56.774395"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-21 15:48:56 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/new.html.erb within layouts/application (Duration: 0.6ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.9ms | GC: 0.0ms)
+Completed 422 Unprocessable Content in 4ms (Views: 1.4ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-----------------------------------------------------------------
+SessionsControllerTest: test_should_log_in_with_valid_credentials
+-----------------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-21 13:48:56.783913"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Login User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-21 13:48:56.783913"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-21 15:48:56 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 3ms (ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-------------------------------------------
+SessionsControllerTest: test_should_log_out
+-------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-21 13:48:56.791480"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Login User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-21 13:48:56.791480"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-21 15:48:56 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 3ms (ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+Started DELETE "/session" for 127.0.0.1 at 2026-09-21 15:48:56 +0200
+Processing by SessionsController#destroy as HTML
+Redirected to http://www.example.com/session/new
+Completed 302 Found in 0ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-------------------------------------------
+SessionsControllerTest: test_should_get_new
+-------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-21 13:48:56.800926"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Login User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-21 13:48:56.800926"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/session/new" for 127.0.0.1 at 2026-09-21 15:48:56 +0200
+Processing by SessionsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/new.html.erb within layouts/application (Duration: 0.4ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.6ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.8ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-------------------------------------------------
+Admin::UsersControllerTest: test_should_get_index
+-------------------------------------------------
+Started GET "/admin/users/index" for 127.0.0.1 at 2026-09-21 15:48:56 +0200
+Processing by Admin::UsersController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering admin/users/index.html.erb within layouts/application
+  Rendered admin/users/index.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.3ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.5ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+--------------------------------------------------
+Admin::UsersControllerTest: test_should_get_demote
+--------------------------------------------------
+Started GET "/admin/users/demote" for 127.0.0.1 at 2026-09-21 15:48:56 +0200
+Processing by Admin::UsersController#demote as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering admin/users/demote.html.erb within layouts/application
+  Rendered admin/users/demote.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.3ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.5ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+------------------------------------------------
+Admin::UsersControllerTest: test_should_get_lock
+------------------------------------------------
+Started GET "/admin/users/lock" for 127.0.0.1 at 2026-09-21 15:48:56 +0200
+Processing by Admin::UsersController#lock as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering admin/users/lock.html.erb within layouts/application
+  Rendered admin/users/lock.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.4ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.6ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+--------------------------------------------------
+Admin::UsersControllerTest: test_should_get_unlock
+--------------------------------------------------
+Started GET "/admin/users/unlock" for 127.0.0.1 at 2026-09-21 15:48:56 +0200
+Processing by Admin::UsersController#unlock as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering admin/users/unlock.html.erb within layouts/application
+  Rendered admin/users/unlock.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.3ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.5ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+---------------------------------------------------
+Admin::UsersControllerTest: test_should_get_promote
+---------------------------------------------------
+Started GET "/admin/users/promote" for 127.0.0.1 at 2026-09-21 15:48:56 +0200
+Processing by Admin::UsersController#promote as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering admin/users/promote.html.erb within layouts/application
+  Rendered admin/users/promote.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.3ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.4ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+------------------------------------------------
+Admin::UsersControllerTest: test_should_get_show
+------------------------------------------------
+Started GET "/admin/users/show" for 127.0.0.1 at 2026-09-21 15:48:56 +0200
+Processing by Admin::UsersController#show as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering admin/users/show.html.erb within layouts/application
+  Rendered admin/users/show.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.3ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.4ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m

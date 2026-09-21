@@ -47,4 +47,27 @@ class CheckInsControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :success
   end
+
+  test "rejects check-in when the place is full" do
+    place = places(:one)
+    place.update!(capacity: 1)
+
+    CheckIn.create!(
+      place: place,
+      user: users(:one),
+      started_at: Time.current,
+      ends_at: 30.minutes.from_now
+    )
+
+    assert_no_difference("CheckIn.count") do
+      post check_ins_url, params: {
+        check_in: {
+          place_id: place.id,
+          expected_minutes: 30
+        }
+      }
+    end
+
+    assert_response :unprocessable_entity
+  end
 end

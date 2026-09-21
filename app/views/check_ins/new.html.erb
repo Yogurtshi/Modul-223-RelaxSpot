@@ -1,5 +1,13 @@
 <h1>Check in at <%= @place.name %></h1>
 
+<% if @check_in.errors.any? %>
+  <ul>
+    <% @check_in.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
+
 <%= form_with url: check_ins_path, scope: :check_in do |form| %>
   <%= form.hidden_field :place_id, value: @place.id %>
 
