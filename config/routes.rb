@@ -2,7 +2,8 @@
 Rails.application.routes.draw do
   resources :users, only: [ :new, :create ]
   resources :places, only: [ :index, :show, :new, :create ]
-  resource :session, only: [ :new, :create, :destroy ]
+  resources :session, only: [ :new, :create, :destroy ]
+  resources :check_ins, only: [ :new, :create, :show ]
 
   namespace :admin do
     get "users/index"
@@ -29,9 +30,6 @@ Rails.application.routes.draw do
   get "profile/update"
   get "status_reports/new"
   get "status_reports/create"
-  get "check_ins/new"
-  get "check_ins/create"
-  get "check_ins/show"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
