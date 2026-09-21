@@ -1,2 +1,6 @@
-<h1>CheckIns#show</h1>
-<p>Find me in app/views/check_ins/show.html.erb</p>
+<h1>Check-in confirmed</h1>
+
+<p>You are checked in at <%= @check_in.place.name %>.</p>
+<p>Your check-in ends at <%= l(@check_in.ends_at, format: :short) %>.</p>
+
+<%= link_to "Back to places", places_path %>

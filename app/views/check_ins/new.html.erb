@@ -1,2 +1,12 @@
-<h1>CheckIns#new</h1>
-<p>Find me in app/views/check_ins/new.html.erb</p>
+<h1>Check in at <%= @place.name %></h1>
+
+<%= form_with url: check_ins_path, scope: :check_in do |form| %>
+  <%= form.hidden_field :place_id, value: @place.id %>
+
+  <%= form.label :expected_minutes, "Expected stay in minutes" %>
+  <%= form.number_field :expected_minutes, min: 1, value: 30 %>
+
+  <%= form.submit "Check in" %>
+<% end %>
+
+<%= link_to "Back to place", place_path(@place) %>

@@ -6,3 +6,10 @@
 <p>Capacity: <%= @place.capacity %></p>
 
 <%= link_to "Back to places", places_path %>
+
+<% if current_user %>
+  <%= link_to "Check in here",
+              new_check_in_path(place_id: @place.id) %>
+<% else %>
+  <%= link_to "Log in to check in", new_session_path %>
+<% end %>
