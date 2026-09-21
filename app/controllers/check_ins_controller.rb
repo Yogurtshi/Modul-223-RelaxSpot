@@ -16,7 +16,7 @@ class CheckInsController < ApplicationController
     )
 
     redirect_to @check_in
-  rescue CheckIn::CapacityExceeded => error
+  rescue CheckIn::CapacityExceeded, CheckIn::AlreadyCheckedIn => error
     @check_in = CheckIn.new
     @check_in.errors.add(:base, error.message)
     render :new, status: :unprocessable_entity

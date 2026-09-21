@@ -52,9 +52,37 @@ class CheckInsControllerTest < ActionDispatch::IntegrationTest
     place = places(:one)
     place.update!(capacity: 1)
 
+    other_user = User.create!(
+      name: "Capacity User",
+      email: "capacity-user@example.com",
+      password: "secure-password"
+    )
+
     CheckIn.create!(
       place: place,
-      user: users(:one),
+      user: other_user,
+      started_at: Time.current,
+      ends_at: 30.minutes.from_now
+    )
+
+    assert_no_difference("CheckIn.count") do
+      post check_ins_url, params: {
+        check_in: {
+          place_id: place.id,
+          expected_minutes: 30
+        }
+      }
+    end
+
+    assert_response :unprocessable_entity
+  end
+
+  test "rejects a second active check-in at the same place" do
+    place = places(:one)
+
+    CheckIn.create!(
+      place: place,
+      user: @user,
       started_at: Time.current,
       ends_at: 30.minutes.from_now
     )
