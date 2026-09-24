@@ -4,10 +4,6 @@
     <h1>Dashboard</h1>
     <p class="page-intro">Keep an eye on community activity, new suggestions, and account access.</p>
   </div>
-
-  <% if current_user.admin? %>
-    <%= link_to "Manage all users", admin_users_path, class: "secondary-button" %>
-  <% end %>
 </div>
 
 <div class="dashboard-grid">
@@ -52,19 +48,21 @@
 
     <ul class="dashboard-list">
       <% @users.each do |user| %>
-        <li>
-          <div>
-            <strong><%= user.name %></strong>
-            <span><%= user.role.humanize %> · <%= user.locked? ? "Blocked" : "Active" %></span>
-          </div>
-          <% if current_user.admin? %>
-            <% if user.locked? %>
-              <%= button_to "Unblock", unlock_admin_user_path(user), method: :post, class: "small-button small-button--soft" %>
-            <% else %>
-              <%= button_to "Block", lock_admin_user_path(user), method: :post, class: "small-button small-button--danger" %>
+        <% if current_user.admin? %>
+          <li class="dashboard-user-card">
+            <%= link_to admin_user_path(user), class: "dashboard-user-card__link" do %>
+              <strong><%= user.name %></strong>
+              <span><%= user.role.humanize %> · <%= user.locked? ? "Blocked" : "Active" %></span>
             <% end %>
-          <% end %>
-        </li>
+          </li>
+        <% else %>
+          <li class="dashboard-user-card">
+            <div class="dashboard-user-card__link">
+              <strong><%= user.name %></strong>
+              <span><%= user.role.humanize %> · <%= user.locked? ? "Blocked" : "Active" %></span>
+            </div>
+          </li>
+        <% end %>
       <% end %>
     </ul>
   </section>

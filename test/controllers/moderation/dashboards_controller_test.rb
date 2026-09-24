@@ -24,6 +24,18 @@ class Moderation::DashboardsControllerTest < ActionDispatch::IntegrationTest
     assert_select "h2", /Place suggestions/i
   end
 
+  test "admin can open a user profile from the dashboard" do
+    admin = User.create!(name: "Dashboard Admin", email: "dashboard-admin@example.com", password: "password1234", role: :admin)
+    user = User.create!(name: "Dashboard User", email: "dashboard-user@example.com", password: "password1234")
+    post session_path, params: { email: admin.email, password: "password1234" }
+
+    get moderation_dashboards_show_url
+
+    assert_select "a[href='#{admin_user_path(user)}']", text: /#{user.name}/
+    assert_select "a.dashboard-user-card__link[href='#{admin_user_path(user)}']"
+    assert_select "button", { text: /Block|Unblock/, count: 0 }
+  end
+
   test "regular users cannot access the dashboard" do
     user = User.create!(name: "Regular User", email: "regular-dashboard@example.com", password: "password1234")
     post session_path, params: { email: user.email, password: "password1234" }
