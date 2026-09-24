@@ -36,9 +36,18 @@
       <article class="spot-card">
         <%= link_to "", place_path(place), class: "spot-card__cover-link", aria: { label: "View #{place.name}" } %>
 
-        <div class="spot-card__topline">
-          <span class="spot-card__category"><%= place.category.humanize %></span>
-          <span class="spot-card__status"><%= place.status.humanize %></span>
+        <div class="spot-card__actions">
+          <% if current_user %>
+            <%= link_to new_status_report_path(place_id: place.id), class: "small-button small-button--soft spot-card__report", title: "Report #{place.name}", aria: { label: "Report #{place.name}" } do %>
+              <span aria-hidden="true">⚑</span>
+              <span class="visually-hidden">Report</span>
+            <% end %>
+          <% else %>
+            <%= link_to new_session_path, class: "small-button small-button--soft spot-card__report", title: "Log in to report a place", aria: { label: "Log in to report a place" } do %>
+              <span aria-hidden="true">⚑</span>
+              <span class="visually-hidden">Report</span>
+            <% end %>
+          <% end %>
         </div>
 
         <h2><%= place.name %></h2>
@@ -47,12 +56,9 @@
           people currently here
         </p>
 
-        <div class="spot-card__actions">
-          <% if current_user %>
-            <%= link_to "Report", new_status_report_path(place_id: place.id), class: "small-button small-button--soft spot-card__report" %>
-          <% else %>
-            <%= link_to "Report", new_session_path, class: "small-button small-button--soft spot-card__report" %>
-          <% end %>
+        <div class="spot-card__topline">
+          <span class="spot-card__category"><%= place.category.humanize %></span>
+          <span class="spot-card__status"><%= place.status.humanize %></span>
         </div>
       </article>
     <% end %>

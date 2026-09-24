@@ -246,10 +246,10 @@ input {
 
 .spot-card__topline {
 	display: flex;
-	justify-content: space-between;
+	justify-content: flex-start;
 	align-items: center;
 	gap: 10px;
-	margin-bottom: 24px;
+	margin-top: auto;
 }
 
 .spot-card__category,
@@ -298,9 +298,9 @@ input {
 	pointer-events: none;
 	display: flex;
 	align-items: center;
-	justify-content: space-between;
+	justify-content: flex-end;
 	gap: 10px;
-	margin-top: auto;
+	min-height: 32px;
 }
 
 .spot-card__link {
@@ -314,6 +314,15 @@ input {
 	position: relative;
 	z-index: 2;
 	pointer-events: auto;
+	width: 36px;
+	height: 36px;
+	padding: 0;
+	font-size: 0.78rem;
+}
+
+.spot-card__report > span[aria-hidden="true"] {
+	font-size: 1.45rem;
+	line-height: 1;
 }
 
 .empty-state {
