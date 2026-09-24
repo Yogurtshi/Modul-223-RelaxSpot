@@ -20,7 +20,10 @@
         </div>
 
         <h2><%= place.name %></h2>
-        <p class="spot-card__capacity"><strong><%= place.capacity %></strong> people capacity</p>
+        <p class="spot-card__capacity">
+          <strong><%= @active_check_ins_by_place.fetch(place.id, 0) %>/<%= place.capacity %></strong>
+          people currently here
+        </p>
 
         <div class="spot-card__actions">
           <% if current_user %>

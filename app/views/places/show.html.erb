@@ -17,6 +17,10 @@
       <span class="detail-label">Location</span>
       <strong><%= @place.latitude %>, <%= @place.longitude %></strong>
     </div>
+    <div class="place-detail-item">
+      <span class="detail-label">Opening hours</span>
+      <strong><%= @place.opening_hours.presence || "Not specified" %></strong>
+    </div>
   </section>
 
   <div class="place-actions">

@@ -254,6 +254,12 @@ input {
 	font-size: 1.2rem;
 }
 
+.spot-card__capacity {
+	display: flex;
+	align-items: baseline;
+	gap: 6px;
+}
+
 .spot-card__actions {
 	position: relative;
 	z-index: 1;

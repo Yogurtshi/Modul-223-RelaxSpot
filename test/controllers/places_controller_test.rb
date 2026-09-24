@@ -6,6 +6,20 @@ class PlacesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "places index shows active occupancy over capacity" do
+    CheckIn.create!(
+      place: places(:one),
+      user: users(:one),
+      started_at: 10.minutes.ago,
+      ends_at: 20.minutes.from_now
+    )
+
+    get places_url
+
+    assert_response :success
+    assert_select ".spot-card__capacity", /1\/4/
+  end
+
   test "anonymous users cannot get new place form" do
     get new_place_url
     assert_redirected_to new_session_url

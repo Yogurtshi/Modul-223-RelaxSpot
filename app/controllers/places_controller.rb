@@ -2,6 +2,7 @@ class PlacesController < ApplicationController
   before_action :require_authentication, only: [ :new, :create ]
   def index
     @places = Place.where(approved: true).order(:name)
+    @active_check_ins_by_place = CheckIn.active.where(place_id: @places).group(:place_id).count
   end
 
   def show
