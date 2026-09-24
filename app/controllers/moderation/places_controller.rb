@@ -53,8 +53,9 @@ class Moderation::PlacesController < ApplicationController
     return if @place.locked_by_id == current_user.id
 
     if @place.locked_at.present? && Time.current - @place.locked_at < 5.minutes
-      head :forbidden
-      return
+      lock_message = "#{@place.locked_by.name} is currently editing this place."
+      return redirect_to moderation_dashboards_show_path,
+        alert: "#{lock_message} You were redirected to the moderation dashboard."
     end
 
     @place.update!(locked_by: nil, locked_at: nil)

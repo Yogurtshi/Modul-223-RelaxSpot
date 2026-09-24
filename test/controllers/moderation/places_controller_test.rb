@@ -46,6 +46,34 @@ class Moderation::PlacesControllerTest < ActionDispatch::IntegrationTest
     assert @place.reload.approved
   end
 
+  test "moderator can edit a place" do
+    get edit_moderation_place_path(@place)
+
+    assert_response :success
+    assert_select "h1", /Edit Central Park Bench/
+    assert_select "form[action='#{moderation_place_path(@place)}']"
+
+    patch moderation_place_path(@place), params: {
+      place: {
+        name: "Updated Park Bench",
+        category: "shade",
+        status: "occupied",
+        capacity: 4,
+        latitude: 47.377,
+        longitude: 8.542,
+        opening_hours: "08:00-20:00"
+      }
+    }
+
+    assert_redirected_to moderation_place_path(@place)
+    @place.reload
+    assert_equal "Updated Park Bench", @place.name
+    assert_equal "shade", @place.category
+    assert_equal 4, @place.capacity
+    assert_nil @place.locked_by_id
+    assert_nil @place.locked_at
+  end
+
   test "moderator can reject a place" do
     post "/moderation/places/#{@place.id}/reject"
 
@@ -63,7 +91,28 @@ class Moderation::PlacesControllerTest < ActionDispatch::IntegrationTest
 
     get "/moderation/places/#{@place.id}/edit"
 
-    assert_response :forbidden
+    assert_redirected_to moderation_dashboards_show_path
+    assert_equal "Moderator User is currently editing this place. You were redirected to the moderation dashboard.", flash[:alert]
+  end
+
+  test "admin is redirected to the dashboard when a place is locked" do
+    admin = User.create!(
+      name: "Admin User",
+      email: "admin-lock@example.com",
+      password: "password1234",
+      role: :admin
+    )
+    @place.update!(locked_by: @moderator, locked_at: Time.current)
+
+    post session_path, params: {
+      email: admin.email,
+      password: "password1234"
+    }
+
+    get edit_moderation_place_path(@place)
+
+    assert_redirected_to moderation_dashboards_show_path
+    assert_equal "Moderator User is currently editing this place. You were redirected to the moderation dashboard.", flash[:alert]
   end
 
   test "moderator can take over an expired edit lock" do
