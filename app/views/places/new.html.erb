@@ -1,2 +1,57 @@
-<h1>Places#new</h1>
-<p>Find me in app/views/places/new.html.erb</p>
+<section class="form-page">
+	<div class="form-heading">
+		<p class="eyebrow">Share a calm place</p>
+		<h1>Suggest a place</h1>
+		<p class="page-intro">Tell the community about a spot worth discovering. A moderator or admin will review it before it appears in the places list.</p>
+	</div>
+
+	<%= form_with model: @place, class: "place-form" do |form| %>
+		<% if @place.errors.any? %>
+			<div class="form-errors">
+				<strong>Please check the form:</strong>
+				<ul>
+					<% @place.errors.full_messages.each do |message| %>
+						<li><%= message %></li>
+					<% end %>
+				</ul>
+			</div>
+		<% end %>
+
+		<div class="form-field-grid">
+			<div class="field-group field-group--wide">
+				<%= form.label :name, "Place name" %>
+				<%= form.text_field :name, placeholder: "e.g. Riverside garden", autofocus: true %>
+			</div>
+
+			<div class="field-group">
+				<%= form.label :category %>
+				<%= form.select :category, Place.categories.keys.map { |category| [ category.humanize, category ] } %>
+			</div>
+
+			<div class="field-group">
+				<%= form.label :capacity %>
+				<%= form.number_field :capacity, min: 1, placeholder: "e.g. 12" %>
+			</div>
+
+			<div class="field-group">
+				<%= form.label :latitude %>
+				<%= form.number_field :latitude, step: "any", placeholder: "e.g. 47.3769" %>
+			</div>
+
+			<div class="field-group">
+				<%= form.label :longitude %>
+				<%= form.number_field :longitude, step: "any", placeholder: "e.g. 8.5417" %>
+			</div>
+
+			<div class="field-group field-group--wide">
+				<%= form.label :opening_hours, "Opening hours (optional)" %>
+				<%= form.text_field :opening_hours, placeholder: "e.g. Monday to Friday, 08:00–18:00" %>
+			</div>
+		</div>
+
+		<div class="place-form__actions">
+			<%= link_to "Cancel", places_path, class: "secondary-button" %>
+			<%= form.submit "Submit for review", class: "primary-button" %>
+		</div>
+	<% end %>
+</section>
