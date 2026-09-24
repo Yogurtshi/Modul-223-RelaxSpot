@@ -17,7 +17,7 @@ class PlacesController < ApplicationController
     @place = current_user.proposed_places.build(place_params)
 
     if @place.save
-      redirect_to @place
+      redirect_to places_path, notice: "Place suggestion submitted for review."
     else
       render :new, status: :unprocessable_entity
     end

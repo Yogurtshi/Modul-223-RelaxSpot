@@ -55,6 +55,7 @@ class PlacesControllerTest < ActionDispatch::IntegrationTest
     end
 
     created_place = Place.order(:created_at).last
-    assert_redirected_to place_url(created_place)
+    assert_redirected_to places_url
+    assert_equal false, created_place.approved?
   end
 end
