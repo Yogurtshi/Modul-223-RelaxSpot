@@ -7,6 +7,10 @@ class UserPolicy < ApplicationPolicy
     admin?
   end
 
+  def update?
+    admin?
+  end
+
   def promote?
     admin?
   end

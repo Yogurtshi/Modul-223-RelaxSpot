@@ -1,6 +1,6 @@
 class Admin::UsersController < ApplicationController
   before_action :require_authentication
-  before_action :set_user, only: [ :show, :promote, :demote, :lock, :unlock ]
+  before_action :set_user, only: [ :show, :edit, :update, :promote, :demote, :lock, :unlock ]
 
   def index
     authorize User
@@ -9,6 +9,20 @@ class Admin::UsersController < ApplicationController
 
   def show
     authorize @user
+  end
+
+  def edit
+    authorize @user, :update?
+  end
+
+  def update
+    authorize @user, :update?
+
+    if @user.update(user_params)
+      redirect_to admin_user_path(@user), notice: "User details updated."
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   def promote
@@ -39,5 +53,9 @@ class Admin::UsersController < ApplicationController
 
   def set_user
     @user = User.find(params[:id])
+  end
+
+  def user_params
+    params.require(:user).permit(:name, :email)
   end
 end

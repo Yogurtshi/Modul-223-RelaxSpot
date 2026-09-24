@@ -15,4 +15,12 @@ class StatusReportPolicyTest < ActiveSupport::TestCase
   test "admin can manage status reports" do
     assert StatusReportPolicy.new(@admin, @report).reject?
   end
+
+  test "regular user cannot approve status reports" do
+    assert_not StatusReportPolicy.new(@user, @report).approve?
+  end
+
+  test "unauthenticated visitor cannot create status reports" do
+    assert_not StatusReportPolicy.new(nil, @report).create?
+  end
 end

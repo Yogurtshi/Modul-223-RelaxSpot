@@ -14,6 +14,7 @@ class ProfileController < ApplicationController
   def update
     @user = current_user
     authorize @user, :update?, policy_class: ProfilePolicy
+    email_confirmation_requested = false
 
     if params.dig(:user, :name).present?
       @user.name = params[:user][:name]
@@ -27,9 +28,7 @@ class ProfileController < ApplicationController
 
       @user.unconfirmed_email = params[:user][:email]
       @user.confirmation_token = SecureRandom.hex(16)
-      Rails.logger.debug(
-        "Confirm email: http://localhost:3000/profile/confirm_email/#{@user.confirmation_token}"
-      )
+      email_confirmation_requested = true
     end
 
     if params.dig(:user, :password).present?
@@ -41,7 +40,12 @@ class ProfileController < ApplicationController
       @user.password = params[:user][:password]
     end
 
-    if @user.save
+    if save_user_transactionally
+      if email_confirmation_requested
+        Rails.logger.debug(
+          "Confirm email: http://localhost:3000/profile/confirm_email/#{@user.confirmation_token}"
+        )
+      end
       redirect_to profile_path, notice: "Profile updated."
     else
       render :edit, status: :unprocessable_entity
@@ -57,7 +61,18 @@ class ProfileController < ApplicationController
     @user.unconfirmed_email = nil
     @user.confirmation_token = nil
 
-    @user.save!
+    User.transaction { @user.save! }
     redirect_to profile_path, notice: "Email confirmed."
+  end
+
+  private
+
+  def save_user_transactionally
+    User.transaction do
+      @user.save!
+    end
+    true
+  rescue ActiveRecord::RecordInvalid
+    false
   end
 end

@@ -69,4 +69,32 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
     assert_nil @user.reload.unconfirmed_email
     assert_nil @user.confirmation_token
   end
+
+  test "invalid confirmation token does not update the email" do
+    get "/profile/confirm_email/invalid-token"
+
+    assert_redirected_to "/profile"
+    assert_equal "Invalid confirmation token.", flash[:alert]
+    assert_equal "user@example.com", @user.reload.email
+  end
+
+  test "failed email change does not persist confirmation state" do
+    User.create!(
+      name: "Existing User",
+      email: "existing@example.com",
+      password: "password1234"
+    )
+
+    patch "/profile", params: {
+      user: {
+        email: "existing@example.com",
+        current_password: "password1234"
+      }
+    }
+
+    assert_response :unprocessable_entity
+    @user.reload
+    assert_nil @user.unconfirmed_email
+    assert_nil @user.confirmation_token
+  end
 end

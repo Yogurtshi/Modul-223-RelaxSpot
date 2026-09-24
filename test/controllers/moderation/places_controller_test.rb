@@ -65,4 +65,14 @@ class Moderation::PlacesControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :forbidden
   end
+
+  test "moderator can take over an expired edit lock" do
+    @place.update!(locked_by: @other_moderator, locked_at: 6.minutes.ago)
+
+    get "/moderation/places/#{@place.id}/edit"
+
+    assert_response :success
+    assert_equal @moderator.id, @place.reload.locked_by_id
+    assert_operator @place.locked_at, :>, 5.minutes.ago
+  end
 end

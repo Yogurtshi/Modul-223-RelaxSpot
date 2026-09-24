@@ -19,4 +19,12 @@ class PlacePolicyTest < ActiveSupport::TestCase
   test "admin can manage places" do
     assert PlacePolicy.new(@admin, @place).update?
   end
+
+  test "regular user cannot approve places" do
+    assert_not PlacePolicy.new(@user, @place).approve?
+  end
+
+  test "unauthenticated visitor cannot suggest places" do
+    assert_not PlacePolicy.new(nil, @place).create?
+  end
 end

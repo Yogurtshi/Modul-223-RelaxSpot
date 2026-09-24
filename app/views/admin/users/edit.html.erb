@@ -1,0 +1,37 @@
+<section class="form-page profile-form-page">
+  <div class="form-heading">
+    <p class="eyebrow">User administration</p>
+    <h1>Edit <%= @user.name %></h1>
+    <p class="page-intro">Update the user&apos;s name and email address.</p>
+  </div>
+
+  <%= form_with model: @user, url: admin_user_path(@user), method: :patch, class: "profile-form" do |form| %>
+    <% if @user.errors.any? %>
+      <div class="form-errors">
+        <strong>Please check the form:</strong>
+        <ul>
+          <% @user.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="form-field-grid">
+      <div class="field-group field-group--wide">
+        <%= form.label :name %>
+        <%= form.text_field :name, autocomplete: "name", autofocus: true %>
+      </div>
+
+      <div class="field-group field-group--wide">
+        <%= form.label :email %>
+        <%= form.email_field :email, autocomplete: "email" %>
+      </div>
+    </div>
+
+    <div class="profile-form__actions">
+      <%= link_to "Cancel", admin_user_path(@user), class: "secondary-button" %>
+      <%= form.submit "Save changes", class: "primary-button" %>
+    </div>
+  <% end %>
+</section>

@@ -25,4 +25,14 @@ class User < ApplicationRecord
   validates :name, presence: true
   validates :email, presence: true, uniqueness: true
   validates :password, length: { minimum: 12 }, allow_nil: true
+  validate :unconfirmed_email_is_available
+
+  private
+
+  def unconfirmed_email_is_available
+    return if unconfirmed_email.blank?
+    return unless User.where(email: unconfirmed_email).where.not(id: id).exists?
+
+    errors.add(:unconfirmed_email, "is already in use")
+  end
 end

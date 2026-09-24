@@ -23,6 +23,7 @@
   </section>
 
   <div class="review-actions">
+    <%= link_to "Edit details", edit_admin_user_path(@user), class: "small-button small-button--soft" %>
     <%= button_to "Promote to moderator", promote_admin_user_path(@user), method: :post, class: "small-button small-button--soft" %>
     <%= button_to "Demote to user", demote_admin_user_path(@user), method: :post, class: "small-button small-button--soft" %>
     <% if @user.locked? %>

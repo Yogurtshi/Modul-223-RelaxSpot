@@ -15,6 +15,6 @@ class ApplicationController < ActionController::Base
   end
 
   def user_not_authorized
-    head :forbidden
+    render template: "errors/forbidden", status: :forbidden
   end
 end
