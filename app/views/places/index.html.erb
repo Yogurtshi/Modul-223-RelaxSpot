@@ -8,6 +8,28 @@
   <%= link_to "Suggest a place", new_place_path, class: "action-button" %>
 </div>
 
+<%= form_with url: places_path, method: :get, scope: nil, class: "place-filters" do |form| %>
+  <div class="field-group">
+    <%= form.label :search, "Search by name" %>
+    <%= form.search_field :search, value: @search, placeholder: "e.g. garden" %>
+  </div>
+
+  <div class="field-group">
+    <%= form.label :category %>
+    <%= form.select :category, options_for_select([["All categories", ""]] + Place.categories.keys.map { |category| [ category.humanize, category ] }, @category) %>
+  </div>
+
+  <div class="field-group">
+    <%= form.label :status %>
+    <%= form.select :status, options_for_select([["All statuses", ""]] + Place.statuses.keys.map { |status| [ status.humanize, status ] }, @status) %>
+  </div>
+
+  <div class="place-filters__actions">
+    <%= form.submit "Filter places", class: "primary-button" %>
+    <%= link_to "Clear", places_path, class: "secondary-button" %>
+  </div>
+<% end %>
+
 <% if @places.any? %>
   <div class="spot-grid">
     <% @places.each do |place| %>

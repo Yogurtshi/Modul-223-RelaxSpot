@@ -20,6 +20,25 @@ class PlacesControllerTest < ActionDispatch::IntegrationTest
     assert_select ".spot-card__capacity", /1\/4/
   end
 
+  test "places index filters by category" do
+    get places_url, params: { category: "shade" }
+
+    assert_response :success
+    assert_select ".spot-card h2", text: "Shaded Courtyard"
+    assert_select ".spot-card h2", { text: "Central Bench", count: 0 }
+  end
+
+  test "places index filters by name and status" do
+    places(:one).update!(name: "Open Garden", status: :open)
+    places(:two).update!(name: "Closed Garden", status: :closed)
+
+    get places_url, params: { search: "garden", status: "closed" }
+
+    assert_response :success
+    assert_select ".spot-card h2", text: "Closed Garden"
+    assert_select ".spot-card h2", { text: "Open Garden", count: 0 }
+  end
+
   test "anonymous users cannot get new place form" do
     get new_place_url
     assert_redirected_to new_session_url

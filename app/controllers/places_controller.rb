@@ -1,7 +1,18 @@
 class PlacesController < ApplicationController
   before_action :require_authentication, only: [ :new, :create ]
   def index
-    @places = Place.where(approved: true).order(:name)
+    @search = params[:search].to_s.strip
+    @category = params[:category].presence_in(Place.categories.keys)
+    @status = params[:status].presence_in(Place.statuses.keys)
+
+    @places = Place.where(approved: true)
+    @places = @places.where(category: @category) if @category
+    @places = @places.where(status: @status) if @status
+    if @search.present?
+      escaped_search = Place.sanitize_sql_like(@search.downcase)
+      @places = @places.where("LOWER(name) LIKE ?", "%#{escaped_search}%")
+    end
+    @places = @places.order(:name)
     @active_check_ins_by_place = CheckIn.active.where(place_id: @places).group(:place_id).count
   end
 
