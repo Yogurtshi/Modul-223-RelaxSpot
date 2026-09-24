@@ -12,6 +12,7 @@ class Moderation::DashboardsControllerTest < ActionDispatch::IntegrationTest
       proposed_by: user
     )
     place.update!(name: "Central Park Bench Updated")
+    status_report = StatusReport.create!(place: place, user: user, reported_status: :dirty)
 
     post session_path, params: { email: user.email, password: "password1234" }
 
@@ -22,7 +23,9 @@ class Moderation::DashboardsControllerTest < ActionDispatch::IntegrationTest
     assert_select "li", /Place/i
     assert_select "h2", /Users/i
     assert_select "h2", /Place suggestions/i
+    assert_select "h2", /Status reports/i
     assert_select "a.dashboard-suggestion-card__link[href='#{moderation_place_path(place)}']"
+    assert_select "a.dashboard-suggestion-card__link[href='#{moderation_status_report_path(status_report)}']"
     assert_select "a", { text: "Review", count: 0 }
   end
 

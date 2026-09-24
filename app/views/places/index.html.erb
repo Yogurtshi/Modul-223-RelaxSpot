@@ -12,15 +12,23 @@
   <div class="spot-grid">
     <% @places.each do |place| %>
       <article class="spot-card">
+        <%= link_to "", place_path(place), class: "spot-card__cover-link", aria: { label: "View #{place.name}" } %>
+
         <div class="spot-card__topline">
           <span class="spot-card__category"><%= place.category.humanize %></span>
           <span class="spot-card__status"><%= place.status.humanize %></span>
         </div>
 
-        <h2><%= link_to place.name, place_path(place) %></h2>
+        <h2><%= place.name %></h2>
         <p class="spot-card__capacity"><strong><%= place.capacity %></strong> people capacity</p>
 
-        <%= link_to "View spot", place_path(place), class: "spot-card__link" %>
+        <div class="spot-card__actions">
+          <% if current_user %>
+            <%= link_to "Report", new_status_report_path(place_id: place.id), class: "small-button small-button--soft spot-card__report" %>
+          <% else %>
+            <%= link_to "Report", new_session_path, class: "small-button small-button--soft spot-card__report" %>
+          <% end %>
+        </div>
       </article>
     <% end %>
   </div>

@@ -9,6 +9,7 @@ class Moderation::DashboardsController < ApplicationController
       .limit(20)
     @users = User.order(:name)
     @pending_places = Place.where(approved: false).includes(:proposed_by).order(created_at: :desc)
+    @pending_status_reports = StatusReport.where(reviewed: false).includes(:place, :user).order(created_at: :desc)
   end
 
   private

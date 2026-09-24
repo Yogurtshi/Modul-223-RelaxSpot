@@ -1,0 +1,40 @@
+<section class="form-page report-form-page">
+  <div class="form-heading">
+    <p class="eyebrow">Moderation</p>
+    <h1>Edit status report</h1>
+    <p class="page-intro">Adjust the reported status before approving or rejecting this report.</p>
+  </div>
+
+  <div class="report-place-card">
+    <span class="detail-label">Place</span>
+    <strong><%= @status_report.place.name %></strong>
+    <span>Submitted by <%= @status_report.user.name %></span>
+  </div>
+
+  <%= form_with model: @status_report, url: moderation_status_report_path(@status_report), method: :patch, class: "report-form" do |form| %>
+    <% if @status_report.errors.any? %>
+      <div class="form-errors">
+        <ul>
+          <% @status_report.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field-group">
+      <%= form.label :reported_status, "Reported status" %>
+      <%= form.select :reported_status, StatusReport.reported_statuses.keys.map { |key| [key.humanize, key] } %>
+    </div>
+
+    <div class="field-group">
+      <%= form.label :reported_opening_hours, "Reported opening hours (optional)" %>
+      <%= form.text_field :reported_opening_hours, placeholder: "Leave blank if unchanged" %>
+    </div>
+
+    <div class="report-form__actions">
+      <%= link_to "Cancel", moderation_status_report_path(@status_report), class: "secondary-button" %>
+      <%= form.submit "Save changes", class: "primary-button" %>
+    </div>
+  <% end %>
+</section>

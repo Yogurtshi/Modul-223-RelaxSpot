@@ -28,6 +28,7 @@ class PlacesController < ApplicationController
     params.require(:place).permit(
       :name,
       :category,
+      :status,
       :latitude,
       :longitude,
       :capacity,

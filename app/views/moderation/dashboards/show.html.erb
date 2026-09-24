@@ -91,4 +91,29 @@
       <p class="dashboard-empty">No place suggestions are waiting for review.</p>
     <% end %>
   </section>
+
+  <section class="dashboard-panel">
+    <div class="dashboard-panel__heading">
+      <div>
+        <p class="eyebrow">Needs review</p>
+        <h2>Status reports</h2>
+      </div>
+      <span class="dashboard-count"><%= @pending_status_reports.size %></span>
+    </div>
+
+    <% if @pending_status_reports.present? %>
+      <ul class="dashboard-list">
+        <% @pending_status_reports.each do |status_report| %>
+          <li class="dashboard-suggestion-card">
+            <%= link_to moderation_status_report_path(status_report), class: "dashboard-suggestion-card__link" do %>
+              <strong><%= status_report.place.name %></strong>
+              <span><%= status_report.reported_status.humanize %><%= " · hours changed" if status_report.reported_opening_hours.present? %> · reported by <%= status_report.user.name %></span>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p class="dashboard-empty">No status reports are waiting for review.</p>
+    <% end %>
+  </section>
 </div>

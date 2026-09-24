@@ -1,9 +1,38 @@
-<h1>Status report</h1>
+<div class="review-page">
+	<div class="page-heading">
+		<div>
+			<p class="eyebrow">Status report</p>
+			<h1><%= @status_report.place.name %></h1>
+			<p class="page-intro">Submitted by <%= @status_report.user.name %></p>
+		</div>
 
-<p>Place: <%= @status_report.place.name %></p>
-<p>Reported status: <%= @status_report.reported_status.humanize %></p>
-<p>Submitted by: <%= @status_report.user.name %></p>
-<p>Reviewed: <%= @status_report.reviewed? ? "Yes" : "No" %></p>
+		<span class="status-badge <%= @status_report.reviewed? ? 'status-badge--positive' : 'status-badge--pending' %>">
+			<%= @status_report.reviewed? ? "Reviewed" : "Needs review" %>
+		</span>
+	</div>
 
-<%= button_to "Approve", approve_moderation_status_report_path(@status_report), method: :post %>
-<%= button_to "Reject", reject_moderation_status_report_path(@status_report), method: :post %>
+	<section class="review-details" aria-label="Status report details">
+		<div class="review-detail-item">
+			<span class="detail-label">Reported status</span>
+			<strong><%= @status_report.reported_status.humanize %></strong>
+		</div>
+		<div class="review-detail-item">
+			<span class="detail-label">Submitted by</span>
+			<strong><%= @status_report.user.name %></strong>
+		</div>
+		<div class="review-detail-item">
+			<span class="detail-label">Opening hours</span>
+			<strong><%= @status_report.place.opening_hours.presence || "Not specified" %></strong>
+		</div>
+		<div class="review-detail-item">
+			<span class="detail-label">Reported opening hours</span>
+			<strong><%= @status_report.reported_opening_hours.presence || "No change reported" %></strong>
+		</div>
+	</section>
+
+	<div class="review-actions">
+		<%= button_to "Approve", approve_moderation_status_report_path(@status_report), method: :post, class: "small-button small-button--positive" %>
+		<%= button_to "Reject", reject_moderation_status_report_path(@status_report), method: :post, class: "small-button small-button--danger" %>
+		<%= link_to "Edit report", edit_moderation_status_report_path(@status_report), class: "secondary-button" %>
+	</div>
+</div>

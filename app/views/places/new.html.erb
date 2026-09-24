@@ -29,6 +29,11 @@
 			</div>
 
 			<div class="field-group">
+				<%= form.label :status %>
+				<%= form.select :status, Place.statuses.keys.map { |status| [ status.humanize, status ] } %>
+			</div>
+
+			<div class="field-group">
 				<%= form.label :capacity %>
 				<%= form.number_field :capacity, min: 1, placeholder: "e.g. 12" %>
 			</div>

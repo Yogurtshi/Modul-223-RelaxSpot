@@ -23,7 +23,7 @@ Rails.application.routes.draw do
     end
   end
   namespace :moderation do
-    resources :status_reports, only: [ :show ] do
+    resources :status_reports, only: [ :show, :edit, :update ] do
       member do
         post :approve
         post :reject

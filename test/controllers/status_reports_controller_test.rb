@@ -26,10 +26,11 @@ class StatusReportsControllerTest < ActionDispatch::IntegrationTest
 
     post status_reports_path, params: {
       place_id: @place.id,
-      status_report: { reported_status: "dirty" }
+      status_report: { reported_status: "dirty", reported_opening_hours: "Weekdays, 09:00-17:00" }
     }
 
     assert_redirected_to place_path(@place)
     assert_equal "dirty", @place.status_reports.last.reported_status
+    assert_equal "Weekdays, 09:00-17:00", @place.status_reports.last.reported_opening_hours
   end
 end

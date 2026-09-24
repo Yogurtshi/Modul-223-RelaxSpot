@@ -22,6 +22,6 @@ class StatusReportsController < ApplicationController
   private
 
   def status_report_params
-    params.require(:status_report).permit(:reported_status)
+    params.require(:status_report).permit(:reported_status, :reported_opening_hours)
   end
 end

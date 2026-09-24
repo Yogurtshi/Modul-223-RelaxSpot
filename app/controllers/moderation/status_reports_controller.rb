@@ -3,25 +3,52 @@ class Moderation::StatusReportsController < ApplicationController
   before_action :ensure_moderator
 
   def show
-    @status_report = StatusReport.find(params[:id])
+    set_status_report
+  end
+
+  def edit
+    set_status_report
+  end
+
+  def update
+    set_status_report
+
+    if @status_report.update(status_report_params)
+      redirect_to moderation_status_report_path(@status_report), notice: "Status report updated."
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   def approve
-    @status_report = StatusReport.find(params[:id])
+    set_status_report
     @status_report.update!(reviewed: true)
-    @status_report.place.update!(status: @status_report.reported_status)
+
+    place_updates = { status: @status_report.reported_status }
+    if @status_report.reported_opening_hours.present?
+      place_updates[:opening_hours] = @status_report.reported_opening_hours
+    end
+    @status_report.place.update!(place_updates)
 
     redirect_to moderation_status_report_path(@status_report), notice: "Status report approved."
   end
 
   def reject
-    @status_report = StatusReport.find(params[:id])
+    set_status_report
     @status_report.update!(reviewed: true)
 
     redirect_to moderation_status_report_path(@status_report), notice: "Status report rejected."
   end
 
   private
+
+  def set_status_report
+    @status_report = StatusReport.find(params[:id])
+  end
+
+  def status_report_params
+    params.require(:status_report).permit(:reported_status, :reported_opening_hours)
+  end
 
   def ensure_moderator
     redirect_to new_session_path unless current_user&.moderator? || current_user&.admin?

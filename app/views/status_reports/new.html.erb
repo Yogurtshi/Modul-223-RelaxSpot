@@ -1,14 +1,32 @@
-<h1>Report a place issue</h1>
-
-<p>Place: <%= @place.name %></p>
-
-<%= form_with model: @status_report, url: status_reports_path(place_id: @place.id), method: :post do |form| %>
-  <div>
-    <%= form.label :reported_status, "Problem" %>
-    <%= form.select :reported_status, StatusReport.reported_statuses.keys.map { |key| [key.humanize, key] } %>
+<section class="form-page report-form-page">
+  <div class="form-heading">
+    <p class="eyebrow">Help keep the community informed</p>
+    <h1>Report a place issue</h1>
+    <p class="page-intro">Let us know what is happening at this spot so other visitors can plan their visit.</p>
   </div>
 
-  <%= form.submit "Submit report" %>
-<% end %>
+  <div class="report-place-card">
+    <span class="detail-label">Reporting on</span>
+    <strong><%= @place.name %></strong>
+    <span><%= @place.category.humanize %> · <%= @place.capacity %> people capacity</span>
+    <span>Opening hours: <%= @place.opening_hours.presence || "Not specified" %></span>
+  </div>
 
-<%= link_to "Back to place", place_path(@place) %>
+  <%= form_with model: @status_report, url: status_reports_path(place_id: @place.id), method: :post, class: "report-form" do |form| %>
+    <div class="field-group">
+      <%= form.label :reported_status, "What is the current issue?" %>
+      <%= form.select :reported_status, StatusReport.reported_statuses.keys.map { |key| [key.humanize, key] } %>
+    </div>
+
+    <div class="field-group">
+      <%= form.label :reported_opening_hours, "Updated opening hours (optional)" %>
+      <%= form.text_field :reported_opening_hours, placeholder: "e.g. Monday to Friday, 08:00–18:00" %>
+      <small class="field-help">Only fill this in if the opening hours have changed.</small>
+    </div>
+
+    <div class="report-form__actions">
+      <%= link_to "Back to place", place_path(@place), class: "secondary-button" %>
+      <%= form.submit "Submit report", class: "primary-button" %>
+    </div>
+  <% end %>
+</section>
