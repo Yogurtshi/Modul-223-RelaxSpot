@@ -1,2 +1,11 @@
-<h1>Admin::Users#show</h1>
-<p>Find me in app/views/admin/users/show.html.erb</p>
+<h1>User</h1>
+
+<p>Name: <%= @user.name %></p>
+<p>Email: <%= @user.email %></p>
+<p>Role: <%= @user.role.humanize %></p>
+<p>Locked: <%= @user.locked? ? "Yes" : "No" %></p>
+
+<%= button_to "Promote to moderator", promote_admin_user_path(@user), method: :post %>
+<%= button_to "Demote to user", demote_admin_user_path(@user), method: :post %>
+<%= button_to "Lock", lock_admin_user_path(@user), method: :post %>
+<%= button_to "Unlock", unlock_admin_user_path(@user), method: :post %>

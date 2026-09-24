@@ -1,33 +1,45 @@
 require "test_helper"
 
 class Admin::UsersControllerTest < ActionDispatch::IntegrationTest
-  test "should get index" do
-    get admin_users_index_url
-    assert_response :success
+  setup do
+    @admin = User.create!(
+      name: "Admin User",
+      email: "admin@example.com",
+      password: "password1234",
+      role: :admin
+    )
+
+    @user = User.create!(
+      name: "Regular User",
+      email: "regular@example.com",
+      password: "password1234",
+      role: :user
+    )
+
+    post session_path, params: {
+      email: @admin.email,
+      password: "password1234"
+    }
   end
 
-  test "should get show" do
-    get admin_users_show_url
+  test "admin can list users" do
+    get "/admin/users"
+
     assert_response :success
+    assert_select "h1", /Users/i
   end
 
-  test "should get promote" do
-    get admin_users_promote_url
-    assert_response :success
+  test "admin can promote a user to moderator" do
+    post "/admin/users/#{@user.id}/promote"
+
+    assert_redirected_to "/admin/users/#{@user.id}"
+    assert @user.reload.moderator?
   end
 
-  test "should get demote" do
-    get admin_users_demote_url
-    assert_response :success
-  end
+  test "admin can lock a user account" do
+    post "/admin/users/#{@user.id}/lock"
 
-  test "should get lock" do
-    get admin_users_lock_url
-    assert_response :success
-  end
-
-  test "should get unlock" do
-    get admin_users_unlock_url
-    assert_response :success
+    assert_redirected_to "/admin/users/#{@user.id}"
+    assert @user.reload.locked
   end
 end

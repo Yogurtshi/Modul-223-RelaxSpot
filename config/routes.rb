@@ -6,12 +6,14 @@ Rails.application.routes.draw do
   resources :check_ins, only: [ :new, :create, :show ]
 
   namespace :admin do
-    get "users/index"
-    get "users/show"
-    get "users/promote"
-    get "users/demote"
-    get "users/lock"
-    get "users/unlock"
+    resources :users, only: [ :index, :show ] do
+      member do
+        post :promote
+        post :demote
+        post :lock
+        post :unlock
+      end
+    end
   end
   namespace :moderation do
     resources :status_reports, only: [ :show ] do
