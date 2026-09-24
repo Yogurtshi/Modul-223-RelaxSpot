@@ -19,5 +19,10 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_redirected_to places_url
+
+    user = User.find_by!(email: "new-user@example.com")
+    version = PaperTrail::Version.where(item: user).order(:created_at).last
+    assert_equal "create", version.event
+    assert_equal user.id.to_s, version.whodunnit
   end
 end

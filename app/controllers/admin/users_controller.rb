@@ -27,12 +27,14 @@ class Admin::UsersController < ApplicationController
 
   def promote
     authorize @user, :promote?
+    @user.paper_trail_event = "promoted"
     @user.update!(role: :moderator)
     redirect_to admin_user_path(@user), notice: "User promoted to moderator."
   end
 
   def demote
     authorize @user, :demote?
+    @user.paper_trail_event = "demoted"
     @user.update!(role: :user)
     redirect_to admin_user_path(@user), notice: "User demoted to user."
   end

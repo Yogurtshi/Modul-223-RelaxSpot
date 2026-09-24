@@ -7,6 +7,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
+      PaperTrail::Version.where(item: @user).order(:created_at).last&.update!(whodunnit: @user.id.to_s)
       session[:user_id] = @user.id
       redirect_to places_path
     else

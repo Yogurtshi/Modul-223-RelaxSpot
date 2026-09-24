@@ -21,7 +21,7 @@
         <% @recent_activity.each do |version| %>
           <% item = version.item %>
           <% item_name = item.respond_to?(:name) ? item.name : version.item_type %>
-          <% action = version.event == "create" ? "created" : version.event == "update" ? "updated" : "deleted" %>
+          <% action = { "create" => "created", "update" => "updated", "promoted" => "promoted", "demoted" => "demoted", "destroy" => "deleted" }.fetch(version.event, version.event) %>
           <% actor = @activity_users[version.whodunnit]&.name || "System" %>
 
           <li>

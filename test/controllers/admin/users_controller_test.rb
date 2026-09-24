@@ -34,6 +34,23 @@ class Admin::UsersControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to "/admin/users/#{@user.id}"
     assert @user.reload.moderator?
+
+    version = PaperTrail::Version.where(item: @user).order(:created_at).last
+    assert_equal "promoted", version.event
+    assert_equal @admin.id.to_s, version.whodunnit
+  end
+
+  test "admin can demote a moderator and record the action" do
+    @user.update!(role: :moderator)
+
+    post "/admin/users/#{@user.id}/demote"
+
+    assert_redirected_to "/admin/users/#{@user.id}"
+    assert @user.reload.user?
+
+    version = PaperTrail::Version.where(item: @user).order(:created_at).last
+    assert_equal "demoted", version.event
+    assert_equal @admin.id.to_s, version.whodunnit
   end
 
   test "admin can lock a user account" do
