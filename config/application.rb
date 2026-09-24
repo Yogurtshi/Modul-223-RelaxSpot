@@ -9,6 +9,7 @@ Bundler.require(*Rails.groups)
 module Modul223RelaxSpot
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
+    config.time_zone = "Europe/Zurich"
     config.load_defaults 8.1
 
     # Please, add to the `ignore` list any other `lib` subdirectories that do

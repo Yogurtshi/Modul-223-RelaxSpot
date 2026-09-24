@@ -36,3 +36,6 @@ seed_users.each do |attributes|
   user.assign_attributes(attributes)
   user.save!
 end
+
+# relaxspot-user-three-2026
+# relaxspot-user-three-test-2026
