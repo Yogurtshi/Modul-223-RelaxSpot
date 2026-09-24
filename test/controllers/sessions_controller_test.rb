@@ -42,4 +42,22 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to new_session_url
   end
+
+  test "locked user is logged out on the next request" do
+    post session_url, params: {
+      email: @user.email,
+      password: "secure-password"
+    }
+
+    @user.update!(locked: true)
+
+    get places_url
+
+    assert_redirected_to new_session_url
+    assert_equal "Your account has been locked.", flash[:alert]
+
+    get profile_url
+
+    assert_redirected_to new_session_url
+  end
 end
