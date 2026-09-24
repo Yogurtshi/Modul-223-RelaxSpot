@@ -15,7 +15,7 @@
   <section class="place-details" aria-label="Place details">
     <div class="place-detail-item">
       <span class="detail-label">Capacity</span>
-      <strong data-place-availability-target="count"><%= @active_check_ins %>/<%= @place.capacity %> people</strong>
+      <strong data-place-availability-target="count"><%= @active_check_ins + @active_check_in_holds %>/<%= @place.capacity %> people</strong>
     </div>
     <div class="place-detail-item">
       <span class="detail-label">Location</span>

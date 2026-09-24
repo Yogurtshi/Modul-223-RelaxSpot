@@ -16,11 +16,13 @@ class CheckIn < ApplicationRecord
   class AlreadyCheckedIn < StandardError
   end
 
-  def self.create_with_capacity!(place:, user:, expected_minutes:)
+  def self.create_with_capacity!(place:, user:, expected_minutes:, hold: nil)
     transaction do
       locked_place = Place.lock.find(place.id)
+      hold ||= locked_place.check_in_holds.find_by(user_id: user.id)
 
-      if locked_place.check_ins.active.count >= locked_place.capacity
+      active_holds = locked_place.check_in_holds.active.where.not(user_id: user.id).count
+      if locked_place.check_ins.active.count + active_holds >= locked_place.capacity
         raise CapacityExceeded, "Place is currently full"
       end
 
@@ -30,12 +32,14 @@ class CheckIn < ApplicationRecord
 
       started_at = Time.current
 
-      create!(
+      check_in = create!(
         place: locked_place,
         user: user,
         started_at: started_at,
         ends_at: started_at + expected_minutes.minutes
       )
+      hold&.destroy!
+      check_in
     end
   end
 

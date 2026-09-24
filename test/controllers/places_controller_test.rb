@@ -61,7 +61,10 @@ class PlacesControllerTest < ActionDispatch::IntegrationTest
     get availability_place_url(places(:one))
 
     assert_response :success
-    assert_equal({ "active_count" => 1, "capacity" => 2 }, response.parsed_body)
+    assert_equal 1, response.parsed_body["active_count"]
+    assert_equal 0, response.parsed_body["held_count"]
+    assert_equal 1, response.parsed_body["total_count"]
+    assert_equal 2, response.parsed_body["capacity"]
   end
 
   test "authenticated user sees a disabled check-in control when the place is full" do

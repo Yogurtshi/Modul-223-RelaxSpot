@@ -25,6 +25,7 @@ class Place < ApplicationRecord
              inverse_of: :locked_places
 
   has_many :check_ins, dependent: :destroy
+  has_many :check_in_holds, dependent: :destroy
   has_many :status_reports, dependent: :destroy
 
   validates :name, presence: true

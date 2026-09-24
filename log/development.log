@@ -18821,3 +18821,993 @@ Processing by PlacesController#show as HTML
 Completed 200 OK in 6ms (Views: 4.0ms | ActiveRecord: 0.4ms (2 queries, 0 cached) | GC: 0.0ms)
 
 
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='Modul223RelaxSpot'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Modul223RelaxSpot'*/[0m
+Migrating to CreateCheckInHolds (20260924140000)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE TABLE "check_in_holds" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "expires_at" datetime(6) NOT NULL, "place_id" integer NOT NULL, "user_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_51bd220b56"
+FOREIGN KEY ("place_id")
+  REFERENCES "places" ("id")
+, CONSTRAINT "fk_rails_afd4669def"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+) /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_check_in_holds_on_place_id" ON "check_in_holds" ("place_id") /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_check_in_holds_on_user_id" ON "check_in_holds" ("user_id") /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_check_in_holds_on_place_id_and_user_id" ON "check_in_holds" ("place_id", "user_id") /*application='Modul223RelaxSpot'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_check_in_holds_on_place_id_and_expires_at" ON "check_in_holds" ("place_id", "expires_at") /*application='Modul223RelaxSpot'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260924140000') RETURNING "version" /*application='Modul223RelaxSpot'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Modul223RelaxSpot'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Modul223RelaxSpot'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='Modul223RelaxSpot'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Modul223RelaxSpot'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Modul223RelaxSpot'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='Modul223RelaxSpot'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Modul223RelaxSpot'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Modul223RelaxSpot'*/[0m
+Started GET "/places/12/availability" for 127.0.0.1 at 2026-09-24 14:53:47 +0200
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Modul223RelaxSpot'*/[0m
+Processing by PlacesController#availability as JSON
+  Parameters: {"id" => "12"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 9 LIMIT 1 /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/application_controller.rb:12:in 'ApplicationController#current_user'
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = 12 LIMIT 1 /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:26:in 'PlacesController#availability'
+  [1m[36mCheckIn Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:53:47.241827') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:28:in 'PlacesController#availability'
+  [1m[36mCheckInHold Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:53:47.244754') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:29:in 'PlacesController#availability'
+  [1m[36mCheckIn Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:53:47.245675') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:30:in 'PlacesController#availability'
+  [1m[36mCheckInHold Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:53:47.246383') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:30:in 'PlacesController#availability'
+Completed 200 OK in 36ms (Views: 0.1ms | ActiveRecord: 2.0ms (6 queries, 0 cached) | GC: 7.4ms)
+
+
+Started GET "/places/12/availability" for 127.0.0.1 at 2026-09-24 14:53:48 +0200
+Processing by PlacesController#availability as JSON
+  Parameters: {"id" => "12"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 11 LIMIT 1 /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/application_controller.rb:12:in 'ApplicationController#current_user'
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = 12 LIMIT 1 /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:26:in 'PlacesController#availability'
+  [1m[36mCheckIn Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:53:48.009174') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:28:in 'PlacesController#availability'
+  [1m[36mCheckInHold Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:53:48.010112') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:29:in 'PlacesController#availability'
+  [1m[36mCheckIn Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:53:48.010914') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:30:in 'PlacesController#availability'
+  [1m[36mCheckInHold Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:53:48.012674') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:30:in 'PlacesController#availability'
+Completed 200 OK in 7ms (Views: 0.1ms | ActiveRecord: 0.6ms (6 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/places/12" for 127.0.0.1 at 2026-09-24 14:53:48 +0200
+Processing by PlacesController#show as HTML
+  Parameters: {"id" => "12"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 11 LIMIT 1 /*action='show',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/application_controller.rb:12:in 'ApplicationController#current_user'
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = 12 LIMIT 1 /*action='show',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:20:in 'PlacesController#show'
+  [1m[36mCheckIn Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:53:48.345767') /*action='show',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:21:in 'PlacesController#show'
+  [1m[36mCheckInHold Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:53:48.346573') /*action='show',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:22:in 'PlacesController#show'
+  Rendering layout layouts/application.html.erb
+  Rendering places/show.html.erb within layouts/application
+  Rendered places/show.html.erb within layouts/application (Duration: 0.8ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 6.1ms | GC: 0.0ms)
+Completed 200 OK in 13ms (Views: 7.6ms | ActiveRecord: 0.4ms (4 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/places/12/availability" for 127.0.0.1 at 2026-09-24 14:53:48 +0200
+Processing by PlacesController#availability as JSON
+  Parameters: {"id" => "12"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 11 LIMIT 1 /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/application_controller.rb:12:in 'ApplicationController#current_user'
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = 12 LIMIT 1 /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:26:in 'PlacesController#availability'
+  [1m[36mCheckIn Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:53:48.404697') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:28:in 'PlacesController#availability'
+  [1m[36mCheckInHold Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:53:48.405424') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:29:in 'PlacesController#availability'
+  [1m[36mCheckIn Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:53:48.405930') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:30:in 'PlacesController#availability'
+  [1m[36mCheckInHold Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:53:48.406418') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:30:in 'PlacesController#availability'
+Completed 200 OK in 4ms (Views: 0.1ms | ActiveRecord: 0.3ms (6 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/places/12" for 127.0.0.1 at 2026-09-24 14:53:49 +0200
+Processing by PlacesController#show as HTML
+  Parameters: {"id" => "12"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 9 LIMIT 1 /*action='show',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/application_controller.rb:12:in 'ApplicationController#current_user'
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = 12 LIMIT 1 /*action='show',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:20:in 'PlacesController#show'
+  [1m[36mCheckIn Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:53:49.604722') /*action='show',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:21:in 'PlacesController#show'
+  [1m[36mCheckInHold Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:53:49.605471') /*action='show',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:22:in 'PlacesController#show'
+  Rendering layout layouts/application.html.erb
+  Rendering places/show.html.erb within layouts/application
+  Rendered places/show.html.erb within layouts/application (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.9ms | GC: 0.0ms)
+Completed 200 OK in 5ms (Views: 1.1ms | ActiveRecord: 0.3ms (4 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/places/12/availability" for 127.0.0.1 at 2026-09-24 14:53:49 +0200
+Processing by PlacesController#availability as JSON
+  Parameters: {"id" => "12"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 9 LIMIT 1 /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/application_controller.rb:12:in 'ApplicationController#current_user'
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = 12 LIMIT 1 /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:26:in 'PlacesController#availability'
+  [1m[36mCheckIn Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:53:49.634032') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:28:in 'PlacesController#availability'
+  [1m[36mCheckInHold Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:53:49.634814') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:29:in 'PlacesController#availability'
+  [1m[36mCheckIn Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:53:49.635330') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:30:in 'PlacesController#availability'
+  [1m[36mCheckInHold Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:53:49.635751') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:30:in 'PlacesController#availability'
+Completed 200 OK in 4ms (Views: 0.1ms | ActiveRecord: 0.3ms (6 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/check_ins/new?place_id=12" for 127.0.0.1 at 2026-09-24 14:53:50 +0200
+Processing by CheckInsController#new as HTML
+  Parameters: {"place_id" => "12"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 11 LIMIT 1 /*action='new',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/controllers/application_controller.rb:12:in 'ApplicationController#current_user'
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = 12 LIMIT 1 /*action='new',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/controllers/check_ins_controller.rb:5:in 'CheckInsController#new'
+  [1m[36mCheckIn Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:53:50.517002') /*action='new',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/controllers/check_ins_controller.rb:6:in 'CheckInsController#new'
+  [1m[36mCheckInHold Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:53:50.518117') /*action='new',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/controllers/check_ins_controller.rb:7:in 'CheckInsController#new'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*action='new',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/models/check_in_hold.rb:15:in 'block in CheckInHold.claim!'
+  [1m[36mPlace Load (0.6ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = 12 LIMIT 1  /*action='new',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/models/check_in_hold.rb:15:in 'block in CheckInHold.claim!'
+  [1m[36mCheckInHold Load (0.1ms)[0m  [1m[34mSELECT "check_in_holds".* FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND "check_in_holds"."user_id" = 11 LIMIT 1 /*action='new',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/models/check_in_hold.rb:16:in 'block in CheckInHold.claim!'
+  [1m[36mCheckIn Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:53:50.525112') /*action='new',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/models/check_in_hold.rb:19:in 'block in CheckInHold.claim!'
+  [1m[36mCheckInHold Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:53:50.525854') AND "check_in_holds"."user_id" != 11 /*action='new',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/models/check_in_hold.rb:19:in 'block in CheckInHold.claim!'
+  [1m[36mCheckInHold Create (0.2ms)[0m  [1m[32mINSERT INTO "check_in_holds" ("expires_at", "place_id", "user_id", "created_at", "updated_at") VALUES ('2026-09-24 12:55:50.524906', 12, 11, '2026-09-24 12:53:50.526620', '2026-09-24 12:53:50.526620') RETURNING "id" /*action='new',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/models/check_in_hold.rb:22:in 'block in CheckInHold.claim!'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*action='new',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/models/check_in_hold.rb:14:in 'CheckInHold.claim!'
+  Rendering layout layouts/application.html.erb
+  Rendering check_ins/new.html.erb within layouts/application
+  Rendered check_ins/new.html.erb within layouts/application (Duration: 1.6ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 2.3ms | GC: 0.0ms)
+Completed 200 OK in 20ms (Views: 2.7ms | ActiveRecord: 1.7ms (9 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/places/12" for 127.0.0.1 at 2026-09-24 14:53:52 +0200
+Processing by PlacesController#show as HTML
+  Parameters: {"id" => "12"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 9 LIMIT 1 /*action='show',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/application_controller.rb:12:in 'ApplicationController#current_user'
+  [1m[36mPlace Load (0.2ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = 12 LIMIT 1 /*action='show',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:20:in 'PlacesController#show'
+  [1m[36mCheckIn Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:53:52.046089') /*action='show',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:21:in 'PlacesController#show'
+  [1m[36mCheckInHold Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:53:52.048050') /*action='show',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:22:in 'PlacesController#show'
+  Rendering layout layouts/application.html.erb
+  Rendering places/show.html.erb within layouts/application
+  Rendered places/show.html.erb within layouts/application (Duration: 0.4ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 1.6ms | GC: 0.0ms)
+Completed 200 OK in 9ms (Views: 2.0ms | ActiveRecord: 0.6ms (4 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/places/12/availability" for 127.0.0.1 at 2026-09-24 14:53:52 +0200
+Processing by PlacesController#availability as JSON
+  Parameters: {"id" => "12"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 9 LIMIT 1 /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/application_controller.rb:12:in 'ApplicationController#current_user'
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = 12 LIMIT 1 /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:26:in 'PlacesController#availability'
+  [1m[36mCheckIn Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:53:52.087681') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:28:in 'PlacesController#availability'
+  [1m[36mCheckInHold Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:53:52.088457') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:29:in 'PlacesController#availability'
+  [1m[36mCheckIn Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:53:52.088979') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:30:in 'PlacesController#availability'
+  [1m[36mCheckInHold Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:53:52.089417') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:30:in 'PlacesController#availability'
+Completed 200 OK in 4ms (Views: 0.1ms | ActiveRecord: 0.3ms (6 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/places/12" for 127.0.0.1 at 2026-09-24 14:53:56 +0200
+Processing by PlacesController#show as HTML
+  Parameters: {"id" => "12"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 9 LIMIT 1 /*action='show',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/application_controller.rb:12:in 'ApplicationController#current_user'
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = 12 LIMIT 1 /*action='show',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:20:in 'PlacesController#show'
+  [1m[36mCheckIn Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:53:56.930990') /*action='show',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:21:in 'PlacesController#show'
+  [1m[36mCheckInHold Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:53:56.932040') /*action='show',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:22:in 'PlacesController#show'
+  Rendering layout layouts/application.html.erb
+  Rendering places/show.html.erb within layouts/application
+  Rendered places/show.html.erb within layouts/application (Duration: 0.3ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 1.0ms | GC: 0.0ms)
+Completed 200 OK in 6ms (Views: 1.3ms | ActiveRecord: 0.4ms (4 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/places/12/availability" for 127.0.0.1 at 2026-09-24 14:53:56 +0200
+Processing by PlacesController#availability as JSON
+  Parameters: {"id" => "12"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 9 LIMIT 1 /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/application_controller.rb:12:in 'ApplicationController#current_user'
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = 12 LIMIT 1 /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:26:in 'PlacesController#availability'
+  [1m[36mCheckIn Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:53:56.963508') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:28:in 'PlacesController#availability'
+  [1m[36mCheckInHold Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:53:56.964396') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:29:in 'PlacesController#availability'
+  [1m[36mCheckIn Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:53:56.965343') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:30:in 'PlacesController#availability'
+  [1m[36mCheckInHold Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:53:56.966454') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:30:in 'PlacesController#availability'
+Completed 200 OK in 6ms (Views: 0.1ms | ActiveRecord: 0.7ms (6 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/check_ins/new?place_id=12" for 127.0.0.1 at 2026-09-24 14:53:57 +0200
+Processing by CheckInsController#new as HTML
+  Parameters: {"place_id" => "12"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 9 LIMIT 1 /*action='new',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/controllers/application_controller.rb:12:in 'ApplicationController#current_user'
+  [1m[36mPlace Load (0.2ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = 12 LIMIT 1 /*action='new',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/controllers/check_ins_controller.rb:5:in 'CheckInsController#new'
+  [1m[36mCheckIn Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:53:57.077155') /*action='new',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/controllers/check_ins_controller.rb:6:in 'CheckInsController#new'
+  [1m[36mCheckInHold Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:53:57.078378') /*action='new',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/controllers/check_ins_controller.rb:7:in 'CheckInsController#new'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*action='new',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/models/check_in_hold.rb:15:in 'block in CheckInHold.claim!'
+  [1m[36mPlace Load (0.6ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = 12 LIMIT 1  /*action='new',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/models/check_in_hold.rb:15:in 'block in CheckInHold.claim!'
+  [1m[36mCheckInHold Load (0.1ms)[0m  [1m[34mSELECT "check_in_holds".* FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND "check_in_holds"."user_id" = 9 LIMIT 1 /*action='new',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/models/check_in_hold.rb:16:in 'block in CheckInHold.claim!'
+  [1m[36mCheckIn Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:53:57.081519') /*action='new',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/models/check_in_hold.rb:19:in 'block in CheckInHold.claim!'
+  [1m[36mCheckInHold Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:53:57.082301') AND "check_in_holds"."user_id" != 9 /*action='new',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/models/check_in_hold.rb:19:in 'block in CheckInHold.claim!'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION /*action='new',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/models/check_in_hold.rb:14:in 'CheckInHold.claim!'
+  Rendering layout layouts/application.html.erb
+  Rendering check_ins/new.html.erb within layouts/application
+  Rendered check_ins/new.html.erb within layouts/application (Duration: 0.6ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 1.1ms | GC: 0.0ms)
+Completed 422 Unprocessable Content in 13ms (Views: 1.5ms | ActiveRecord: 1.4ms (8 queries, 0 cached) | GC: 0.0ms)
+
+
+Started DELETE "/check_ins/cancel_hold" for 127.0.0.1 at 2026-09-24 14:54:01 +0200
+Processing by CheckInsController#cancel_hold as TURBO_STREAM
+  Parameters: {"place_id" => "12"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 11 LIMIT 1 /*action='cancel_hold',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/controllers/application_controller.rb:12:in 'ApplicationController#current_user'
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = 12 LIMIT 1 /*action='cancel_hold',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/controllers/check_ins_controller.rb:50:in 'CheckInsController#cancel_hold'
+  [1m[36mCheckInHold Load (0.0ms)[0m  [1m[34mSELECT "check_in_holds".* FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND "check_in_holds"."user_id" = 11 LIMIT 1 /*action='cancel_hold',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/controllers/check_ins_controller.rb:51:in 'CheckInsController#cancel_hold'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*action='cancel_hold',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/controllers/check_ins_controller.rb:51:in 'CheckInsController#cancel_hold'
+  [1m[36mCheckInHold Destroy (0.5ms)[0m  [1m[31mDELETE FROM "check_in_holds" WHERE "check_in_holds"."id" = 1 /*action='cancel_hold',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/controllers/check_ins_controller.rb:51:in 'CheckInsController#cancel_hold'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*action='cancel_hold',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/controllers/check_ins_controller.rb:51:in 'CheckInsController#cancel_hold'
+Redirected to http://localhost:3000/places/12
+↳ app/controllers/check_ins_controller.rb:52:in 'CheckInsController#cancel_hold'
+Completed 302 Found in 5ms (ActiveRecord: 0.8ms (4 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/places/12" for 127.0.0.1 at 2026-09-24 14:54:01 +0200
+Processing by PlacesController#show as TURBO_STREAM
+  Parameters: {"id" => "12"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 11 LIMIT 1 /*action='show',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/application_controller.rb:12:in 'ApplicationController#current_user'
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = 12 LIMIT 1 /*action='show',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:20:in 'PlacesController#show'
+  [1m[36mCheckIn Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:54:01.267103') /*action='show',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:21:in 'PlacesController#show'
+  [1m[36mCheckInHold Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:54:01.267949') /*action='show',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:22:in 'PlacesController#show'
+  Rendering layout layouts/application.html.erb
+  Rendering places/show.html.erb within layouts/application
+  Rendered places/show.html.erb within layouts/application (Duration: 0.3ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.9ms | GC: 0.0ms)
+Completed 200 OK in 5ms (Views: 1.3ms | ActiveRecord: 0.3ms (4 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/places/12/availability" for 127.0.0.1 at 2026-09-24 14:54:01 +0200
+Processing by PlacesController#availability as JSON
+  Parameters: {"id" => "12"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 11 LIMIT 1 /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/application_controller.rb:12:in 'ApplicationController#current_user'
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = 12 LIMIT 1 /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:26:in 'PlacesController#availability'
+  [1m[36mCheckIn Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:54:01.330731') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:28:in 'PlacesController#availability'
+  [1m[36mCheckInHold Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:54:01.331894') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:29:in 'PlacesController#availability'
+  [1m[36mCheckIn Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:54:01.332584') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:30:in 'PlacesController#availability'
+  [1m[36mCheckInHold Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:54:01.333146') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:30:in 'PlacesController#availability'
+Completed 200 OK in 6ms (Views: 0.1ms | ActiveRecord: 0.6ms (6 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/places/12/availability" for 127.0.0.1 at 2026-09-24 14:54:01 +0200
+Processing by PlacesController#availability as JSON
+  Parameters: {"id" => "12"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 9 LIMIT 1 /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/application_controller.rb:12:in 'ApplicationController#current_user'
+  [1m[36mPlace Load (0.2ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = 12 LIMIT 1 /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:26:in 'PlacesController#availability'
+  [1m[36mCheckIn Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:54:01.987733') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:28:in 'PlacesController#availability'
+  [1m[36mCheckInHold Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:54:01.990136') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:29:in 'PlacesController#availability'
+  [1m[36mCheckIn Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:54:01.991352') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:30:in 'PlacesController#availability'
+  [1m[36mCheckInHold Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:54:01.992084') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:30:in 'PlacesController#availability'
+Completed 200 OK in 9ms (Views: 0.1ms | ActiveRecord: 0.8ms (6 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/places/12" for 127.0.0.1 at 2026-09-24 14:54:02 +0200
+Processing by PlacesController#show as HTML
+  Parameters: {"id" => "12"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 9 LIMIT 1 /*action='show',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/application_controller.rb:12:in 'ApplicationController#current_user'
+  [1m[36mPlace Load (0.2ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = 12 LIMIT 1 /*action='show',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:20:in 'PlacesController#show'
+  [1m[36mCheckIn Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:54:02.704880') /*action='show',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:21:in 'PlacesController#show'
+  [1m[36mCheckInHold Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:54:02.707796') /*action='show',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:22:in 'PlacesController#show'
+  Rendering layout layouts/application.html.erb
+  Rendering places/show.html.erb within layouts/application
+  Rendered places/show.html.erb within layouts/application (Duration: 0.8ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 2.9ms | GC: 0.0ms)
+Completed 200 OK in 13ms (Views: 3.8ms | ActiveRecord: 0.7ms (4 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/places/12/availability" for 127.0.0.1 at 2026-09-24 14:54:02 +0200
+Processing by PlacesController#availability as JSON
+  Parameters: {"id" => "12"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 9 LIMIT 1 /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/application_controller.rb:12:in 'ApplicationController#current_user'
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = 12 LIMIT 1 /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:26:in 'PlacesController#availability'
+  [1m[36mCheckIn Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:54:02.750431') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:28:in 'PlacesController#availability'
+  [1m[36mCheckInHold Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:54:02.751103') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:29:in 'PlacesController#availability'
+  [1m[36mCheckIn Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:54:02.751640') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:30:in 'PlacesController#availability'
+  [1m[36mCheckInHold Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:54:02.752229') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:30:in 'PlacesController#availability'
+Completed 200 OK in 5ms (Views: 0.2ms | ActiveRecord: 0.4ms (6 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/places/12/availability" for 127.0.0.1 at 2026-09-24 14:54:06 +0200
+Processing by PlacesController#availability as JSON
+  Parameters: {"id" => "12"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 11 LIMIT 1 /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/application_controller.rb:12:in 'ApplicationController#current_user'
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = 12 LIMIT 1 /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:26:in 'PlacesController#availability'
+  [1m[36mCheckIn Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:54:06.309891') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:28:in 'PlacesController#availability'
+  [1m[36mCheckInHold Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:54:06.310984') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:29:in 'PlacesController#availability'
+  [1m[36mCheckIn Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:54:06.311697') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:30:in 'PlacesController#availability'
+  [1m[36mCheckInHold Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:54:06.312232') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:30:in 'PlacesController#availability'
+Completed 200 OK in 7ms (Views: 0.1ms | ActiveRecord: 0.6ms (6 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/check_ins/new?place_id=12" for 127.0.0.1 at 2026-09-24 14:54:06 +0200
+Processing by CheckInsController#new as HTML
+  Parameters: {"place_id" => "12"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 11 LIMIT 1 /*action='new',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/controllers/application_controller.rb:12:in 'ApplicationController#current_user'
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = 12 LIMIT 1 /*action='new',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/controllers/check_ins_controller.rb:5:in 'CheckInsController#new'
+  [1m[36mCheckIn Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:54:06.840049') /*action='new',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/controllers/check_ins_controller.rb:6:in 'CheckInsController#new'
+  [1m[36mCheckInHold Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:54:06.841176') /*action='new',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/controllers/check_ins_controller.rb:7:in 'CheckInsController#new'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*action='new',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/models/check_in_hold.rb:15:in 'block in CheckInHold.claim!'
+  [1m[36mPlace Load (0.7ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = 12 LIMIT 1  /*action='new',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/models/check_in_hold.rb:15:in 'block in CheckInHold.claim!'
+  [1m[36mCheckInHold Load (0.1ms)[0m  [1m[34mSELECT "check_in_holds".* FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND "check_in_holds"."user_id" = 11 LIMIT 1 /*action='new',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/models/check_in_hold.rb:16:in 'block in CheckInHold.claim!'
+  [1m[36mCheckIn Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:54:06.844966') /*action='new',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/models/check_in_hold.rb:19:in 'block in CheckInHold.claim!'
+  [1m[36mCheckInHold Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:54:06.845740') AND "check_in_holds"."user_id" != 11 /*action='new',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/models/check_in_hold.rb:19:in 'block in CheckInHold.claim!'
+  [1m[36mCheckInHold Create (0.1ms)[0m  [1m[32mINSERT INTO "check_in_holds" ("expires_at", "place_id", "user_id", "created_at", "updated_at") VALUES ('2026-09-24 12:56:06.844714', 12, 11, '2026-09-24 12:54:06.846508', '2026-09-24 12:54:06.846508') RETURNING "id" /*action='new',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/models/check_in_hold.rb:22:in 'block in CheckInHold.claim!'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*action='new',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/models/check_in_hold.rb:14:in 'CheckInHold.claim!'
+  Rendering layout layouts/application.html.erb
+  Rendering check_ins/new.html.erb within layouts/application
+  Rendered check_ins/new.html.erb within layouts/application (Duration: 0.5ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 1.1ms | GC: 0.0ms)
+Completed 200 OK in 13ms (Views: 1.4ms | ActiveRecord: 1.6ms (9 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/places/12/availability" for 127.0.0.1 at 2026-09-24 14:54:08 +0200
+Processing by PlacesController#availability as JSON
+  Parameters: {"id" => "12"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 9 LIMIT 1 /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/application_controller.rb:12:in 'ApplicationController#current_user'
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = 12 LIMIT 1 /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:26:in 'PlacesController#availability'
+  [1m[36mCheckIn Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:54:08.233954') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:28:in 'PlacesController#availability'
+  [1m[36mCheckInHold Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:54:08.235017') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:29:in 'PlacesController#availability'
+  [1m[36mCheckIn Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:54:08.235986') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:30:in 'PlacesController#availability'
+  [1m[36mCheckInHold Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:54:08.236910') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:30:in 'PlacesController#availability'
+Completed 200 OK in 7ms (Views: 0.1ms | ActiveRecord: 0.6ms (6 queries, 0 cached) | GC: 0.0ms)
+
+
+Started DELETE "/check_ins/cancel_hold" for 127.0.0.1 at 2026-09-24 14:54:11 +0200
+Processing by CheckInsController#cancel_hold as TURBO_STREAM
+  Parameters: {"place_id" => "12"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 11 LIMIT 1 /*action='cancel_hold',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/controllers/application_controller.rb:12:in 'ApplicationController#current_user'
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = 12 LIMIT 1 /*action='cancel_hold',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/controllers/check_ins_controller.rb:50:in 'CheckInsController#cancel_hold'
+  [1m[36mCheckInHold Load (0.1ms)[0m  [1m[34mSELECT "check_in_holds".* FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND "check_in_holds"."user_id" = 11 LIMIT 1 /*action='cancel_hold',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/controllers/check_ins_controller.rb:51:in 'CheckInsController#cancel_hold'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*action='cancel_hold',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/controllers/check_ins_controller.rb:51:in 'CheckInsController#cancel_hold'
+  [1m[36mCheckInHold Destroy (1.2ms)[0m  [1m[31mDELETE FROM "check_in_holds" WHERE "check_in_holds"."id" = 2 /*action='cancel_hold',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/controllers/check_ins_controller.rb:51:in 'CheckInsController#cancel_hold'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*action='cancel_hold',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/controllers/check_ins_controller.rb:51:in 'CheckInsController#cancel_hold'
+Redirected to http://localhost:3000/places/12
+↳ app/controllers/check_ins_controller.rb:52:in 'CheckInsController#cancel_hold'
+Completed 302 Found in 9ms (ActiveRecord: 1.7ms (4 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/places/12" for 127.0.0.1 at 2026-09-24 14:54:11 +0200
+Processing by PlacesController#show as TURBO_STREAM
+  Parameters: {"id" => "12"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 11 LIMIT 1 /*action='show',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/application_controller.rb:12:in 'ApplicationController#current_user'
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = 12 LIMIT 1 /*action='show',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:20:in 'PlacesController#show'
+  [1m[36mCheckIn Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:54:11.647609') /*action='show',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:21:in 'PlacesController#show'
+  [1m[36mCheckInHold Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:54:11.648343') /*action='show',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:22:in 'PlacesController#show'
+  Rendering layout layouts/application.html.erb
+  Rendering places/show.html.erb within layouts/application
+  Rendered places/show.html.erb within layouts/application (Duration: 0.3ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.8ms | GC: 0.0ms)
+Completed 200 OK in 5ms (Views: 1.1ms | ActiveRecord: 0.3ms (4 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/places/12/availability" for 127.0.0.1 at 2026-09-24 14:54:11 +0200
+Processing by PlacesController#availability as JSON
+  Parameters: {"id" => "12"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 11 LIMIT 1 /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/application_controller.rb:12:in 'ApplicationController#current_user'
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = 12 LIMIT 1 /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:26:in 'PlacesController#availability'
+  [1m[36mCheckIn Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:54:11.699950') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:28:in 'PlacesController#availability'
+  [1m[36mCheckInHold Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:54:11.701056') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:29:in 'PlacesController#availability'
+  [1m[36mCheckIn Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:54:11.701959') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:30:in 'PlacesController#availability'
+  [1m[36mCheckInHold Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:54:11.702744') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:30:in 'PlacesController#availability'
+Completed 200 OK in 6ms (Views: 0.1ms | ActiveRecord: 0.5ms (6 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/places/12/availability" for 127.0.0.1 at 2026-09-24 14:54:13 +0200
+Processing by PlacesController#availability as JSON
+  Parameters: {"id" => "12"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 9 LIMIT 1 /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/application_controller.rb:12:in 'ApplicationController#current_user'
+  [1m[36mPlace Load (0.3ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = 12 LIMIT 1 /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:26:in 'PlacesController#availability'
+  [1m[36mCheckIn Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:54:13.235756') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:28:in 'PlacesController#availability'
+  [1m[36mCheckInHold Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:54:13.237118') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:29:in 'PlacesController#availability'
+  [1m[36mCheckIn Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:54:13.238012') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:30:in 'PlacesController#availability'
+  [1m[36mCheckInHold Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:54:13.238729') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:30:in 'PlacesController#availability'
+Completed 200 OK in 9ms (Views: 0.1ms | ActiveRecord: 0.9ms (6 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/check_ins/new?place_id=12" for 127.0.0.1 at 2026-09-24 14:54:14 +0200
+Processing by CheckInsController#new as HTML
+  Parameters: {"place_id" => "12"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 9 LIMIT 1 /*action='new',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/controllers/application_controller.rb:12:in 'ApplicationController#current_user'
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = 12 LIMIT 1 /*action='new',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/controllers/check_ins_controller.rb:5:in 'CheckInsController#new'
+  [1m[36mCheckIn Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:54:14.103730') /*action='new',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/controllers/check_ins_controller.rb:6:in 'CheckInsController#new'
+  [1m[36mCheckInHold Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:54:14.118396') /*action='new',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/controllers/check_ins_controller.rb:7:in 'CheckInsController#new'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*action='new',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/models/check_in_hold.rb:15:in 'block in CheckInHold.claim!'
+  [1m[36mPlace Load (0.5ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = 12 LIMIT 1  /*action='new',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/models/check_in_hold.rb:15:in 'block in CheckInHold.claim!'
+  [1m[36mCheckInHold Load (0.0ms)[0m  [1m[34mSELECT "check_in_holds".* FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND "check_in_holds"."user_id" = 9 LIMIT 1 /*action='new',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/models/check_in_hold.rb:16:in 'block in CheckInHold.claim!'
+  [1m[36mCheckIn Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:54:14.121105') /*action='new',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/models/check_in_hold.rb:19:in 'block in CheckInHold.claim!'
+  [1m[36mCheckInHold Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:54:14.121677') AND "check_in_holds"."user_id" != 9 /*action='new',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/models/check_in_hold.rb:19:in 'block in CheckInHold.claim!'
+  [1m[36mCheckInHold Create (0.1ms)[0m  [1m[32mINSERT INTO "check_in_holds" ("expires_at", "place_id", "user_id", "created_at", "updated_at") VALUES ('2026-09-24 12:56:14.120927', 12, 9, '2026-09-24 12:54:14.122276', '2026-09-24 12:54:14.122276') RETURNING "id" /*action='new',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/models/check_in_hold.rb:22:in 'block in CheckInHold.claim!'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*action='new',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/models/check_in_hold.rb:14:in 'CheckInHold.claim!'
+  Rendering layout layouts/application.html.erb
+  Rendering check_ins/new.html.erb within layouts/application
+  Rendered check_ins/new.html.erb within layouts/application (Duration: 0.6ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 1.1ms | GC: 0.0ms)
+Completed 200 OK in 24ms (Views: 1.9ms | ActiveRecord: 1.2ms (9 queries, 0 cached) | GC: 13.7ms)
+
+
+Started GET "/places" for 127.0.0.1 at 2026-09-24 14:54:15 +0200
+Processing by PlacesController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 11 LIMIT 1 /*action='index',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/application_controller.rb:12:in 'ApplicationController#current_user'
+  [1m[36mCheckIn Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) AS "count_all", "check_ins"."place_id" AS "check_ins_place_id" FROM "check_ins" WHERE (ends_at > '2026-09-24 12:54:15.479048') AND "check_ins"."place_id" IN (SELECT "places"."id" FROM "places" WHERE "places"."approved" = TRUE ORDER BY "places"."name" ASC) GROUP BY "check_ins"."place_id" /*action='index',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:16:in 'PlacesController#index'
+  Rendering layout layouts/application.html.erb
+  Rendering places/index.html.erb within layouts/application
+  [1m[36mPlace Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "places" WHERE "places"."approved" = TRUE LIMIT 1 /*action='index',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/views/places/index.html.erb:34
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."approved" = TRUE ORDER BY "places"."name" ASC /*action='index',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/views/places/index.html.erb:36
+  Rendered places/index.html.erb within layouts/application (Duration: 10.7ms | GC: 1.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 11.8ms | GC: 1.0ms)
+Completed 200 OK in 19ms (Views: 12.1ms | ActiveRecord: 0.8ms (4 queries, 0 cached) | GC: 1.6ms)
+
+
+Started GET "/check_ins/new?place_id=12" for 127.0.0.1 at 2026-09-24 14:54:15 +0200
+Processing by CheckInsController#new as HTML
+  Parameters: {"place_id" => "12"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 11 LIMIT 1 /*action='new',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/controllers/application_controller.rb:12:in 'ApplicationController#current_user'
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = 12 LIMIT 1 /*action='new',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/controllers/check_ins_controller.rb:5:in 'CheckInsController#new'
+  [1m[36mCheckIn Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:54:15.760512') /*action='new',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/controllers/check_ins_controller.rb:6:in 'CheckInsController#new'
+  [1m[36mCheckInHold Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:54:15.761849') /*action='new',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/controllers/check_ins_controller.rb:7:in 'CheckInsController#new'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*action='new',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/models/check_in_hold.rb:15:in 'block in CheckInHold.claim!'
+  [1m[36mPlace Load (0.4ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = 12 LIMIT 1  /*action='new',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/models/check_in_hold.rb:15:in 'block in CheckInHold.claim!'
+  [1m[36mCheckInHold Load (0.0ms)[0m  [1m[34mSELECT "check_in_holds".* FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND "check_in_holds"."user_id" = 11 LIMIT 1 /*action='new',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/models/check_in_hold.rb:16:in 'block in CheckInHold.claim!'
+  [1m[36mCheckIn Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:54:15.764213') /*action='new',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/models/check_in_hold.rb:19:in 'block in CheckInHold.claim!'
+  [1m[36mCheckInHold Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:54:15.765167') AND "check_in_holds"."user_id" != 11 /*action='new',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/models/check_in_hold.rb:19:in 'block in CheckInHold.claim!'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION /*action='new',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/models/check_in_hold.rb:14:in 'CheckInHold.claim!'
+  Rendering layout layouts/application.html.erb
+  Rendering check_ins/new.html.erb within layouts/application
+  Rendered check_ins/new.html.erb within layouts/application (Duration: 0.5ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 1.0ms | GC: 0.0ms)
+Completed 422 Unprocessable Content in 11ms (Views: 1.3ms | ActiveRecord: 1.1ms (8 queries, 0 cached) | GC: 0.4ms)
+
+
+Started GET "/places/12/availability" for 127.0.0.1 at 2026-09-24 14:54:18 +0200
+Processing by PlacesController#availability as JSON
+  Parameters: {"id" => "12"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 11 LIMIT 1 /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/application_controller.rb:12:in 'ApplicationController#current_user'
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = 12 LIMIT 1 /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:26:in 'PlacesController#availability'
+  [1m[36mCheckIn Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:54:18.053750') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:28:in 'PlacesController#availability'
+  [1m[36mCheckInHold Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:54:18.054820') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:29:in 'PlacesController#availability'
+  [1m[36mCheckIn Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:54:18.055395') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:30:in 'PlacesController#availability'
+  [1m[36mCheckInHold Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:54:18.055899') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:30:in 'PlacesController#availability'
+Completed 200 OK in 5ms (Views: 0.1ms | ActiveRecord: 0.4ms (6 queries, 0 cached) | GC: 0.2ms)
+
+
+Started GET "/check_ins/new?place_id=12" for 127.0.0.1 at 2026-09-24 14:54:18 +0200
+Processing by CheckInsController#new as HTML
+  Parameters: {"place_id" => "12"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 11 LIMIT 1 /*action='new',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/controllers/application_controller.rb:12:in 'ApplicationController#current_user'
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = 12 LIMIT 1 /*action='new',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/controllers/check_ins_controller.rb:5:in 'CheckInsController#new'
+  [1m[36mCheckIn Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:54:18.159791') /*action='new',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/controllers/check_ins_controller.rb:6:in 'CheckInsController#new'
+  [1m[36mCheckInHold Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:54:18.161792') /*action='new',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/controllers/check_ins_controller.rb:7:in 'CheckInsController#new'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*action='new',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/models/check_in_hold.rb:15:in 'block in CheckInHold.claim!'
+  [1m[36mPlace Load (0.6ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = 12 LIMIT 1  /*action='new',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/models/check_in_hold.rb:15:in 'block in CheckInHold.claim!'
+  [1m[36mCheckInHold Load (0.1ms)[0m  [1m[34mSELECT "check_in_holds".* FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND "check_in_holds"."user_id" = 11 LIMIT 1 /*action='new',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/models/check_in_hold.rb:16:in 'block in CheckInHold.claim!'
+  [1m[36mCheckIn Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:54:18.165417') /*action='new',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/models/check_in_hold.rb:19:in 'block in CheckInHold.claim!'
+  [1m[36mCheckInHold Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:54:18.165973') AND "check_in_holds"."user_id" != 11 /*action='new',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/models/check_in_hold.rb:19:in 'block in CheckInHold.claim!'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION /*action='new',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/models/check_in_hold.rb:14:in 'CheckInHold.claim!'
+  Rendering layout layouts/application.html.erb
+  Rendering check_ins/new.html.erb within layouts/application
+  Rendered check_ins/new.html.erb within layouts/application (Duration: 0.5ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 1.0ms | GC: 0.0ms)
+Completed 422 Unprocessable Content in 13ms (Views: 1.3ms | ActiveRecord: 1.4ms (8 queries, 0 cached) | GC: 0.3ms)
+
+
+Started DELETE "/check_ins/cancel_hold" for 127.0.0.1 at 2026-09-24 14:54:20 +0200
+Processing by CheckInsController#cancel_hold as TURBO_STREAM
+  Parameters: {"place_id" => "12"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 9 LIMIT 1 /*action='cancel_hold',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/controllers/application_controller.rb:12:in 'ApplicationController#current_user'
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = 12 LIMIT 1 /*action='cancel_hold',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/controllers/check_ins_controller.rb:50:in 'CheckInsController#cancel_hold'
+  [1m[36mCheckInHold Load (0.1ms)[0m  [1m[34mSELECT "check_in_holds".* FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND "check_in_holds"."user_id" = 9 LIMIT 1 /*action='cancel_hold',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/controllers/check_ins_controller.rb:51:in 'CheckInsController#cancel_hold'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*action='cancel_hold',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/controllers/check_ins_controller.rb:51:in 'CheckInsController#cancel_hold'
+  [1m[36mCheckInHold Destroy (1.6ms)[0m  [1m[31mDELETE FROM "check_in_holds" WHERE "check_in_holds"."id" = 3 /*action='cancel_hold',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/controllers/check_ins_controller.rb:51:in 'CheckInsController#cancel_hold'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*action='cancel_hold',application='Modul223RelaxSpot',controller='check_ins'*/[0m
+  ↳ app/controllers/check_ins_controller.rb:51:in 'CheckInsController#cancel_hold'
+Redirected to http://localhost:3000/places/12
+↳ app/controllers/check_ins_controller.rb:52:in 'CheckInsController#cancel_hold'
+Completed 302 Found in 7ms (ActiveRecord: 2.0ms (4 queries, 0 cached) | GC: 1.3ms)
+
+
+Started GET "/places/12" for 127.0.0.1 at 2026-09-24 14:54:20 +0200
+Processing by PlacesController#show as TURBO_STREAM
+  Parameters: {"id" => "12"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 9 LIMIT 1 /*action='show',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/application_controller.rb:12:in 'ApplicationController#current_user'
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = 12 LIMIT 1 /*action='show',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:20:in 'PlacesController#show'
+  [1m[36mCheckIn Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:54:20.477140') /*action='show',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:21:in 'PlacesController#show'
+  [1m[36mCheckInHold Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:54:20.477813') /*action='show',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:22:in 'PlacesController#show'
+  Rendering layout layouts/application.html.erb
+  Rendering places/show.html.erb within layouts/application
+  Rendered places/show.html.erb within layouts/application (Duration: 0.3ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.9ms | GC: 0.0ms)
+Completed 200 OK in 5ms (Views: 1.1ms | ActiveRecord: 0.3ms (4 queries, 0 cached) | GC: 0.4ms)
+
+
+Started GET "/places/12/availability" for 127.0.0.1 at 2026-09-24 14:54:20 +0200
+Processing by PlacesController#availability as JSON
+  Parameters: {"id" => "12"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 9 LIMIT 1 /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/application_controller.rb:12:in 'ApplicationController#current_user'
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = 12 LIMIT 1 /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:26:in 'PlacesController#availability'
+  [1m[36mCheckIn Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:54:20.491910') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:28:in 'PlacesController#availability'
+  [1m[36mCheckInHold Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:54:20.492634') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:29:in 'PlacesController#availability'
+  [1m[36mCheckIn Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:54:20.493148') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:30:in 'PlacesController#availability'
+  [1m[36mCheckInHold Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:54:20.493599') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:30:in 'PlacesController#availability'
+Completed 200 OK in 4ms (Views: 0.1ms | ActiveRecord: 0.3ms (6 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/places/12/availability" for 127.0.0.1 at 2026-09-24 14:54:23 +0200
+Processing by PlacesController#availability as JSON
+  Parameters: {"id" => "12"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 11 LIMIT 1 /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/application_controller.rb:12:in 'ApplicationController#current_user'
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = 12 LIMIT 1 /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:26:in 'PlacesController#availability'
+  [1m[36mCheckIn Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:54:23.056302') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:28:in 'PlacesController#availability'
+  [1m[36mCheckInHold Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:54:23.057484') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:29:in 'PlacesController#availability'
+  [1m[36mCheckIn Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:54:23.058256') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:30:in 'PlacesController#availability'
+  [1m[36mCheckInHold Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:54:23.058864') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:30:in 'PlacesController#availability'
+Completed 200 OK in 7ms (Views: 0.1ms | ActiveRecord: 0.6ms (6 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/places/12/availability" for 127.0.0.1 at 2026-09-24 14:54:25 +0200
+Processing by PlacesController#availability as JSON
+  Parameters: {"id" => "12"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 9 LIMIT 1 /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/application_controller.rb:12:in 'ApplicationController#current_user'
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = 12 LIMIT 1 /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:26:in 'PlacesController#availability'
+  [1m[36mCheckIn Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:54:25.494471') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:28:in 'PlacesController#availability'
+  [1m[36mCheckInHold Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:54:25.495831') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:29:in 'PlacesController#availability'
+  [1m[36mCheckIn Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:54:25.496896') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:30:in 'PlacesController#availability'
+  [1m[36mCheckInHold Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:54:25.497778') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:30:in 'PlacesController#availability'
+Completed 200 OK in 8ms (Views: 0.1ms | ActiveRecord: 0.7ms (6 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/places/12/availability" for 127.0.0.1 at 2026-09-24 14:54:28 +0200
+Processing by PlacesController#availability as JSON
+  Parameters: {"id" => "12"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 11 LIMIT 1 /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/application_controller.rb:12:in 'ApplicationController#current_user'
+  [1m[36mPlace Load (0.2ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = 12 LIMIT 1 /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:26:in 'PlacesController#availability'
+  [1m[36mCheckIn Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:54:28.116504') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:28:in 'PlacesController#availability'
+  [1m[36mCheckInHold Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:54:28.117927') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:29:in 'PlacesController#availability'
+  [1m[36mCheckIn Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:54:28.119079') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:30:in 'PlacesController#availability'
+  [1m[36mCheckInHold Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:54:28.122174') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:30:in 'PlacesController#availability'
+Completed 200 OK in 13ms (Views: 0.1ms | ActiveRecord: 1.2ms (6 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/places/12/availability" for 127.0.0.1 at 2026-09-24 14:54:30 +0200
+Processing by PlacesController#availability as JSON
+  Parameters: {"id" => "12"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 9 LIMIT 1 /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/application_controller.rb:12:in 'ApplicationController#current_user'
+  [1m[36mPlace Load (0.2ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = 12 LIMIT 1 /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:26:in 'PlacesController#availability'
+  [1m[36mCheckIn Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:54:30.763179') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:28:in 'PlacesController#availability'
+  [1m[36mCheckInHold Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:54:30.765372') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:29:in 'PlacesController#availability'
+  [1m[36mCheckIn Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:54:30.766520') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:30:in 'PlacesController#availability'
+  [1m[36mCheckInHold Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:54:30.767371') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:30:in 'PlacesController#availability'
+Completed 200 OK in 10ms (Views: 0.1ms | ActiveRecord: 0.9ms (6 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/places/12/availability" for 127.0.0.1 at 2026-09-24 14:54:33 +0200
+Processing by PlacesController#availability as JSON
+  Parameters: {"id" => "12"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 11 LIMIT 1 /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/application_controller.rb:12:in 'ApplicationController#current_user'
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = 12 LIMIT 1 /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:26:in 'PlacesController#availability'
+  [1m[36mCheckIn Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:54:33.052672') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:28:in 'PlacesController#availability'
+  [1m[36mCheckInHold Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:54:33.053384') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:29:in 'PlacesController#availability'
+  [1m[36mCheckIn Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:54:33.053861') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:30:in 'PlacesController#availability'
+  [1m[36mCheckInHold Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:54:33.054264') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:30:in 'PlacesController#availability'
+Completed 200 OK in 4ms (Views: 0.1ms | ActiveRecord: 0.3ms (6 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/places/12/availability" for 127.0.0.1 at 2026-09-24 14:54:35 +0200
+Processing by PlacesController#availability as JSON
+  Parameters: {"id" => "12"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 9 LIMIT 1 /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/application_controller.rb:12:in 'ApplicationController#current_user'
+  [1m[36mPlace Load (0.2ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = 12 LIMIT 1 /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:26:in 'PlacesController#availability'
+  [1m[36mCheckIn Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:54:35.761630') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:28:in 'PlacesController#availability'
+  [1m[36mCheckInHold Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:54:35.763107') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:29:in 'PlacesController#availability'
+  [1m[36mCheckIn Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:54:35.764091') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:30:in 'PlacesController#availability'
+  [1m[36mCheckInHold Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:54:35.764866') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:30:in 'PlacesController#availability'
+Completed 200 OK in 8ms (Views: 0.1ms | ActiveRecord: 0.7ms (6 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/places/12/availability" for 127.0.0.1 at 2026-09-24 14:54:38 +0200
+Processing by PlacesController#availability as JSON
+  Parameters: {"id" => "12"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 11 LIMIT 1 /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/application_controller.rb:12:in 'ApplicationController#current_user'
+  [1m[36mPlace Load (0.2ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = 12 LIMIT 1 /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:26:in 'PlacesController#availability'
+  [1m[36mCheckIn Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:54:38.057431') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:28:in 'PlacesController#availability'
+  [1m[36mCheckInHold Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:54:38.058957') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:29:in 'PlacesController#availability'
+  [1m[36mCheckIn Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:54:38.060052') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:30:in 'PlacesController#availability'
+  [1m[36mCheckInHold Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:54:38.060874') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:30:in 'PlacesController#availability'
+Completed 200 OK in 8ms (Views: 0.1ms | ActiveRecord: 0.7ms (6 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/places/12/availability" for 127.0.0.1 at 2026-09-24 14:54:40 +0200
+Processing by PlacesController#availability as JSON
+  Parameters: {"id" => "12"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 9 LIMIT 1 /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/application_controller.rb:12:in 'ApplicationController#current_user'
+  [1m[36mPlace Load (0.2ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = 12 LIMIT 1 /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:26:in 'PlacesController#availability'
+  [1m[36mCheckIn Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:54:40.761395') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:28:in 'PlacesController#availability'
+  [1m[36mCheckInHold Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:54:40.762895') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:29:in 'PlacesController#availability'
+  [1m[36mCheckIn Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:54:40.763870') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:30:in 'PlacesController#availability'
+  [1m[36mCheckInHold Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:54:40.764667') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:30:in 'PlacesController#availability'
+Completed 200 OK in 8ms (Views: 0.1ms | ActiveRecord: 0.7ms (6 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/places/12/availability" for 127.0.0.1 at 2026-09-24 14:54:43 +0200
+Processing by PlacesController#availability as JSON
+  Parameters: {"id" => "12"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 11 LIMIT 1 /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/application_controller.rb:12:in 'ApplicationController#current_user'
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = 12 LIMIT 1 /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:26:in 'PlacesController#availability'
+  [1m[36mCheckIn Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:54:43.056870') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:28:in 'PlacesController#availability'
+  [1m[36mCheckInHold Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:54:43.058369') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:29:in 'PlacesController#availability'
+  [1m[36mCheckIn Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:54:43.059232') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:30:in 'PlacesController#availability'
+  [1m[36mCheckInHold Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:54:43.059907') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:30:in 'PlacesController#availability'
+Completed 200 OK in 8ms (Views: 0.1ms | ActiveRecord: 0.7ms (6 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/places/12/availability" for 127.0.0.1 at 2026-09-24 14:54:45 +0200
+Processing by PlacesController#availability as JSON
+  Parameters: {"id" => "12"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 9 LIMIT 1 /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/application_controller.rb:12:in 'ApplicationController#current_user'
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = 12 LIMIT 1 /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:26:in 'PlacesController#availability'
+  [1m[36mCheckIn Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:54:45.760963') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:28:in 'PlacesController#availability'
+  [1m[36mCheckInHold Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:54:45.763180') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:29:in 'PlacesController#availability'
+  [1m[36mCheckIn Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:54:45.764310') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:30:in 'PlacesController#availability'
+  [1m[36mCheckInHold Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:54:45.765055') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:30:in 'PlacesController#availability'
+Completed 200 OK in 8ms (Views: 0.1ms | ActiveRecord: 0.7ms (6 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/places/12/availability" for 127.0.0.1 at 2026-09-24 14:54:48 +0200
+Processing by PlacesController#availability as JSON
+  Parameters: {"id" => "12"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 11 LIMIT 1 /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/application_controller.rb:12:in 'ApplicationController#current_user'
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = 12 LIMIT 1 /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:26:in 'PlacesController#availability'
+  [1m[36mCheckIn Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:54:48.057021') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:28:in 'PlacesController#availability'
+  [1m[36mCheckInHold Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:54:48.057693') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:29:in 'PlacesController#availability'
+  [1m[36mCheckIn Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:54:48.058187') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:30:in 'PlacesController#availability'
+  [1m[36mCheckInHold Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:54:48.058697') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:30:in 'PlacesController#availability'
+Completed 200 OK in 5ms (Views: 0.1ms | ActiveRecord: 0.4ms (6 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/places/12/availability" for 127.0.0.1 at 2026-09-24 14:54:50 +0200
+Processing by PlacesController#availability as JSON
+  Parameters: {"id" => "12"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 9 LIMIT 1 /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/application_controller.rb:12:in 'ApplicationController#current_user'
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = 12 LIMIT 1 /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:26:in 'PlacesController#availability'
+  [1m[36mCheckIn Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:54:50.760649') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:28:in 'PlacesController#availability'
+  [1m[36mCheckInHold Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:54:50.762083') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:29:in 'PlacesController#availability'
+  [1m[36mCheckIn Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:54:50.763169') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:30:in 'PlacesController#availability'
+  [1m[36mCheckInHold Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:54:50.764073') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:30:in 'PlacesController#availability'
+Completed 200 OK in 8ms (Views: 0.1ms | ActiveRecord: 0.7ms (6 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/places/12/availability" for 127.0.0.1 at 2026-09-24 14:54:53 +0200
+Processing by PlacesController#availability as JSON
+  Parameters: {"id" => "12"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 11 LIMIT 1 /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/application_controller.rb:12:in 'ApplicationController#current_user'
+  [1m[36mPlace Load (0.2ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = 12 LIMIT 1 /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:26:in 'PlacesController#availability'
+  [1m[36mCheckIn Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:54:53.058626') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:28:in 'PlacesController#availability'
+  [1m[36mCheckInHold Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:54:53.059872') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:29:in 'PlacesController#availability'
+  [1m[36mCheckIn Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:54:53.060661') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:30:in 'PlacesController#availability'
+  [1m[36mCheckInHold Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:54:53.061274') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:30:in 'PlacesController#availability'
+Completed 200 OK in 7ms (Views: 0.1ms | ActiveRecord: 0.6ms (6 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/places/12/availability" for 127.0.0.1 at 2026-09-24 14:54:55 +0200
+Processing by PlacesController#availability as JSON
+  Parameters: {"id" => "12"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 9 LIMIT 1 /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/application_controller.rb:12:in 'ApplicationController#current_user'
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = 12 LIMIT 1 /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:26:in 'PlacesController#availability'
+  [1m[36mCheckIn Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:54:55.760417') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:28:in 'PlacesController#availability'
+  [1m[36mCheckInHold Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:54:55.761098') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:29:in 'PlacesController#availability'
+  [1m[36mCheckIn Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:54:55.761647') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:30:in 'PlacesController#availability'
+  [1m[36mCheckInHold Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:54:55.762099') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:30:in 'PlacesController#availability'
+Completed 200 OK in 5ms (Views: 0.1ms | ActiveRecord: 0.5ms (6 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/places/12/availability" for 127.0.0.1 at 2026-09-24 14:54:58 +0200
+Processing by PlacesController#availability as JSON
+  Parameters: {"id" => "12"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 11 LIMIT 1 /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/application_controller.rb:12:in 'ApplicationController#current_user'
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = 12 LIMIT 1 /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:26:in 'PlacesController#availability'
+  [1m[36mCheckIn Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:54:58.058478') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:28:in 'PlacesController#availability'
+  [1m[36mCheckInHold Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:54:58.059649') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:29:in 'PlacesController#availability'
+  [1m[36mCheckIn Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:54:58.060463') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:30:in 'PlacesController#availability'
+  [1m[36mCheckInHold Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:54:58.061121') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:30:in 'PlacesController#availability'
+Completed 200 OK in 7ms (Views: 0.1ms | ActiveRecord: 0.6ms (6 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/places/12/availability" for 127.0.0.1 at 2026-09-24 14:55:00 +0200
+Processing by PlacesController#availability as JSON
+  Parameters: {"id" => "12"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 9 LIMIT 1 /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/application_controller.rb:12:in 'ApplicationController#current_user'
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = 12 LIMIT 1 /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:26:in 'PlacesController#availability'
+  [1m[36mCheckIn Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:55:00.761431') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:28:in 'PlacesController#availability'
+  [1m[36mCheckInHold Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:55:00.762103') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:29:in 'PlacesController#availability'
+  [1m[36mCheckIn Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_ins" WHERE "check_ins"."place_id" = 12 AND (ends_at > '2026-09-24 12:55:00.762604') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:30:in 'PlacesController#availability'
+  [1m[36mCheckInHold Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "check_in_holds" WHERE "check_in_holds"."place_id" = 12 AND (expires_at > '2026-09-24 12:55:00.763058') /*action='availability',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:30:in 'PlacesController#availability'
+Completed 200 OK in 5ms (Views: 0.1ms | ActiveRecord: 0.4ms (6 queries, 0 cached) | GC: 0.0ms)
+
+

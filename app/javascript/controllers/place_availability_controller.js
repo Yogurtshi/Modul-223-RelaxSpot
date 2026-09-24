@@ -27,10 +27,10 @@ export default class extends Controller {
       if (!response.ok) return
 
       const availability = await response.json()
-      this.countTarget.textContent = `${availability.active_count}/${availability.capacity} people`
+      this.countTarget.textContent = `${availability.total_count}/${availability.capacity} people`
 
       if (this.authenticatedValue) {
-        this.renderCheckInAction(availability.active_count >= availability.capacity)
+        this.renderCheckInAction(availability.total_count >= availability.capacity)
       }
     } catch (error) {
       // Keep the current state when the availability request fails.

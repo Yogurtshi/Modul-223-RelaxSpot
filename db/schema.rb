@@ -10,7 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_24_110000) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_24_140000) do
+  create_table "check_in_holds", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "expires_at", null: false
+    t.integer "place_id", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
+    t.index ["place_id", "expires_at"], name: "index_check_in_holds_on_place_id_and_expires_at"
+    t.index ["place_id", "user_id"], name: "index_check_in_holds_on_place_id_and_user_id", unique: true
+    t.index ["place_id"], name: "index_check_in_holds_on_place_id"
+    t.index ["user_id"], name: "index_check_in_holds_on_user_id"
+  end
+
   create_table "check_ins", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "ends_at", null: false
@@ -83,6 +95,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_24_110000) do
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
+  add_foreign_key "check_in_holds", "places"
+  add_foreign_key "check_in_holds", "users"
   add_foreign_key "check_ins", "places"
   add_foreign_key "check_ins", "users"
   add_foreign_key "places", "users", column: "locked_by_id"

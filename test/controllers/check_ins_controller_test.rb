@@ -34,9 +34,53 @@ class CheckInsControllerTest < ActionDispatch::IntegrationTest
 
     get new_check_in_url, params: { place_id: place.id }
 
+    assert_response :unprocessable_entity
+    assert_select ".form-errors", /Place is currently full/
+  end
+
+  test "opening the form reserves a slot for the user" do
+    place = places(:one)
+    place.update!(capacity: 2)
+    CheckIn.create!(
+      place: place,
+      user: users(:one),
+      started_at: 10.minutes.ago,
+      ends_at: 20.minutes.from_now
+    )
+    other_user = User.create!(name: "Holding User", email: "holding-user@example.com", password: "secure-password")
+    post session_url, params: { email: other_user.email, password: "secure-password" }
+
+    get new_check_in_url, params: { place_id: place.id }
+
     assert_response :success
-    assert_select ".capacity-notice", text: "This place is currently full."
-    assert_select "input[type=submit][disabled][value='Check in']"
+    assert_equal 1, place.check_in_holds.active.count
+
+    get availability_place_url(place)
+    assert_equal 2, response.parsed_body["total_count"]
+  end
+
+  test "canceling a check-in form releases the hold" do
+    place = places(:one)
+    get new_check_in_url, params: { place_id: place.id }
+
+    assert_difference("CheckInHold.count", -1) do
+      delete cancel_hold_check_ins_url, params: { place_id: place.id }
+    end
+
+    assert_redirected_to place_url(place)
+  end
+
+  test "creating a check-in converts the user's hold" do
+    place = places(:one)
+    get new_check_in_url, params: { place_id: place.id }
+
+    assert_difference("CheckIn.count", 1) do
+      assert_difference("CheckInHold.count", -1) do
+      post check_ins_url, params: {
+        check_in: { place_id: place.id, expected_minutes: 30 }
+      }
+      end
+    end
   end
 
   test "should create check-in" do

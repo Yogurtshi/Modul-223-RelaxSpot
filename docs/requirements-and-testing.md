@@ -6,7 +6,7 @@
 | --- | --- | --- |
 | Registration and login | `UsersController`, `SessionsController`, `User` | `test/controllers/users_controller_test.rb`, `test/controllers/sessions_controller_test.rb`, `test/models/user_test.rb` |
 | Approved place directory | `PlacesController`, `Place` | `test/controllers/places_controller_test.rb`, `test/models/place_test.rb` |
-| Capacity-limited check-in | `CheckIn.create_with_capacity!` with a locked place transaction | `test/models/check_in_test.rb`, `test/controllers/check_ins_controller_test.rb` |
+| Capacity-limited check-in and temporary holds | `CheckIn.create_with_capacity!`, `CheckInHold`, and locked place transactions | `test/models/check_in_test.rb`, `test/models/check_in_hold_test.rb`, `test/controllers/check_ins_controller_test.rb` |
 | Check-in ownership | `CheckInPolicy` and scoped lookup in `CheckInsController` | `test/policies/check_in_policy_test.rb`, `test/controllers/check_ins_controller_test.rb` |
 | Place suggestions and status reports | `PlacesController`, `StatusReportsController` | `test/controllers/places_controller_test.rb`, `test/controllers/status_reports_controller_test.rb` |
 | Moderation approval and edit locks | `Moderation::PlacesController`, `PlacePolicy` | `test/controllers/moderation/places_controller_test.rb`, `test/policies/place_policy_test.rb` |
@@ -24,7 +24,7 @@ The complete suite was run with:
 bin/rails test
 ```
 
-Result: 71 tests, 188 assertions, 0 failures, 0 errors, 0 skips.
+Result: 85 tests, 258 assertions, 0 failures, 0 errors, 0 skips.
 
 ## Test effectiveness exercise
 

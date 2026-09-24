@@ -12,7 +12,7 @@
     </div>
     <div>
       <span class="detail-label">Capacity</span>
-      <strong><%= @active_check_ins %>/<%= @place.capacity %> people</strong>
+      <strong><%= @active_check_ins + @active_check_in_holds %>/<%= @place.capacity %> people</strong>
     </div>
     <div>
       <span class="detail-label">Opening hours</span>
@@ -41,11 +41,11 @@
     </div>
 
     <div class="check-in-form__actions">
-      <%= link_to "Back to place", place_path(@place), class: "secondary-button" %>
-      <% if @active_check_ins >= @place.capacity %>
+      <%= link_to "Cancel", cancel_hold_check_ins_path(place_id: @place.id), data: { turbo_method: :delete }, class: "secondary-button" %>
+      <% if @check_in_hold.nil? %>
         <span class="capacity-notice">This place is currently full.</span>
       <% end %>
-      <%= form.submit "Check in", class: "primary-button", disabled: @active_check_ins >= @place.capacity %>
+      <%= form.submit "Check in", class: "primary-button", disabled: @check_in_hold.nil? %>
     </div>
   <% end %>
 </section>

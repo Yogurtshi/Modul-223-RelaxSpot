@@ -9,7 +9,11 @@ Rails.application.routes.draw do
     end
   end
   resource :session, only: [ :new, :create, :destroy ]
-  resources :check_ins, only: [ :new, :create, :show ]
+  resources :check_ins, only: [ :new, :create, :show ] do
+    collection do
+      delete :cancel_hold
+    end
+  end
   resources :status_reports, only: [ :new, :create ]
 
   resource :profile, only: [ :show, :edit, :update ], controller: "profile" do
