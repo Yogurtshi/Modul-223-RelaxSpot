@@ -1,2 +1,12 @@
-<h1>Moderation::Places#show</h1>
-<p>Find me in app/views/moderation/places/show.html.erb</p>
+<h1>Place moderation</h1>
+
+<p>Name: <%= @place.name %></p>
+<p>Category: <%= @place.category.humanize %></p>
+<p>Status: <%= @place.status.humanize %></p>
+<p>Approved: <%= @place.approved? ? "Yes" : "No" %></p>
+
+<%= button_to "Approve", approve_moderation_place_path(@place), method: :post %>
+<%= button_to "Reject", reject_moderation_place_path(@place), method: :post %>
+<%= button_to "Unlock", unlock_moderation_place_path(@place), method: :post %>
+
+<%= link_to "Edit place", edit_moderation_place_path(@place) %>

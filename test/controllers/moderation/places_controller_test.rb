@@ -1,33 +1,48 @@
 require "test_helper"
 
 class Moderation::PlacesControllerTest < ActionDispatch::IntegrationTest
-  test "should get show" do
-    get moderation_places_show_url
-    assert_response :success
+  setup do
+    @moderator = User.create!(
+      name: "Moderator User",
+      email: "moderator@example.com",
+      password: "password1234",
+      role: :moderator
+    )
+
+    @place = Place.create!(
+      name: "Central Park Bench",
+      category: :seating,
+      latitude: 47.3769,
+      longitude: 8.5417,
+      capacity: 3,
+      proposed_by: @moderator,
+      approved: false
+    )
+
+    post session_path, params: {
+      email: @moderator.email,
+      password: "password1234"
+    }
   end
 
-  test "should get edit" do
-    get moderation_places_edit_url
+  test "moderator can view a pending place" do
+    get "/moderation/places/#{@place.id}"
+
     assert_response :success
+    assert_select "h1", /Place/i
   end
 
-  test "should get update" do
-    get moderation_places_update_url
-    assert_response :success
+  test "moderator can approve a place" do
+    post "/moderation/places/#{@place.id}/approve"
+
+    assert_redirected_to "/moderation/places/#{@place.id}"
+    assert @place.reload.approved
   end
 
-  test "should get approve" do
-    get moderation_places_approve_url
-    assert_response :success
-  end
+  test "moderator can reject a place" do
+    post "/moderation/places/#{@place.id}/reject"
 
-  test "should get reject" do
-    get moderation_places_reject_url
-    assert_response :success
-  end
-
-  test "should get unlock" do
-    get moderation_places_unlock_url
-    assert_response :success
+    assert_redirected_to "/moderation/places/#{@place.id}"
+    assert_not @place.reload.approved
   end
 end

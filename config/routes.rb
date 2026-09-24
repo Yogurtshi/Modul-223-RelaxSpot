@@ -20,12 +20,15 @@ Rails.application.routes.draw do
         post :reject
       end
     end
-    get "places/show"
-    get "places/edit"
-    get "places/update"
-    get "places/approve"
-    get "places/reject"
-    get "places/unlock"
+
+    resources :places, only: [ :show, :edit, :update ] do
+      member do
+        post :approve
+        post :reject
+        post :unlock
+      end
+    end
+
     get "dashboards/show"
   end
   get "profile/show"
