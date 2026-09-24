@@ -1,11 +1,34 @@
-<h1>User</h1>
+<div class="review-page">
+  <div class="page-heading">
+    <div>
+      <p class="eyebrow"><%= @user.role.humanize %></p>
+      <h1><%= @user.name %></h1>
+      <p class="page-intro"><%= @user.email %></p>
+    </div>
 
-<p>Name: <%= @user.name %></p>
-<p>Email: <%= @user.email %></p>
-<p>Role: <%= @user.role.humanize %></p>
-<p>Locked: <%= @user.locked? ? "Yes" : "No" %></p>
+    <span class="status-badge <%= @user.locked? ? 'status-badge--negative' : 'status-badge--positive' %>">
+      <%= @user.locked? ? "Blocked" : "Active" %>
+    </span>
+  </div>
 
-<%= button_to "Promote to moderator", promote_admin_user_path(@user), method: :post %>
-<%= button_to "Demote to user", demote_admin_user_path(@user), method: :post %>
-<%= button_to "Lock", lock_admin_user_path(@user), method: :post %>
-<%= button_to "Unlock", unlock_admin_user_path(@user), method: :post %>
+  <section class="review-details" aria-label="User details">
+    <div class="review-detail-item">
+      <span class="detail-label">Email</span>
+      <strong><%= @user.email %></strong>
+    </div>
+    <div class="review-detail-item">
+      <span class="detail-label">Role</span>
+      <strong><%= @user.role.humanize %></strong>
+    </div>
+  </section>
+
+  <div class="review-actions">
+    <%= button_to "Promote to moderator", promote_admin_user_path(@user), method: :post, class: "small-button small-button--soft" %>
+    <%= button_to "Demote to user", demote_admin_user_path(@user), method: :post, class: "small-button small-button--soft" %>
+    <% if @user.locked? %>
+      <%= button_to "Unblock", unlock_admin_user_path(@user), method: :post, class: "small-button small-button--positive" %>
+    <% else %>
+      <%= button_to "Block", lock_admin_user_path(@user), method: :post, class: "small-button small-button--danger" %>
+    <% end %>
+  </div>
+</div>

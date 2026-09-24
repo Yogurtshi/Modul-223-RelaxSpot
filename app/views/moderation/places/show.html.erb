@@ -1,12 +1,45 @@
-<h1>Place moderation</h1>
+<div class="review-page">
+  <div class="page-heading">
+    <div>
+      <p class="eyebrow"><%= @place.category.humanize %></p>
+      <h1><%= @place.name %></h1>
+      <p class="page-intro">Suggested by <%= @place.proposed_by.name %></p>
+    </div>
 
-<p>Name: <%= @place.name %></p>
-<p>Category: <%= @place.category.humanize %></p>
-<p>Status: <%= @place.status.humanize %></p>
-<p>Approved: <%= @place.approved? ? "Yes" : "No" %></p>
+    <span class="status-badge <%= @place.approved? ? 'status-badge--positive' : 'status-badge--pending' %>">
+      <%= @place.approved? ? "Approved" : "Pending review" %>
+    </span>
+  </div>
 
-<%= button_to "Approve", approve_moderation_place_path(@place), method: :post %>
-<%= button_to "Reject", reject_moderation_place_path(@place), method: :post %>
-<%= button_to "Unlock", unlock_moderation_place_path(@place), method: :post %>
+  <section class="review-details" aria-label="Place details">
+    <div class="review-detail-item">
+      <span class="detail-label">Status</span>
+      <strong><%= @place.status.humanize %></strong>
+    </div>
+    <div class="review-detail-item">
+      <span class="detail-label">Capacity</span>
+      <strong><%= @place.capacity %> people</strong>
+    </div>
+    <div class="review-detail-item">
+      <span class="detail-label">Location</span>
+      <strong><%= @place.latitude %>, <%= @place.longitude %></strong>
+    </div>
+    <div class="review-detail-item">
+      <span class="detail-label">Opening hours</span>
+      <strong><%= @place.opening_hours.presence || "Not specified" %></strong>
+    </div>
+    <% if @place.locked_by.present? %>
+      <div class="review-detail-item">
+        <span class="detail-label">Locked by</span>
+        <strong><%= @place.locked_by.name %></strong>
+      </div>
+    <% end %>
+  </section>
 
-<%= link_to "Edit place", edit_moderation_place_path(@place) %>
+  <div class="review-actions">
+    <%= button_to "Approve", approve_moderation_place_path(@place), method: :post, class: "small-button small-button--positive" %>
+    <%= button_to "Reject", reject_moderation_place_path(@place), method: :post, class: "small-button small-button--danger" %>
+    <%= button_to "Unlock", unlock_moderation_place_path(@place), method: :post, class: "small-button small-button--soft" %>
+    <%= link_to "Edit place", edit_moderation_place_path(@place), class: "secondary-button" %>
+  </div>
+</div>

@@ -36,7 +36,7 @@ class Moderation::PlacesControllerTest < ActionDispatch::IntegrationTest
     get "/moderation/places/#{@place.id}"
 
     assert_response :success
-    assert_select "h1", /Place/i
+    assert_select "h1", @place.name
   end
 
   test "moderator can approve a place" do
