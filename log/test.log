@@ -12987,3 +12987,300 @@ Processing by CheckInsController#show as HTML
   Rendered layout layouts/application.html.erb (Duration: 1.1ms | GC: 0.0ms)
 Completed 200 OK in 2ms (Views: 1.2ms | ActiveRecord: 0.1ms (3 queries, 0 cached) | GC: 0.0ms)
   [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mActiveRecord::InternalMetadata Load (8.5ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.2ms)[0m  [1m[31mDELETE FROM "check_ins";
+DELETE FROM "places";
+DELETE FROM "status_reports";
+DELETE FROM "users";
+INSERT INTO "check_ins" ("id", "created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (980190962, '2026-09-24 06:10:03.060740', '2026-09-21 15:18:59', 980190962, '2026-09-21 14:18:59', '2026-09-24 06:10:03.060740', 980190962), (298486374, '2026-09-24 06:10:03.060740', '2026-09-21 15:18:59', 298486374, '2026-09-21 14:18:59', '2026-09-24 06:10:03.060740', 298486374);
+INSERT INTO "places" ("id", "approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (980190962, TRUE, 4, 0, '2026-09-24 06:10:03.062315', 47.3769, NULL, NULL, 8.5417, 'Central Bench', '08:00-20:00', 980190962, 0, '2026-09-24 06:10:03.062315'), (298486374, TRUE, 2, 2, '2026-09-24 06:10:03.062315', 47.3779, NULL, NULL, 8.5427, 'Shaded Courtyard', '09:00-18:00', 298486374, 0, '2026-09-24 06:10:03.062315');
+INSERT INTO "status_reports" ("id", "created_at", "place_id", "reported_status", "reviewed", "updated_at", "user_id") VALUES (980190962, '2026-09-24 06:10:03.062891', 980190962, 1, FALSE, '2026-09-24 06:10:03.062891', 980190962), (298486374, '2026-09-24 06:10:03.062891', 298486374, 1, FALSE, '2026-09-24 06:10:03.062891', 298486374);
+INSERT INTO "users" ("id", "confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (980190962, 'confirmation-token-one', '2026-09-24 06:10:03.063469', 'alice@example.com', FALSE, 'Alice', 'fixture-password-one', 1, NULL, '2026-09-24 06:10:03.063469'), (298486374, 'confirmation-token-two', '2026-09-24 06:10:03.063469', 'bob@example.com', FALSE, 'Bob', 'fixture-password-two', 1, NULL, '2026-09-24 06:10:03.063469')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_key_check[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-------------------------------------------------------------------------------------------
+Moderation::DashboardsControllerTest: test_should_get_show_and_display_recent_activity_feed
+-------------------------------------------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-24 06:10:03.080369"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Moderator User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:10:03.080369"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mPlace Create (0.2ms)[0m  [1m[32mINSERT INTO "places" ("approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["approved", 0], ["capacity", 3], ["category", 0], ["created_at", "2026-09-24 06:10:03.085031"], ["latitude", 47.3769], ["locked_at", nil], ["locked_by_id", nil], ["longitude", 8.5417], ["name", "Central Park Bench"], ["opening_hours", nil], ["proposed_by_id", 980190963], ["status", 0], ["updated_at", "2026-09-24 06:10:03.085031"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mPlace Update (0.1ms)[0m  [1m[33mUPDATE "places" SET "name" = ?, "updated_at" = ? WHERE "places"."id" = ?[0m  [["name", "Central Park Bench Updated"], ["updated_at", "2026-09-24 06:10:03.085829"], ["id", 980190963]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/moderation/dashboards/show" for 127.0.0.1 at 2026-09-24 08:10:03 +0200
+Processing by Moderation::DashboardsController#show as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering moderation/dashboards/show.html.erb within layouts/application
+  Rendered moderation/dashboards/show.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 3.6ms | GC: 0.0ms)
+Completed 200 OK in 7ms (Views: 4.7ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "check_ins"[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE TABLE "check_ins" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime(6) NOT NULL, "ends_at" datetime(6) NOT NULL, "place_id" integer NOT NULL, "started_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "user_id" integer NOT NULL, CONSTRAINT check_ins_ends_after_start CHECK (ends_at > started_at))[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_check_ins_on_place_id_and_ends_at" ON "check_ins" ("place_id", "ends_at")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_check_ins_on_place_id" ON "check_ins" ("place_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_check_ins_on_user_id_and_place_id" ON "check_ins" ("user_id", "place_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_check_ins_on_user_id" ON "check_ins" ("user_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE IF EXISTS "places"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "places" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "approved" boolean DEFAULT FALSE NOT NULL, "capacity" integer NOT NULL, "category" integer DEFAULT 0 NOT NULL, "created_at" datetime(6) NOT NULL, "latitude" decimal(10,6) NOT NULL, "locked_at" datetime(6), "locked_by_id" integer, "longitude" decimal(10,6) NOT NULL, "name" varchar NOT NULL, "opening_hours" varchar, "proposed_by_id" integer NOT NULL, "status" integer DEFAULT 0 NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT places_capacity_positive CHECK (capacity > 0))[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_places_on_approved" ON "places" ("approved")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_places_on_category" ON "places" ("category")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_places_on_status" ON "places" ("status")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE IF EXISTS "status_reports"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "status_reports" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime(6) NOT NULL, "place_id" integer NOT NULL, "reported_status" integer NOT NULL, "reviewed" boolean DEFAULT FALSE NOT NULL, "updated_at" datetime(6) NOT NULL, "user_id" integer NOT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_status_reports_on_place_id_and_reviewed" ON "status_reports" ("place_id", "reviewed")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_status_reports_on_place_id" ON "status_reports" ("place_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_status_reports_on_reviewed" ON "status_reports" ("reviewed")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_status_reports_on_user_id" ON "status_reports" ("user_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE IF EXISTS "users"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "confirmation_token" varchar, "created_at" datetime(6) NOT NULL, "email" varchar NOT NULL, "locked" boolean DEFAULT FALSE NOT NULL, "name" varchar NOT NULL, "password_digest" varchar NOT NULL, "role" integer DEFAULT 0 NOT NULL, "unconfirmed_email" varchar, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_confirmation_token" ON "users" ("confirmation_token")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE IF EXISTS "versions"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE TABLE "versions" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime(6), "event" varchar NOT NULL, "item_id" bigint NOT NULL, "item_type" varchar NOT NULL, "object" text(1073741823), "whodunnit" varchar)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_versions_on_item_type_and_item_id" ON "versions" ("item_type", "item_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TEMPORARY TABLE "acheck_ins" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime(6) NOT NULL, "ends_at" datetime(6) NOT NULL, "place_id" integer NOT NULL, "started_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "user_id" integer NOT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_acheck_ins_on_user_id" ON "acheck_ins" ("user_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_acheck_ins_on_user_id_and_place_id" ON "acheck_ins" ("user_id", "place_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_acheck_ins_on_place_id" ON "acheck_ins" ("place_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_acheck_ins_on_place_id_and_ends_at" ON "acheck_ins" ("place_id", "ends_at")[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "acheck_ins" ("id","created_at","ends_at","place_id","started_at","updated_at","user_id")
+                     SELECT "id","created_at","ends_at","place_id","started_at","updated_at","user_id" FROM "check_ins"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "check_ins"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "check_ins" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime(6) NOT NULL, "ends_at" datetime(6) NOT NULL, "place_id" integer NOT NULL, "started_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "user_id" integer NOT NULL, CONSTRAINT "fk_rails_85b6121b49"
+FOREIGN KEY ("place_id")
+  REFERENCES "places" ("id")
+, CONSTRAINT check_ins_ends_after_start CHECK (ends_at > started_at))[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_check_ins_on_place_id_and_ends_at" ON "check_ins" ("place_id", "ends_at")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_check_ins_on_place_id" ON "check_ins" ("place_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_check_ins_on_user_id_and_place_id" ON "check_ins" ("user_id", "place_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_check_ins_on_user_id" ON "check_ins" ("user_id")[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "check_ins" ("id","created_at","ends_at","place_id","started_at","updated_at","user_id")
+                     SELECT "id","created_at","ends_at","place_id","started_at","updated_at","user_id" FROM "acheck_ins"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "acheck_ins"[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TEMPORARY TABLE "acheck_ins" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime(6) NOT NULL, "ends_at" datetime(6) NOT NULL, "place_id" integer NOT NULL, "started_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "user_id" integer NOT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_acheck_ins_on_user_id" ON "acheck_ins" ("user_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_acheck_ins_on_user_id_and_place_id" ON "acheck_ins" ("user_id", "place_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_acheck_ins_on_place_id" ON "acheck_ins" ("place_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_acheck_ins_on_place_id_and_ends_at" ON "acheck_ins" ("place_id", "ends_at")[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "acheck_ins" ("id","created_at","ends_at","place_id","started_at","updated_at","user_id")
+                     SELECT "id","created_at","ends_at","place_id","started_at","updated_at","user_id" FROM "check_ins"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE "check_ins"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "check_ins" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime(6) NOT NULL, "ends_at" datetime(6) NOT NULL, "place_id" integer NOT NULL, "started_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "user_id" integer NOT NULL, CONSTRAINT "fk_rails_85b6121b49"
+FOREIGN KEY ("place_id")
+  REFERENCES "places" ("id")
+, CONSTRAINT "fk_rails_b15c016c97"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT check_ins_ends_after_start CHECK (ends_at > started_at))[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_check_ins_on_place_id_and_ends_at" ON "check_ins" ("place_id", "ends_at")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_check_ins_on_place_id" ON "check_ins" ("place_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_check_ins_on_user_id_and_place_id" ON "check_ins" ("user_id", "place_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_check_ins_on_user_id" ON "check_ins" ("user_id")[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "check_ins" ("id","created_at","ends_at","place_id","started_at","updated_at","user_id")
+                     SELECT "id","created_at","ends_at","place_id","started_at","updated_at","user_id" FROM "acheck_ins"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "acheck_ins"[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TEMPORARY TABLE "aplaces" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "approved" boolean DEFAULT FALSE NOT NULL, "capacity" integer NOT NULL, "category" integer DEFAULT 0 NOT NULL, "created_at" datetime(6) NOT NULL, "latitude" decimal(10,6) NOT NULL, "locked_at" datetime(6), "locked_by_id" integer, "longitude" decimal(10,6) NOT NULL, "name" varchar NOT NULL, "opening_hours" varchar, "proposed_by_id" integer NOT NULL, "status" integer DEFAULT 0 NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_aplaces_on_status" ON "aplaces" ("status")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_aplaces_on_category" ON "aplaces" ("category")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_aplaces_on_approved" ON "aplaces" ("approved")[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "aplaces" ("id","approved","capacity","category","created_at","latitude","locked_at","locked_by_id","longitude","name","opening_hours","proposed_by_id","status","updated_at")
+                     SELECT "id","approved","capacity","category","created_at","latitude","locked_at","locked_by_id","longitude","name","opening_hours","proposed_by_id","status","updated_at" FROM "places"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE "places"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "places" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "approved" boolean DEFAULT FALSE NOT NULL, "capacity" integer NOT NULL, "category" integer DEFAULT 0 NOT NULL, "created_at" datetime(6) NOT NULL, "latitude" decimal(10,6) NOT NULL, "locked_at" datetime(6), "locked_by_id" integer, "longitude" decimal(10,6) NOT NULL, "name" varchar NOT NULL, "opening_hours" varchar, "proposed_by_id" integer NOT NULL, "status" integer DEFAULT 0 NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_d1d1f58659"
+FOREIGN KEY ("locked_by_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT places_capacity_positive CHECK (capacity > 0))[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_places_on_approved" ON "places" ("approved")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_places_on_category" ON "places" ("category")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_places_on_status" ON "places" ("status")[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "places" ("id","approved","capacity","category","created_at","latitude","locked_at","locked_by_id","longitude","name","opening_hours","proposed_by_id","status","updated_at")
+                     SELECT "id","approved","capacity","category","created_at","latitude","locked_at","locked_by_id","longitude","name","opening_hours","proposed_by_id","status","updated_at" FROM "aplaces"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE "aplaces"[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TEMPORARY TABLE "aplaces" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "approved" boolean DEFAULT FALSE NOT NULL, "capacity" integer NOT NULL, "category" integer DEFAULT 0 NOT NULL, "created_at" datetime(6) NOT NULL, "latitude" decimal(10,6) NOT NULL, "locked_at" datetime(6), "locked_by_id" integer, "longitude" decimal(10,6) NOT NULL, "name" varchar NOT NULL, "opening_hours" varchar, "proposed_by_id" integer NOT NULL, "status" integer DEFAULT 0 NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_aplaces_on_status" ON "aplaces" ("status")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_aplaces_on_category" ON "aplaces" ("category")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_aplaces_on_approved" ON "aplaces" ("approved")[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "aplaces" ("id","approved","capacity","category","created_at","latitude","locked_at","locked_by_id","longitude","name","opening_hours","proposed_by_id","status","updated_at")
+                     SELECT "id","approved","capacity","category","created_at","latitude","locked_at","locked_by_id","longitude","name","opening_hours","proposed_by_id","status","updated_at" FROM "places"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE "places"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "places" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "approved" boolean DEFAULT FALSE NOT NULL, "capacity" integer NOT NULL, "category" integer DEFAULT 0 NOT NULL, "created_at" datetime(6) NOT NULL, "latitude" decimal(10,6) NOT NULL, "locked_at" datetime(6), "locked_by_id" integer, "longitude" decimal(10,6) NOT NULL, "name" varchar NOT NULL, "opening_hours" varchar, "proposed_by_id" integer NOT NULL, "status" integer DEFAULT 0 NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_d1d1f58659"
+FOREIGN KEY ("locked_by_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT "fk_rails_b4e4683d2a"
+FOREIGN KEY ("proposed_by_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT places_capacity_positive CHECK (capacity > 0))[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_places_on_approved" ON "places" ("approved")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_places_on_category" ON "places" ("category")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_places_on_status" ON "places" ("status")[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "places" ("id","approved","capacity","category","created_at","latitude","locked_at","locked_by_id","longitude","name","opening_hours","proposed_by_id","status","updated_at")
+                     SELECT "id","approved","capacity","category","created_at","latitude","locked_at","locked_by_id","longitude","name","opening_hours","proposed_by_id","status","updated_at" FROM "aplaces"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE "aplaces"[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TEMPORARY TABLE "astatus_reports" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime(6) NOT NULL, "place_id" integer NOT NULL, "reported_status" integer NOT NULL, "reviewed" boolean DEFAULT FALSE NOT NULL, "updated_at" datetime(6) NOT NULL, "user_id" integer NOT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_astatus_reports_on_user_id" ON "astatus_reports" ("user_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_astatus_reports_on_reviewed" ON "astatus_reports" ("reviewed")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_astatus_reports_on_place_id" ON "astatus_reports" ("place_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_astatus_reports_on_place_id_and_reviewed" ON "astatus_reports" ("place_id", "reviewed")[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "astatus_reports" ("id","created_at","place_id","reported_status","reviewed","updated_at","user_id")
+                     SELECT "id","created_at","place_id","reported_status","reviewed","updated_at","user_id" FROM "status_reports"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "status_reports"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "status_reports" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime(6) NOT NULL, "place_id" integer NOT NULL, "reported_status" integer NOT NULL, "reviewed" boolean DEFAULT FALSE NOT NULL, "updated_at" datetime(6) NOT NULL, "user_id" integer NOT NULL, CONSTRAINT "fk_rails_098ec3c1c8"
+FOREIGN KEY ("place_id")
+  REFERENCES "places" ("id")
+)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_status_reports_on_place_id_and_reviewed" ON "status_reports" ("place_id", "reviewed")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_status_reports_on_place_id" ON "status_reports" ("place_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_status_reports_on_reviewed" ON "status_reports" ("reviewed")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_status_reports_on_user_id" ON "status_reports" ("user_id")[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "status_reports" ("id","created_at","place_id","reported_status","reviewed","updated_at","user_id")
+                     SELECT "id","created_at","place_id","reported_status","reviewed","updated_at","user_id" FROM "astatus_reports"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "astatus_reports"[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TEMPORARY TABLE "astatus_reports" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime(6) NOT NULL, "place_id" integer NOT NULL, "reported_status" integer NOT NULL, "reviewed" boolean DEFAULT FALSE NOT NULL, "updated_at" datetime(6) NOT NULL, "user_id" integer NOT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_astatus_reports_on_user_id" ON "astatus_reports" ("user_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_astatus_reports_on_reviewed" ON "astatus_reports" ("reviewed")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_astatus_reports_on_place_id" ON "astatus_reports" ("place_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_astatus_reports_on_place_id_and_reviewed" ON "astatus_reports" ("place_id", "reviewed")[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "astatus_reports" ("id","created_at","place_id","reported_status","reviewed","updated_at","user_id")
+                     SELECT "id","created_at","place_id","reported_status","reviewed","updated_at","user_id" FROM "status_reports"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "status_reports"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "status_reports" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime(6) NOT NULL, "place_id" integer NOT NULL, "reported_status" integer NOT NULL, "reviewed" boolean DEFAULT FALSE NOT NULL, "updated_at" datetime(6) NOT NULL, "user_id" integer NOT NULL, CONSTRAINT "fk_rails_098ec3c1c8"
+FOREIGN KEY ("place_id")
+  REFERENCES "places" ("id")
+, CONSTRAINT "fk_rails_c246968003"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_status_reports_on_place_id_and_reviewed" ON "status_reports" ("place_id", "reviewed")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_status_reports_on_place_id" ON "status_reports" ("place_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_status_reports_on_reviewed" ON "status_reports" ("reviewed")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_status_reports_on_user_id" ON "status_reports" ("user_id")[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "status_reports" ("id","created_at","place_id","reported_status","reviewed","updated_at","user_id")
+                     SELECT "id","created_at","place_id","reported_status","reviewed","updated_at","user_id" FROM "astatus_reports"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE "astatus_reports"[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20260924061114)[0m
+  [1m[35m (0.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20260921121922),
+(20260921121859),
+(20260921121851),
+(20260921121817);[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::InternalMetadata Create (0.0ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'test', '2026-09-24 06:12:05.357736', '2026-09-24 06:12:05.357738') RETURNING "key"[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::InternalMetadata Create (0.0ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('schema_sha1', '4c9673a2cc510da62d00774bb1c995a69c35110f', '2026-09-24 06:12:05.358210', '2026-09-24 06:12:05.358211') RETURNING "key"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.2ms)[0m  [1m[31mDELETE FROM "check_ins";
+DELETE FROM "places";
+DELETE FROM "status_reports";
+DELETE FROM "users";
+INSERT INTO "check_ins" ("id", "created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (980190962, '2026-09-24 06:12:05.395425', '2026-09-21 15:18:59', 980190962, '2026-09-21 14:18:59', '2026-09-24 06:12:05.395425', 980190962), (298486374, '2026-09-24 06:12:05.395425', '2026-09-21 15:18:59', 298486374, '2026-09-21 14:18:59', '2026-09-24 06:12:05.395425', 298486374);
+INSERT INTO "places" ("id", "approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (980190962, TRUE, 4, 0, '2026-09-24 06:12:05.397429', 47.3769, NULL, NULL, 8.5417, 'Central Bench', '08:00-20:00', 980190962, 0, '2026-09-24 06:12:05.397429'), (298486374, TRUE, 2, 2, '2026-09-24 06:12:05.397429', 47.3779, NULL, NULL, 8.5427, 'Shaded Courtyard', '09:00-18:00', 298486374, 0, '2026-09-24 06:12:05.397429');
+INSERT INTO "status_reports" ("id", "created_at", "place_id", "reported_status", "reviewed", "updated_at", "user_id") VALUES (980190962, '2026-09-24 06:12:05.397998', 980190962, 1, FALSE, '2026-09-24 06:12:05.397998', 980190962), (298486374, '2026-09-24 06:12:05.397998', 298486374, 1, FALSE, '2026-09-24 06:12:05.397998', 298486374);
+INSERT INTO "users" ("id", "confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (980190962, 'confirmation-token-one', '2026-09-24 06:12:05.398618', 'alice@example.com', FALSE, 'Alice', 'fixture-password-one', 1, NULL, '2026-09-24 06:12:05.398618'), (298486374, 'confirmation-token-two', '2026-09-24 06:12:05.398618', 'bob@example.com', FALSE, 'Bob', 'fixture-password-two', 1, NULL, '2026-09-24 06:12:05.398618')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (1.1ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_key_check[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-------------------------------------------------------------------------------------------
+Moderation::DashboardsControllerTest: test_should_get_show_and_display_recent_activity_feed
+-------------------------------------------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-24 06:12:05.415762"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Moderator User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:12:05.415762"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mPlace Create (0.3ms)[0m  [1m[32mINSERT INTO "places" ("approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["approved", 0], ["capacity", 3], ["category", 0], ["created_at", "2026-09-24 06:12:05.421069"], ["latitude", 47.3769], ["locked_at", nil], ["locked_by_id", nil], ["longitude", 8.5417], ["name", "Central Park Bench"], ["opening_hours", nil], ["proposed_by_id", 980190963], ["status", 0], ["updated_at", "2026-09-24 06:12:05.421069"]]
+  [1m[36mPaperTrail::Version Create (0.1ms)[0m  [1m[32mINSERT INTO "versions" ("created_at", "event", "item_id", "item_type", "object", "whodunnit") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["created_at", "2026-09-24 06:12:05.421069"], ["event", "create"], ["item_id", 980190963], ["item_type", "Place"], ["object", nil], ["whodunnit", nil]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mPlace Update (0.1ms)[0m  [1m[33mUPDATE "places" SET "name" = ?, "updated_at" = ? WHERE "places"."id" = ?[0m  [["name", "Central Park Bench Updated"], ["updated_at", "2026-09-24 06:12:05.425610"], ["id", 980190963]]
+  [1m[36mPaperTrail::Version Create (0.1ms)[0m  [1m[32mINSERT INTO "versions" ("created_at", "event", "item_id", "item_type", "object", "whodunnit") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["created_at", "2026-09-24 06:12:05.425610"], ["event", "update"], ["item_id", 980190963], ["item_type", "Place"], ["object", "---\nid: 980190963\napproved: false\ncapacity: 3\ncategory: 0\ncreated_at: !ruby/object:ActiveSupport::TimeWithZone\n  utc: &1 2026-09-24 06:12:05.421069000 Z\n  zone: &2 !ruby/object:ActiveSupport::TimeZone\n    name: Etc/UTC\n  time: *1\nlatitude: !ruby/object:BigDecimal 18:0.473769e2\nlocked_at:\nlocked_by_id:\nlongitude: !ruby/object:BigDecimal 18:0.85417e1\nname: Central Park Bench\nopening_hours:\nproposed_by_id: 980190963\nstatus: 0\nupdated_at: !ruby/object:ActiveSupport::TimeWithZone\n  utc: &3 2026-09-24 06:12:05.421069000 Z\n  zone: *2\n  time: *3\n"], ["whodunnit", nil]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/moderation/dashboards/show" for 127.0.0.1 at 2026-09-24 08:12:05 +0200
+Processing by Moderation::DashboardsController#show as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering moderation/dashboards/show.html.erb within layouts/application
+  [1m[36mPaperTrail::Version Load (0.1ms)[0m  [1m[34mSELECT "versions".* FROM "versions" ORDER BY "versions"."created_at" DESC LIMIT ?[0m  [["LIMIT", 20]]
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = ?[0m  [["id", 980190963]]
+  Rendered moderation/dashboards/show.html.erb within layouts/application (Duration: 4.5ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 7.9ms | GC: 0.0ms)
+Completed 200 OK in 11ms (Views: 8.9ms | ActiveRecord: 0.2ms (2 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m

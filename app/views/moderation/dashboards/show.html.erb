@@ -1,2 +1,22 @@
-<h1>Moderation::Dashboards#show</h1>
-<p>Find me in app/views/moderation/dashboards/show.html.erb</p>
+<h1>Recent activity</h1>
+
+<% if @recent_activity.present? %>
+  <ul>
+    <% @recent_activity.each do |version| %>
+      <% item = version.item %>
+      <% item_name = item.respond_to?(:name) ? item.name : version.item_type %>
+      <% action = version.event == "create" ? "created" : version.event == "update" ? "updated" : "deleted" %>
+
+      <li>
+        <strong><%= version.item_type %></strong>
+        <%= action %>
+        <% if item_name.present? %>
+          <span>“<%= item_name %>”</span>
+        <% end %>
+        <small><%= version.created_at.strftime("%d.%m.%Y %H:%M") %></small>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No recent activity yet.</p>
+<% end %>

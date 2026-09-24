@@ -1,4 +1,6 @@
 class Place < ApplicationRecord
+  has_paper_trail
+
   enum :category, {
     seating: 0,
     smoking: 1,

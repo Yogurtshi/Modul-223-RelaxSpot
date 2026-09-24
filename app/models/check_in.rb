@@ -1,4 +1,6 @@
 class CheckIn < ApplicationRecord
+  has_paper_trail
+
   belongs_to :place
   belongs_to :user
 
