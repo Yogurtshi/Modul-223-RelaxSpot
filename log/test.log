@@ -14820,3 +14820,1250 @@ Redirected to http://www.example.com/admin/users/980190964
 Completed 302 Found in 2ms (ActiveRecord: 0.3ms (3 queries, 0 cached) | GC: 0.0ms)
   [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190964], ["LIMIT", 1]]
   [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.2ms)[0m  [1m[31mDELETE FROM "check_ins";
+DELETE FROM "places";
+DELETE FROM "status_reports";
+DELETE FROM "users";
+INSERT INTO "check_ins" ("id", "created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (980190962, '2026-09-24 06:44:10.267866', '2026-09-21 15:18:59', 980190962, '2026-09-21 14:18:59', '2026-09-24 06:44:10.267866', 980190962), (298486374, '2026-09-24 06:44:10.267866', '2026-09-21 15:18:59', 298486374, '2026-09-21 14:18:59', '2026-09-24 06:44:10.267866', 298486374);
+INSERT INTO "places" ("id", "approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (980190962, TRUE, 4, 0, '2026-09-24 06:44:10.269403', 47.3769, NULL, NULL, 8.5417, 'Central Bench', '08:00-20:00', 980190962, 0, '2026-09-24 06:44:10.269403'), (298486374, TRUE, 2, 2, '2026-09-24 06:44:10.269403', 47.3779, NULL, NULL, 8.5427, 'Shaded Courtyard', '09:00-18:00', 298486374, 0, '2026-09-24 06:44:10.269403');
+INSERT INTO "status_reports" ("id", "created_at", "place_id", "reported_status", "reviewed", "updated_at", "user_id") VALUES (980190962, '2026-09-24 06:44:10.269951', 980190962, 1, FALSE, '2026-09-24 06:44:10.269951', 980190962), (298486374, '2026-09-24 06:44:10.269951', 298486374, 1, FALSE, '2026-09-24 06:44:10.269951', 298486374);
+INSERT INTO "users" ("id", "confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (980190962, 'confirmation-token-one', '2026-09-24 06:44:10.270615', 'alice@example.com', FALSE, 'Alice', 'fixture-password-one', 1, NULL, '2026-09-24 06:44:10.270615'), (298486374, 'confirmation-token-two', '2026-09-24 06:44:10.270615', 'bob@example.com', FALSE, 'Bob', 'fixture-password-two', 1, NULL, '2026-09-24 06:44:10.270615')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (9.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_key_check[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+----------------------------------------------------------------------
+Admin::UsersControllerTest: test_admin_can_promote_a_user_to_moderator
+----------------------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-24 06:44:10.295663"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Admin User"], ["password_digest", "[FILTERED]"], ["role", 2], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:44:10.295663"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-24 06:44:10.299031"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Regular User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:44:10.299031"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-24 08:44:10 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 5ms (ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+Started POST "/admin/users/980190964/promote" for 127.0.0.1 at 2026-09-24 08:44:10 +0200
+Processing by Admin::UsersController#promote as HTML
+  Parameters: {"id" => "980190964"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190964], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Update (0.0ms)[0m  [1m[33mUPDATE "users" SET "role" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["role", 1], ["updated_at", "2026-09-24 06:44:10.331686"], ["id", 980190964]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://www.example.com/admin/users/980190964
+Completed 302 Found in 3ms (ActiveRecord: 0.4ms (3 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190964], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-----------------------------------------------------
+Admin::UsersControllerTest: test_admin_can_list_users
+-----------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-24 06:44:10.336659"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Admin User"], ["password_digest", "[FILTERED]"], ["role", 2], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:44:10.336659"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-24 06:44:10.339718"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Regular User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:44:10.339718"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-24 08:44:10 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 3ms (ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+Started GET "/admin/users" for 127.0.0.1 at 2026-09-24 08:44:10 +0200
+Processing by Admin::UsersController#index as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering admin/users/index.html.erb within layouts/application
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."name" ASC[0m
+  Rendered admin/users/index.html.erb within layouts/application (Duration: 0.8ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 20.7ms | GC: 16.0ms)
+Completed 200 OK in 24ms (Views: 22.0ms | ActiveRecord: 0.2ms (2 queries, 0 cached) | GC: 16.0ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+--------------------------------------------------------------
+Admin::UsersControllerTest: test_admin_can_lock_a_user_account
+--------------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-24 06:44:10.373523"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Admin User"], ["password_digest", "[FILTERED]"], ["role", 2], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:44:10.373523"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-24 06:44:10.377133"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Regular User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:44:10.377133"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-24 08:44:10 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 3ms (ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+Started POST "/admin/users/980190964/lock" for 127.0.0.1 at 2026-09-24 08:44:10 +0200
+Processing by Admin::UsersController#lock as HTML
+  Parameters: {"id" => "980190964"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190964], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Update (0.1ms)[0m  [1m[33mUPDATE "users" SET "locked" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["locked", 1], ["updated_at", "2026-09-24 06:44:10.383154"], ["id", 980190964]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://www.example.com/admin/users/980190964
+Completed 302 Found in 2ms (ActiveRecord: 0.2ms (3 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190964], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.2ms)[0m  [1m[31mDELETE FROM "check_ins";
+DELETE FROM "places";
+DELETE FROM "status_reports";
+DELETE FROM "users";
+INSERT INTO "check_ins" ("id", "created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (980190962, '2026-09-24 06:48:13.952859', '2026-09-21 15:18:59', 980190962, '2026-09-21 14:18:59', '2026-09-24 06:48:13.952859', 980190962), (298486374, '2026-09-24 06:48:13.952859', '2026-09-21 15:18:59', 298486374, '2026-09-21 14:18:59', '2026-09-24 06:48:13.952859', 298486374);
+INSERT INTO "places" ("id", "approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (980190962, TRUE, 4, 0, '2026-09-24 06:48:13.954507', 47.3769, NULL, NULL, 8.5417, 'Central Bench', '08:00-20:00', 980190962, 0, '2026-09-24 06:48:13.954507'), (298486374, TRUE, 2, 2, '2026-09-24 06:48:13.954507', 47.3779, NULL, NULL, 8.5427, 'Shaded Courtyard', '09:00-18:00', 298486374, 0, '2026-09-24 06:48:13.954507');
+INSERT INTO "status_reports" ("id", "created_at", "place_id", "reported_status", "reviewed", "updated_at", "user_id") VALUES (980190962, '2026-09-24 06:48:13.955098', 980190962, 1, FALSE, '2026-09-24 06:48:13.955098', 980190962), (298486374, '2026-09-24 06:48:13.955098', 298486374, 1, FALSE, '2026-09-24 06:48:13.955098', 298486374);
+INSERT INTO "users" ("id", "confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (980190962, 'confirmation-token-one', '2026-09-24 06:48:13.955751', 'alice@example.com', FALSE, 'Alice', 'fixture-password-one', 1, NULL, '2026-09-24 06:48:13.955751'), (298486374, 'confirmation-token-two', '2026-09-24 06:48:13.955751', 'bob@example.com', FALSE, 'Bob', 'fixture-password-two', 1, NULL, '2026-09-24 06:48:13.955751')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (9.3ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_key_check[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+---------------------------------------------------------------
+ProfileControllerTest: test_logged_in_user_can_view_own_profile
+---------------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-24 06:48:13.980937"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Test User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:48:13.980937"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-24 08:48:13 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 5ms (ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+Started GET "/profile" for 127.0.0.1 at 2026-09-24 08:48:14 +0200
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+----------------------------------------------------------------
+ProfileControllerTest: test_logged_in_user_can_update_their_name
+----------------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-24 06:48:14.016802"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Test User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:48:14.016802"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-24 08:48:14 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 3ms (ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.0ms)
+Started PATCH "/profile" for 127.0.0.1 at 2026-09-24 08:48:14 +0200
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-------------------------------------------------------------------------------
+ProfileControllerTest: test_user_must_enter_current_password_to_change_password
+-------------------------------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-24 06:48:14.025036"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Test User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:48:14.025036"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-24 08:48:14 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 3ms (ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.0ms)
+Started PATCH "/profile" for 127.0.0.1 at 2026-09-24 08:48:14 +0200
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.2ms)[0m  [1m[31mDELETE FROM "check_ins";
+DELETE FROM "places";
+DELETE FROM "status_reports";
+DELETE FROM "users";
+INSERT INTO "check_ins" ("id", "created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (980190962, '2026-09-24 06:49:10.862080', '2026-09-21 15:18:59', 980190962, '2026-09-21 14:18:59', '2026-09-24 06:49:10.862080', 980190962), (298486374, '2026-09-24 06:49:10.862080', '2026-09-21 15:18:59', 298486374, '2026-09-21 14:18:59', '2026-09-24 06:49:10.862080', 298486374);
+INSERT INTO "places" ("id", "approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (980190962, TRUE, 4, 0, '2026-09-24 06:49:10.863743', 47.3769, NULL, NULL, 8.5417, 'Central Bench', '08:00-20:00', 980190962, 0, '2026-09-24 06:49:10.863743'), (298486374, TRUE, 2, 2, '2026-09-24 06:49:10.863743', 47.3779, NULL, NULL, 8.5427, 'Shaded Courtyard', '09:00-18:00', 298486374, 0, '2026-09-24 06:49:10.863743');
+INSERT INTO "status_reports" ("id", "created_at", "place_id", "reported_status", "reviewed", "updated_at", "user_id") VALUES (980190962, '2026-09-24 06:49:10.864386', 980190962, 1, FALSE, '2026-09-24 06:49:10.864386', 980190962), (298486374, '2026-09-24 06:49:10.864386', 298486374, 1, FALSE, '2026-09-24 06:49:10.864386', 298486374);
+INSERT INTO "users" ("id", "confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (980190962, 'confirmation-token-one', '2026-09-24 06:49:10.865046', 'alice@example.com', FALSE, 'Alice', 'fixture-password-one', 1, NULL, '2026-09-24 06:49:10.865046'), (298486374, 'confirmation-token-two', '2026-09-24 06:49:10.865046', 'bob@example.com', FALSE, 'Bob', 'fixture-password-two', 1, NULL, '2026-09-24 06:49:10.865046')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (9.3ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_key_check[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+----------------------------------------------------------------
+ProfileControllerTest: test_logged_in_user_can_update_their_name
+----------------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-24 06:49:10.889986"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Test User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:49:10.889986"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-24 08:49:10 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 5ms (ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+Started PATCH "/profile" for 127.0.0.1 at 2026-09-24 08:49:10 +0200
+Processing by ProfileController#update as HTML
+  Parameters: {"user" => {"name" => "Updated Name"}}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Update (0.0ms)[0m  [1m[33mUPDATE "users" SET "name" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["name", "Updated Name"], ["updated_at", "2026-09-24 06:49:10.924154"], ["id", 980190963]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://www.example.com/profile
+Completed 302 Found in 3ms (ActiveRecord: 0.3ms (2 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-------------------------------------------------------------------------------
+ProfileControllerTest: test_user_must_enter_current_password_to_change_password
+-------------------------------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-24 06:49:10.928942"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Test User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:49:10.928942"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-24 08:49:10 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 3ms (ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.0ms)
+Started PATCH "/profile" for 127.0.0.1 at 2026-09-24 08:49:10 +0200
+Processing by ProfileController#update as HTML
+  Parameters: {"user" => {"current_password" => "[FILTERED]", "password" => "[FILTERED]"}}
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering profile/edit.html.erb within layouts/application
+  Rendered profile/edit.html.erb within layouts/application (Duration: 1.3ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 20.8ms | GC: 15.7ms)
+Completed 422 Unprocessable Content in 26ms (Views: 23.7ms | ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 16.1ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+---------------------------------------------------------------
+ProfileControllerTest: test_logged_in_user_can_view_own_profile
+---------------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-24 06:49:10.963647"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Test User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:49:10.963647"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-24 08:49:10 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 3ms (ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.0ms)
+Started GET "/profile" for 127.0.0.1 at 2026-09-24 08:49:10 +0200
+Processing by ProfileController#show as HTML
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering profile/show.html.erb within layouts/application
+  Rendered profile/show.html.erb within layouts/application (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.9ms | GC: 0.4ms)
+Completed 200 OK in 2ms (Views: 1.1ms | ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.4ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.4ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.2ms)[0m  [1m[31mDELETE FROM "check_ins";
+DELETE FROM "places";
+DELETE FROM "status_reports";
+DELETE FROM "users";
+INSERT INTO "check_ins" ("id", "created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (980190962, '2026-09-24 06:53:06.856272', '2026-09-21 15:18:59', 980190962, '2026-09-21 14:18:59', '2026-09-24 06:53:06.856272', 980190962), (298486374, '2026-09-24 06:53:06.856272', '2026-09-21 15:18:59', 298486374, '2026-09-21 14:18:59', '2026-09-24 06:53:06.856272', 298486374);
+INSERT INTO "places" ("id", "approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (980190962, TRUE, 4, 0, '2026-09-24 06:53:06.858063', 47.3769, NULL, NULL, 8.5417, 'Central Bench', '08:00-20:00', 980190962, 0, '2026-09-24 06:53:06.858063'), (298486374, TRUE, 2, 2, '2026-09-24 06:53:06.858063', 47.3779, NULL, NULL, 8.5427, 'Shaded Courtyard', '09:00-18:00', 298486374, 0, '2026-09-24 06:53:06.858063');
+INSERT INTO "status_reports" ("id", "created_at", "place_id", "reported_status", "reviewed", "updated_at", "user_id") VALUES (980190962, '2026-09-24 06:53:06.858617', 980190962, 1, FALSE, '2026-09-24 06:53:06.858617', 980190962), (298486374, '2026-09-24 06:53:06.858617', 298486374, 1, FALSE, '2026-09-24 06:53:06.858617', 298486374);
+INSERT INTO "users" ("id", "confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (980190962, 'confirmation-token-one', '2026-09-24 06:53:06.859176', 'alice@example.com', FALSE, 'Alice', 'fixture-password-one', 1, NULL, '2026-09-24 06:53:06.859176'), (298486374, 'confirmation-token-two', '2026-09-24 06:53:06.859176', 'bob@example.com', FALSE, 'Bob', 'fixture-password-two', 1, NULL, '2026-09-24 06:53:06.859176')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (8.5ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_key_check[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+----------------------------------------------------------------
+ProfileControllerTest: test_logged_in_user_can_update_their_name
+----------------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-24 06:53:06.883728"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Test User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:53:06.883728"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-24 08:53:06 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 19ms (ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 14.7ms)
+Started PATCH "/profile" for 127.0.0.1 at 2026-09-24 08:53:06 +0200
+Processing by ProfileController#update as HTML
+  Parameters: {"user" => {"name" => "Updated Name"}}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Update (0.0ms)[0m  [1m[33mUPDATE "users" SET "name" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["name", "Updated Name"], ["updated_at", "2026-09-24 06:53:06.932079"], ["id", 980190963]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://www.example.com/profile
+Completed 302 Found in 4ms (ActiveRecord: 0.4ms (2 queries, 0 cached) | GC: 0.5ms)
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-------------------------------------------------------------------------------
+ProfileControllerTest: test_user_must_enter_current_password_to_change_password
+-------------------------------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-24 06:53:06.937208"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Test User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:53:06.937208"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-24 08:53:06 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 3ms (ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+Started PATCH "/profile" for 127.0.0.1 at 2026-09-24 08:53:06 +0200
+Processing by ProfileController#update as HTML
+  Parameters: {"user" => {"current_password" => "[FILTERED]", "password" => "[FILTERED]"}}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering profile/edit.html.erb within layouts/application
+  Rendered profile/edit.html.erb within layouts/application (Duration: 1.8ms | GC: 0.3ms)
+  Rendered layout layouts/application.html.erb (Duration: 6.5ms | GC: 1.1ms)
+Completed 422 Unprocessable Content in 12ms (Views: 9.1ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 1.3ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+---------------------------------------------------------------
+ProfileControllerTest: test_user_can_request_email_confirmation
+---------------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-24 06:53:06.957695"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Test User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:53:06.957695"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-24 08:53:06 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 3ms (ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.2ms)
+Started PATCH "/profile" for 127.0.0.1 at 2026-09-24 08:53:06 +0200
+Processing by ProfileController#update as HTML
+  Parameters: {"user" => {"email" => "[FILTERED]", "current_password" => "[FILTERED]"}}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 3ms (ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+----------------------------------------------------------------
+ProfileControllerTest: test_confirmation_token_updates_the_email
+----------------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-24 06:53:06.969771"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Test User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:53:06.969771"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-24 08:53:06 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 3ms (ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "confirmation_token" = ?, "unconfirmed_email" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["confirmation_token", "[FILTERED]"], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:53:06.974678"], ["id", 980190963]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/profile/confirm_email/abc123" for 127.0.0.1 at 2026-09-24 08:53:06 +0200
+  
+ActionController::RoutingError (No route matches [GET] "/profile/confirm_email/abc123"):
+  
+test/controllers/profile_controller_test.rb:65:in 'block in <class:ProfileControllerTest>'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+---------------------------------------------------------------
+ProfileControllerTest: test_logged_in_user_can_view_own_profile
+---------------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-24 06:53:07.054246"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Test User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:53:07.054246"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-24 08:53:07 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 3ms (ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.4ms)
+Started GET "/profile" for 127.0.0.1 at 2026-09-24 08:53:07 +0200
+Processing by ProfileController#show as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering profile/show.html.erb within layouts/application
+  Rendered profile/show.html.erb within layouts/application (Duration: 0.3ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.5ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.8ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.2ms)[0m  [1m[31mDELETE FROM "check_ins";
+DELETE FROM "places";
+DELETE FROM "status_reports";
+DELETE FROM "users";
+INSERT INTO "check_ins" ("id", "created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (980190962, '2026-09-24 06:54:26.622337', '2026-09-21 15:18:59', 980190962, '2026-09-21 14:18:59', '2026-09-24 06:54:26.622337', 980190962), (298486374, '2026-09-24 06:54:26.622337', '2026-09-21 15:18:59', 298486374, '2026-09-21 14:18:59', '2026-09-24 06:54:26.622337', 298486374);
+INSERT INTO "places" ("id", "approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (980190962, TRUE, 4, 0, '2026-09-24 06:54:26.624297', 47.3769, NULL, NULL, 8.5417, 'Central Bench', '08:00-20:00', 980190962, 0, '2026-09-24 06:54:26.624297'), (298486374, TRUE, 2, 2, '2026-09-24 06:54:26.624297', 47.3779, NULL, NULL, 8.5427, 'Shaded Courtyard', '09:00-18:00', 298486374, 0, '2026-09-24 06:54:26.624297');
+INSERT INTO "status_reports" ("id", "created_at", "place_id", "reported_status", "reviewed", "updated_at", "user_id") VALUES (980190962, '2026-09-24 06:54:26.624923', 980190962, 1, FALSE, '2026-09-24 06:54:26.624923', 980190962), (298486374, '2026-09-24 06:54:26.624923', 298486374, 1, FALSE, '2026-09-24 06:54:26.624923', 298486374);
+INSERT INTO "users" ("id", "confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (980190962, 'confirmation-token-one', '2026-09-24 06:54:26.625551', 'alice@example.com', FALSE, 'Alice', 'fixture-password-one', 1, NULL, '2026-09-24 06:54:26.625551'), (298486374, 'confirmation-token-two', '2026-09-24 06:54:26.625551', 'bob@example.com', FALSE, 'Bob', 'fixture-password-two', 1, NULL, '2026-09-24 06:54:26.625551')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (1.7ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_key_check[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-------------------------------------------------------------------------------
+ProfileControllerTest: test_user_must_enter_current_password_to_change_password
+-------------------------------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-24 06:54:26.642999"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Test User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:54:26.642999"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-24 08:54:26 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 22ms (ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 16.8ms)
+Started PATCH "/profile" for 127.0.0.1 at 2026-09-24 08:54:26 +0200
+Processing by ProfileController#update as HTML
+  Parameters: {"user" => {"current_password" => "[FILTERED]", "password" => "[FILTERED]"}}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering profile/edit.html.erb within layouts/application
+  Rendered profile/edit.html.erb within layouts/application (Duration: 1.7ms | GC: 0.2ms)
+  Rendered layout layouts/application.html.erb (Duration: 6.0ms | GC: 1.1ms)
+Completed 422 Unprocessable Content in 13ms (Views: 8.7ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 1.4ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+----------------------------------------------------------------
+ProfileControllerTest: test_confirmation_token_updates_the_email
+----------------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-24 06:54:26.709864"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Test User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:54:26.709864"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-24 08:54:26 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 3ms (ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.2ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Update (0.1ms)[0m  [1m[33mUPDATE "users" SET "confirmation_token" = ?, "unconfirmed_email" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["confirmation_token", "[FILTERED]"], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:54:26.714776"], ["id", 980190963]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/profile/confirm_email/abc123" for 127.0.0.1 at 2026-09-24 08:54:26 +0200
+  
+ActionController::RoutingError (No route matches [GET] "/profile/confirm_email/abc123"):
+  
+test/controllers/profile_controller_test.rb:65:in 'block in <class:ProfileControllerTest>'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+----------------------------------------------------------------
+ProfileControllerTest: test_logged_in_user_can_update_their_name
+----------------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-24 06:54:26.788167"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Test User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:54:26.788167"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-24 08:54:26 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 3ms (ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+Started PATCH "/profile" for 127.0.0.1 at 2026-09-24 08:54:26 +0200
+Processing by ProfileController#update as HTML
+  Parameters: {"user" => {"name" => "Updated Name"}}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Update (0.1ms)[0m  [1m[33mUPDATE "users" SET "name" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["name", "Updated Name"], ["updated_at", "2026-09-24 06:54:26.796922"], ["id", 980190963]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://www.example.com/profile
+Completed 302 Found in 2ms (ActiveRecord: 0.3ms (2 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+---------------------------------------------------------------
+ProfileControllerTest: test_user_can_request_email_confirmation
+---------------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-24 06:54:26.801444"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Test User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:54:26.801444"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-24 08:54:26 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 3ms (ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.0ms)
+Started PATCH "/profile" for 127.0.0.1 at 2026-09-24 08:54:26 +0200
+Processing by ProfileController#update as HTML
+  Parameters: {"user" => {"email" => "[FILTERED]", "current_password" => "[FILTERED]"}}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 3ms (ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+---------------------------------------------------------------
+ProfileControllerTest: test_logged_in_user_can_view_own_profile
+---------------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-24 06:54:26.813974"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Test User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:54:26.813974"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-24 08:54:26 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 3ms (ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.0ms)
+Started GET "/profile" for 127.0.0.1 at 2026-09-24 08:54:26 +0200
+Processing by ProfileController#show as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering profile/show.html.erb within layouts/application
+  Rendered profile/show.html.erb within layouts/application (Duration: 0.3ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.6ms | GC: 0.0ms)
+Completed 200 OK in 2ms (Views: 0.8ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.2ms)[0m  [1m[31mDELETE FROM "check_ins";
+DELETE FROM "places";
+DELETE FROM "status_reports";
+DELETE FROM "users";
+INSERT INTO "check_ins" ("id", "created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (980190962, '2026-09-24 06:55:31.169352', '2026-09-21 15:18:59', 980190962, '2026-09-21 14:18:59', '2026-09-24 06:55:31.169352', 980190962), (298486374, '2026-09-24 06:55:31.169352', '2026-09-21 15:18:59', 298486374, '2026-09-21 14:18:59', '2026-09-24 06:55:31.169352', 298486374);
+INSERT INTO "places" ("id", "approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (980190962, TRUE, 4, 0, '2026-09-24 06:55:31.171116', 47.3769, NULL, NULL, 8.5417, 'Central Bench', '08:00-20:00', 980190962, 0, '2026-09-24 06:55:31.171116'), (298486374, TRUE, 2, 2, '2026-09-24 06:55:31.171116', 47.3779, NULL, NULL, 8.5427, 'Shaded Courtyard', '09:00-18:00', 298486374, 0, '2026-09-24 06:55:31.171116');
+INSERT INTO "status_reports" ("id", "created_at", "place_id", "reported_status", "reviewed", "updated_at", "user_id") VALUES (980190962, '2026-09-24 06:55:31.172079', 980190962, 1, FALSE, '2026-09-24 06:55:31.172079', 980190962), (298486374, '2026-09-24 06:55:31.172079', 298486374, 1, FALSE, '2026-09-24 06:55:31.172079', 298486374);
+INSERT INTO "users" ("id", "confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (980190962, 'confirmation-token-one', '2026-09-24 06:55:31.172791', 'alice@example.com', FALSE, 'Alice', 'fixture-password-one', 1, NULL, '2026-09-24 06:55:31.172791'), (298486374, 'confirmation-token-two', '2026-09-24 06:55:31.172791', 'bob@example.com', FALSE, 'Bob', 'fixture-password-two', 1, NULL, '2026-09-24 06:55:31.172791')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (9.1ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_key_check[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+---------------------------------------------------------------
+ProfileControllerTest: test_user_can_request_email_confirmation
+---------------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-24 06:55:31.198541"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Test User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:55:31.198541"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-24 08:55:31 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 5ms (ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+Started PATCH "/profile" for 127.0.0.1 at 2026-09-24 08:55:31 +0200
+Processing by ProfileController#update as HTML
+  Parameters: {"user" => {"email" => "[FILTERED]", "current_password" => "[FILTERED]"}}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 4ms (ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.5ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+---------------------------------------------------------------
+ProfileControllerTest: test_logged_in_user_can_view_own_profile
+---------------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-24 06:55:31.254125"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Test User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:55:31.254125"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-24 08:55:31 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 3ms (ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.0ms)
+Started GET "/profile" for 127.0.0.1 at 2026-09-24 08:55:31 +0200
+Processing by ProfileController#show as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering profile/show.html.erb within layouts/application
+  Rendered profile/show.html.erb within layouts/application (Duration: 0.3ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 5.0ms | GC: 1.0ms)
+Completed 200 OK in 8ms (Views: 6.5ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 1.2ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+----------------------------------------------------------------
+ProfileControllerTest: test_logged_in_user_can_update_their_name
+----------------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-24 06:55:31.272870"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Test User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:55:31.272870"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-24 08:55:31 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 3ms (ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.0ms)
+Started PATCH "/profile" for 127.0.0.1 at 2026-09-24 08:55:31 +0200
+Processing by ProfileController#update as HTML
+  Parameters: {"user" => {"name" => "Updated Name"}}
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Update (0.0ms)[0m  [1m[33mUPDATE "users" SET "name" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["name", "Updated Name"], ["updated_at", "2026-09-24 06:55:31.278736"], ["id", 980190963]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://www.example.com/profile
+Completed 302 Found in 2ms (ActiveRecord: 0.3ms (2 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+----------------------------------------------------------------
+ProfileControllerTest: test_confirmation_token_updates_the_email
+----------------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-24 06:55:31.283856"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Test User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:55:31.283856"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-24 08:55:31 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 3ms (ActiveRecord: 0.5ms (1 query, 0 cached) | GC: 0.4ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Update (0.1ms)[0m  [1m[33mUPDATE "users" SET "confirmation_token" = ?, "unconfirmed_email" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["confirmation_token", "[FILTERED]"], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:55:31.289150"], ["id", 980190963]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/profile/confirm_email/abc123" for 127.0.0.1 at 2026-09-24 08:55:31 +0200
+  
+ActionController::RoutingError (No route matches [GET] "/profile/confirm_email/abc123"):
+  
+test/controllers/profile_controller_test.rb:65:in 'block in <class:ProfileControllerTest>'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-------------------------------------------------------------------------------
+ProfileControllerTest: test_user_must_enter_current_password_to_change_password
+-------------------------------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-24 06:55:31.367305"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Test User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:55:31.367305"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-24 08:55:31 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 3ms (ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+Started PATCH "/profile" for 127.0.0.1 at 2026-09-24 08:55:31 +0200
+Processing by ProfileController#update as HTML
+  Parameters: {"user" => {"current_password" => "[FILTERED]", "password" => "[FILTERED]"}}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering profile/edit.html.erb within layouts/application
+  Rendered profile/edit.html.erb within layouts/application (Duration: 2.0ms | GC: 0.4ms)
+  Rendered layout layouts/application.html.erb (Duration: 2.2ms | GC: 0.4ms)
+Completed 422 Unprocessable Content in 5ms (Views: 2.6ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.4ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.2ms)[0m  [1m[31mDELETE FROM "check_ins";
+DELETE FROM "places";
+DELETE FROM "status_reports";
+DELETE FROM "users";
+INSERT INTO "check_ins" ("id", "created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (980190962, '2026-09-24 06:56:00.790966', '2026-09-21 15:18:59', 980190962, '2026-09-21 14:18:59', '2026-09-24 06:56:00.790966', 980190962), (298486374, '2026-09-24 06:56:00.790966', '2026-09-21 15:18:59', 298486374, '2026-09-21 14:18:59', '2026-09-24 06:56:00.790966', 298486374);
+INSERT INTO "places" ("id", "approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (980190962, TRUE, 4, 0, '2026-09-24 06:56:00.792602', 47.3769, NULL, NULL, 8.5417, 'Central Bench', '08:00-20:00', 980190962, 0, '2026-09-24 06:56:00.792602'), (298486374, TRUE, 2, 2, '2026-09-24 06:56:00.792602', 47.3779, NULL, NULL, 8.5427, 'Shaded Courtyard', '09:00-18:00', 298486374, 0, '2026-09-24 06:56:00.792602');
+INSERT INTO "status_reports" ("id", "created_at", "place_id", "reported_status", "reviewed", "updated_at", "user_id") VALUES (980190962, '2026-09-24 06:56:00.793169', 980190962, 1, FALSE, '2026-09-24 06:56:00.793169', 980190962), (298486374, '2026-09-24 06:56:00.793169', 298486374, 1, FALSE, '2026-09-24 06:56:00.793169', 298486374);
+INSERT INTO "users" ("id", "confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (980190962, 'confirmation-token-one', '2026-09-24 06:56:00.793772', 'alice@example.com', FALSE, 'Alice', 'fixture-password-one', 1, NULL, '2026-09-24 06:56:00.793772'), (298486374, 'confirmation-token-two', '2026-09-24 06:56:00.793772', 'bob@example.com', FALSE, 'Bob', 'fixture-password-two', 1, NULL, '2026-09-24 06:56:00.793772')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (9.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_key_check[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-------------------------------------------------------------------------------
+ProfileControllerTest: test_user_must_enter_current_password_to_change_password
+-------------------------------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-24 06:56:00.824027"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Test User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:56:00.824027"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-24 08:56:00 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 5ms (ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+Started PATCH "/profile" for 127.0.0.1 at 2026-09-24 08:56:00 +0200
+Processing by ProfileController#update as HTML
+  Parameters: {"user" => {"current_password" => "[FILTERED]", "password" => "[FILTERED]"}}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering profile/edit.html.erb within layouts/application
+  Rendered profile/edit.html.erb within layouts/application (Duration: 1.7ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 23.8ms | GC: 18.1ms)
+Completed 422 Unprocessable Content in 30ms (Views: 26.8ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 18.1ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+----------------------------------------------------------------
+ProfileControllerTest: test_logged_in_user_can_update_their_name
+----------------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-24 06:56:00.893809"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Test User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:56:00.893809"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-24 08:56:00 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 3ms (ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+Started PATCH "/profile" for 127.0.0.1 at 2026-09-24 08:56:00 +0200
+Processing by ProfileController#update as HTML
+  Parameters: {"user" => {"name" => "Updated Name"}}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Update (0.1ms)[0m  [1m[33mUPDATE "users" SET "name" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["name", "Updated Name"], ["updated_at", "2026-09-24 06:56:00.900817"], ["id", 980190963]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://www.example.com/profile
+Completed 302 Found in 3ms (ActiveRecord: 0.3ms (2 queries, 0 cached) | GC: 0.6ms)
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+---------------------------------------------------------------
+ProfileControllerTest: test_user_can_request_email_confirmation
+---------------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-24 06:56:00.905990"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Test User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:56:00.905990"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-24 08:56:00 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 2ms (ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.0ms)
+Started PATCH "/profile" for 127.0.0.1 at 2026-09-24 08:56:00 +0200
+Processing by ProfileController#update as HTML
+  Parameters: {"user" => {"email" => "[FILTERED]", "current_password" => "[FILTERED]"}}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 3ms (ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+----------------------------------------------------------------
+ProfileControllerTest: test_confirmation_token_updates_the_email
+----------------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-24 06:56:00.918262"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Test User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:56:00.918262"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-24 08:56:00 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 3ms (ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Update (0.1ms)[0m  [1m[33mUPDATE "users" SET "confirmation_token" = ?, "unconfirmed_email" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["confirmation_token", "[FILTERED]"], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:56:00.923339"], ["id", 980190963]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/profile/confirm_email/abc123" for 127.0.0.1 at 2026-09-24 08:56:00 +0200
+Processing by ProfileController#confirm_email as HTML
+  Parameters: {"token" => "[FILTERED]"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."confirmation_token" = ? LIMIT ?[0m  [["confirmation_token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? AND "users"."id" != ? LIMIT ?[0m  [["email", "[FILTERED]"], ["id", 980190963], ["LIMIT", 1]]
+  [1m[36mUser Update (0.0ms)[0m  [1m[33mUPDATE "users" SET "confirmation_token" = ?, "email" = ?, "unconfirmed_email" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["confirmation_token", "[FILTERED]"], ["email", "[FILTERED]"], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:56:00.925950"], ["id", 980190963]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://www.example.com/profile
+Completed 302 Found in 2ms (ActiveRecord: 0.3ms (4 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+---------------------------------------------------------------
+ProfileControllerTest: test_logged_in_user_can_view_own_profile
+---------------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-24 06:56:00.931660"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Test User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:56:00.931660"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-24 08:56:00 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 3ms (ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+Started GET "/profile" for 127.0.0.1 at 2026-09-24 08:56:00 +0200
+Processing by ProfileController#show as HTML
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering profile/show.html.erb within layouts/application
+  Rendered profile/show.html.erb within layouts/application (Duration: 0.3ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.6ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.8ms | ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.2ms)[0m  [1m[31mDELETE FROM "check_ins";
+DELETE FROM "places";
+DELETE FROM "status_reports";
+DELETE FROM "users";
+INSERT INTO "check_ins" ("id", "created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (980190962, '2026-09-24 06:56:16.209655', '2026-09-21 15:18:59', 980190962, '2026-09-21 14:18:59', '2026-09-24 06:56:16.209655', 980190962), (298486374, '2026-09-24 06:56:16.209655', '2026-09-21 15:18:59', 298486374, '2026-09-21 14:18:59', '2026-09-24 06:56:16.209655', 298486374);
+INSERT INTO "places" ("id", "approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (980190962, TRUE, 4, 0, '2026-09-24 06:56:16.211810', 47.3769, NULL, NULL, 8.5417, 'Central Bench', '08:00-20:00', 980190962, 0, '2026-09-24 06:56:16.211810'), (298486374, TRUE, 2, 2, '2026-09-24 06:56:16.211810', 47.3779, NULL, NULL, 8.5427, 'Shaded Courtyard', '09:00-18:00', 298486374, 0, '2026-09-24 06:56:16.211810');
+INSERT INTO "status_reports" ("id", "created_at", "place_id", "reported_status", "reviewed", "updated_at", "user_id") VALUES (980190962, '2026-09-24 06:56:16.212462', 980190962, 1, FALSE, '2026-09-24 06:56:16.212462', 980190962), (298486374, '2026-09-24 06:56:16.212462', 298486374, 1, FALSE, '2026-09-24 06:56:16.212462', 298486374);
+INSERT INTO "users" ("id", "confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (980190962, 'confirmation-token-one', '2026-09-24 06:56:16.213104', 'alice@example.com', FALSE, 'Alice', 'fixture-password-one', 1, NULL, '2026-09-24 06:56:16.213104'), (298486374, 'confirmation-token-two', '2026-09-24 06:56:16.213104', 'bob@example.com', FALSE, 'Bob', 'fixture-password-two', 1, NULL, '2026-09-24 06:56:16.213104')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (8.1ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_key_check[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+---------------------------------------------------------------
+ProfileControllerTest: test_logged_in_user_can_view_own_profile
+---------------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-24 06:56:16.237590"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Test User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:56:16.237590"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-24 08:56:16 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 5ms (ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+Started GET "/profile" for 127.0.0.1 at 2026-09-24 08:56:16 +0200
+Processing by ProfileController#show as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering profile/show.html.erb within layouts/application
+  Rendered profile/show.html.erb within layouts/application (Duration: 0.9ms | GC: 0.4ms)
+  Rendered layout layouts/application.html.erb (Duration: 5.6ms | GC: 1.4ms)
+Completed 200 OK in 11ms (Views: 7.0ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 2.0ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+----------------------------------------------------------------
+ProfileControllerTest: test_confirmation_token_updates_the_email
+----------------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-24 06:56:16.305230"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Test User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:56:16.305230"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-24 08:56:16 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 3ms (ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Update (0.1ms)[0m  [1m[33mUPDATE "users" SET "confirmation_token" = ?, "unconfirmed_email" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["confirmation_token", "[FILTERED]"], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:56:16.310724"], ["id", 980190963]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/profile/confirm_email/abc123" for 127.0.0.1 at 2026-09-24 08:56:16 +0200
+Processing by ProfileController#confirm_email as HTML
+  Parameters: {"token" => "[FILTERED]"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."confirmation_token" = ? LIMIT ?[0m  [["confirmation_token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? AND "users"."id" != ? LIMIT ?[0m  [["email", "[FILTERED]"], ["id", 980190963], ["LIMIT", 1]]
+  [1m[36mUser Update (0.0ms)[0m  [1m[33mUPDATE "users" SET "confirmation_token" = ?, "email" = ?, "unconfirmed_email" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["confirmation_token", "[FILTERED]"], ["email", "[FILTERED]"], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:56:16.313947"], ["id", 980190963]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://www.example.com/profile
+Completed 302 Found in 2ms (ActiveRecord: 0.3ms (4 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+----------------------------------------------------------------
+ProfileControllerTest: test_logged_in_user_can_update_their_name
+----------------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-24 06:56:16.319144"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Test User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:56:16.319144"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-24 08:56:16 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 3ms (ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+Started PATCH "/profile" for 127.0.0.1 at 2026-09-24 08:56:16 +0200
+Processing by ProfileController#update as HTML
+  Parameters: {"user" => {"name" => "Updated Name"}}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Update (0.1ms)[0m  [1m[33mUPDATE "users" SET "name" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["name", "Updated Name"], ["updated_at", "2026-09-24 06:56:16.324619"], ["id", 980190963]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://www.example.com/profile
+Completed 302 Found in 2ms (ActiveRecord: 0.2ms (2 queries, 0 cached) | GC: 0.2ms)
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+---------------------------------------------------------------
+ProfileControllerTest: test_user_can_request_email_confirmation
+---------------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-24 06:56:16.329766"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Test User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:56:16.329766"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-24 08:56:16 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 3ms (ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+Started PATCH "/profile" for 127.0.0.1 at 2026-09-24 08:56:16 +0200
+Processing by ProfileController#update as HTML
+  Parameters: {"user" => {"email" => "[FILTERED]", "current_password" => "[FILTERED]"}}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 3ms (ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.4ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-------------------------------------------------------------------------------
+ProfileControllerTest: test_user_must_enter_current_password_to_change_password
+-------------------------------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-24 06:56:16.342655"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Test User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:56:16.342655"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-24 08:56:16 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 3ms (ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+Started PATCH "/profile" for 127.0.0.1 at 2026-09-24 08:56:16 +0200
+Processing by ProfileController#update as HTML
+  Parameters: {"user" => {"current_password" => "[FILTERED]", "password" => "[FILTERED]"}}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering profile/edit.html.erb within layouts/application
+  Rendered profile/edit.html.erb within layouts/application (Duration: 1.9ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 2.1ms | GC: 0.0ms)
+Completed 422 Unprocessable Content in 5ms (Views: 2.4ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.2ms)[0m  [1m[31mDELETE FROM "check_ins";
+DELETE FROM "places";
+DELETE FROM "status_reports";
+DELETE FROM "users";
+INSERT INTO "check_ins" ("id", "created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (980190962, '2026-09-24 06:56:35.255904', '2026-09-21 15:18:59', 980190962, '2026-09-21 14:18:59', '2026-09-24 06:56:35.255904', 980190962), (298486374, '2026-09-24 06:56:35.255904', '2026-09-21 15:18:59', 298486374, '2026-09-21 14:18:59', '2026-09-24 06:56:35.255904', 298486374);
+INSERT INTO "places" ("id", "approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (980190962, TRUE, 4, 0, '2026-09-24 06:56:35.257458', 47.3769, NULL, NULL, 8.5417, 'Central Bench', '08:00-20:00', 980190962, 0, '2026-09-24 06:56:35.257458'), (298486374, TRUE, 2, 2, '2026-09-24 06:56:35.257458', 47.3779, NULL, NULL, 8.5427, 'Shaded Courtyard', '09:00-18:00', 298486374, 0, '2026-09-24 06:56:35.257458');
+INSERT INTO "status_reports" ("id", "created_at", "place_id", "reported_status", "reviewed", "updated_at", "user_id") VALUES (980190962, '2026-09-24 06:56:35.258237', 980190962, 1, FALSE, '2026-09-24 06:56:35.258237', 980190962), (298486374, '2026-09-24 06:56:35.258237', 298486374, 1, FALSE, '2026-09-24 06:56:35.258237', 298486374);
+INSERT INTO "users" ("id", "confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (980190962, 'confirmation-token-one', '2026-09-24 06:56:35.258875', 'alice@example.com', FALSE, 'Alice', 'fixture-password-one', 1, NULL, '2026-09-24 06:56:35.258875'), (298486374, 'confirmation-token-two', '2026-09-24 06:56:35.258875', 'bob@example.com', FALSE, 'Bob', 'fixture-password-two', 1, NULL, '2026-09-24 06:56:35.258875')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (8.9ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_key_check[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+---------------------------------------------------------------
+ProfileControllerTest: test_logged_in_user_can_view_own_profile
+---------------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-24 06:56:35.284908"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Test User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:56:35.284908"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-24 08:56:35 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 5ms (ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+Started GET "/profile" for 127.0.0.1 at 2026-09-24 08:56:35 +0200
+Processing by ProfileController#show as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering profile/show.html.erb within layouts/application
+  Rendered profile/show.html.erb within layouts/application (Duration: 0.3ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 4.5ms | GC: 0.9ms)
+Completed 200 OK in 9ms (Views: 5.6ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 1.4ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-------------------------------------------------------------------------------
+ProfileControllerTest: test_user_must_enter_current_password_to_change_password
+-------------------------------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-24 06:56:35.348401"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Test User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:56:35.348401"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-24 08:56:35 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 3ms (ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.0ms)
+Started PATCH "/profile" for 127.0.0.1 at 2026-09-24 08:56:35 +0200
+Processing by ProfileController#update as HTML
+  Parameters: {"user" => {"current_password" => "[FILTERED]", "password" => "[FILTERED]"}}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering profile/edit.html.erb within layouts/application
+  Rendered profile/edit.html.erb within layouts/application (Duration: 1.6ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 1.8ms | GC: 0.0ms)
+Completed 422 Unprocessable Content in 5ms (Views: 2.1ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+---------------------------------------------------------------
+ProfileControllerTest: test_user_can_request_email_confirmation
+---------------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-24 06:56:35.361965"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Test User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:56:35.361965"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-24 08:56:35 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 3ms (ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+Started PATCH "/profile" for 127.0.0.1 at 2026-09-24 08:56:35 +0200
+Processing by ProfileController#update as HTML
+  Parameters: {"user" => {"email" => "[FILTERED]", "current_password" => "[FILTERED]"}}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+Confirm email: http://localhost:3000/profile/confirm_email/9234d21d8b0f8c8e33f00da43f738c1c
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Update (0.1ms)[0m  [1m[33mUPDATE "users" SET "confirmation_token" = ?, "unconfirmed_email" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["confirmation_token", "[FILTERED]"], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:56:35.370252"], ["id", 980190963]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://www.example.com/profile
+Completed 302 Found in 4ms (ActiveRecord: 0.3ms (2 queries, 0 cached) | GC: 0.2ms)
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+----------------------------------------------------------------
+ProfileControllerTest: test_logged_in_user_can_update_their_name
+----------------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-24 06:56:35.375407"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Test User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:56:35.375407"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-24 08:56:35 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 3ms (ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+Started PATCH "/profile" for 127.0.0.1 at 2026-09-24 08:56:35 +0200
+Processing by ProfileController#update as HTML
+  Parameters: {"user" => {"name" => "Updated Name"}}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Update (0.1ms)[0m  [1m[33mUPDATE "users" SET "name" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["name", "Updated Name"], ["updated_at", "2026-09-24 06:56:35.381591"], ["id", 980190963]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://www.example.com/profile
+Completed 302 Found in 1ms (ActiveRecord: 0.2ms (2 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+----------------------------------------------------------------
+ProfileControllerTest: test_confirmation_token_updates_the_email
+----------------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-24 06:56:35.386387"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Test User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:56:35.386387"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-24 08:56:35 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 3ms (ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Update (0.2ms)[0m  [1m[33mUPDATE "users" SET "confirmation_token" = ?, "unconfirmed_email" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["confirmation_token", "[FILTERED]"], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:56:35.390858"], ["id", 980190963]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/profile/confirm_email/abc123" for 127.0.0.1 at 2026-09-24 08:56:35 +0200
+Processing by ProfileController#confirm_email as HTML
+  Parameters: {"token" => "[FILTERED]"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."confirmation_token" = ? LIMIT ?[0m  [["confirmation_token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? AND "users"."id" != ? LIMIT ?[0m  [["email", "[FILTERED]"], ["id", 980190963], ["LIMIT", 1]]
+  [1m[36mUser Update (0.1ms)[0m  [1m[33mUPDATE "users" SET "confirmation_token" = ?, "email" = ?, "unconfirmed_email" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["confirmation_token", "[FILTERED]"], ["email", "[FILTERED]"], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:56:35.393751"], ["id", 980190963]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://www.example.com/profile
+Completed 302 Found in 2ms (ActiveRecord: 0.4ms (4 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.2ms)[0m  [1m[31mDELETE FROM "check_ins";
+DELETE FROM "places";
+DELETE FROM "status_reports";
+DELETE FROM "users";
+INSERT INTO "check_ins" ("id", "created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (980190962, '2026-09-24 06:56:59.748272', '2026-09-21 15:18:59', 980190962, '2026-09-21 14:18:59', '2026-09-24 06:56:59.748272', 980190962), (298486374, '2026-09-24 06:56:59.748272', '2026-09-21 15:18:59', 298486374, '2026-09-21 14:18:59', '2026-09-24 06:56:59.748272', 298486374);
+INSERT INTO "places" ("id", "approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (980190962, TRUE, 4, 0, '2026-09-24 06:56:59.749996', 47.3769, NULL, NULL, 8.5417, 'Central Bench', '08:00-20:00', 980190962, 0, '2026-09-24 06:56:59.749996'), (298486374, TRUE, 2, 2, '2026-09-24 06:56:59.749996', 47.3779, NULL, NULL, 8.5427, 'Shaded Courtyard', '09:00-18:00', 298486374, 0, '2026-09-24 06:56:59.749996');
+INSERT INTO "status_reports" ("id", "created_at", "place_id", "reported_status", "reviewed", "updated_at", "user_id") VALUES (980190962, '2026-09-24 06:56:59.750944', 980190962, 1, FALSE, '2026-09-24 06:56:59.750944', 980190962), (298486374, '2026-09-24 06:56:59.750944', 298486374, 1, FALSE, '2026-09-24 06:56:59.750944', 298486374);
+INSERT INTO "users" ("id", "confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (980190962, 'confirmation-token-one', '2026-09-24 06:56:59.751623', 'alice@example.com', FALSE, 'Alice', 'fixture-password-one', 1, NULL, '2026-09-24 06:56:59.751623'), (298486374, 'confirmation-token-two', '2026-09-24 06:56:59.751623', 'bob@example.com', FALSE, 'Bob', 'fixture-password-two', 1, NULL, '2026-09-24 06:56:59.751623')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (8.6ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_key_check[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+----------------------------------------------------------------
+ProfileControllerTest: test_logged_in_user_can_update_their_name
+----------------------------------------------------------------
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-24 06:56:59.775534"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Test User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:56:59.775534"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-24 08:56:59 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 5ms (ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+Started PATCH "/profile" for 127.0.0.1 at 2026-09-24 08:56:59 +0200
+Processing by ProfileController#update as HTML
+  Parameters: {"user" => {"name" => "Updated Name"}}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Update (0.1ms)[0m  [1m[33mUPDATE "users" SET "name" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["name", "Updated Name"], ["updated_at", "2026-09-24 06:56:59.824153"], ["id", 980190963]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://www.example.com/profile
+Completed 302 Found in 3ms (ActiveRecord: 0.4ms (2 queries, 0 cached) | GC: 0.5ms)
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+---------------------------------------------------------------
+ProfileControllerTest: test_logged_in_user_can_view_own_profile
+---------------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-24 06:56:59.828854"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Test User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:56:59.828854"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-24 08:56:59 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 2ms (ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.0ms)
+Started GET "/profile" for 127.0.0.1 at 2026-09-24 08:56:59 +0200
+Processing by ProfileController#show as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering profile/show.html.erb within layouts/application
+  Rendered profile/show.html.erb within layouts/application (Duration: 0.3ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 4.8ms | GC: 0.9ms)
+Completed 200 OK in 8ms (Views: 6.1ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 1.1ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-------------------------------------------------------------------------------
+ProfileControllerTest: test_user_must_enter_current_password_to_change_password
+-------------------------------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-24 06:56:59.846839"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Test User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:56:59.846839"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-24 08:56:59 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 3ms (ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.0ms)
+Started PATCH "/profile" for 127.0.0.1 at 2026-09-24 08:56:59 +0200
+Processing by ProfileController#update as HTML
+  Parameters: {"user" => {"current_password" => "[FILTERED]", "password" => "[FILTERED]"}}
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering profile/edit.html.erb within layouts/application
+  Rendered profile/edit.html.erb within layouts/application (Duration: 1.9ms | GC: 0.2ms)
+  Rendered layout layouts/application.html.erb (Duration: 2.2ms | GC: 0.2ms)
+Completed 422 Unprocessable Content in 5ms (Views: 2.5ms | ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.2ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+----------------------------------------------------------------
+ProfileControllerTest: test_confirmation_token_updates_the_email
+----------------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-24 06:56:59.860168"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Test User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:56:59.860168"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-24 08:56:59 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 3ms (ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Update (0.2ms)[0m  [1m[33mUPDATE "users" SET "confirmation_token" = ?, "unconfirmed_email" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["confirmation_token", "[FILTERED]"], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:56:59.864654"], ["id", 980190963]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/profile/confirm_email/abc123" for 127.0.0.1 at 2026-09-24 08:56:59 +0200
+Processing by ProfileController#confirm_email as HTML
+  Parameters: {"token" => "[FILTERED]"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."confirmation_token" = ? LIMIT ?[0m  [["confirmation_token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? AND "users"."id" != ? LIMIT ?[0m  [["email", "[FILTERED]"], ["id", 980190963], ["LIMIT", 1]]
+  [1m[36mUser Update (0.0ms)[0m  [1m[33mUPDATE "users" SET "confirmation_token" = ?, "email" = ?, "unconfirmed_email" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["confirmation_token", "[FILTERED]"], ["email", "[FILTERED]"], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:56:59.867630"], ["id", 980190963]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://www.example.com/profile
+Completed 302 Found in 2ms (ActiveRecord: 0.6ms (4 queries, 0 cached) | GC: 0.3ms)
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+---------------------------------------------------------------
+ProfileControllerTest: test_user_can_request_email_confirmation
+---------------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-24 06:56:59.872039"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Test User"], ["password_digest", "[FILTERED]"], ["role", 0], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:56:59.872039"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-24 08:56:59 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 3ms (ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.0ms)
+Started PATCH "/profile" for 127.0.0.1 at 2026-09-24 08:56:59 +0200
+Processing by ProfileController#update as HTML
+  Parameters: {"user" => {"email" => "[FILTERED]", "current_password" => "[FILTERED]"}}
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+Confirm email: http://localhost:3000/profile/confirm_email/d4c1d58d7253b5ce3af51d96ca99f7d5
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Update (0.1ms)[0m  [1m[33mUPDATE "users" SET "confirmation_token" = ?, "unconfirmed_email" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["confirmation_token", "[FILTERED]"], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:56:59.879574"], ["id", 980190963]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://www.example.com/profile
+Completed 302 Found in 4ms (ActiveRecord: 0.2ms (2 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m

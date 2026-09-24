@@ -4,6 +4,11 @@ Rails.application.routes.draw do
   resources :places, only: [ :index, :show, :new, :create ]
   resource :session, only: [ :new, :create, :destroy ]
   resources :check_ins, only: [ :new, :create, :show ]
+  resources :status_reports, only: [ :new, :create ]
+
+  resource :profile, only: [ :show, :edit, :update ], controller: "profile" do
+    get "confirm_email/:token", on: :member, to: "profile#confirm_email"
+  end
 
   namespace :admin do
     resources :users, only: [ :index, :show ] do
@@ -33,10 +38,7 @@ Rails.application.routes.draw do
 
     get "dashboards/show"
   end
-  get "profile/show"
-  get "profile/edit"
-  get "profile/update"
-  resources :status_reports, only: [ :new, :create ]
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
