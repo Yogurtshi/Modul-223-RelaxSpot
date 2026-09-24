@@ -12,7 +12,7 @@
     </div>
     <div>
       <span class="detail-label">Capacity</span>
-      <strong><%= @place.capacity %> people</strong>
+      <strong><%= @active_check_ins %>/<%= @place.capacity %> people</strong>
     </div>
     <div>
       <span class="detail-label">Opening hours</span>
@@ -42,7 +42,10 @@
 
     <div class="check-in-form__actions">
       <%= link_to "Back to place", place_path(@place), class: "secondary-button" %>
-      <%= form.submit "Check in", class: "primary-button" %>
+      <% if @active_check_ins >= @place.capacity %>
+        <span class="capacity-notice">This place is currently full.</span>
+      <% end %>
+      <%= form.submit "Check in", class: "primary-button", disabled: @active_check_ins >= @place.capacity %>
     </div>
   <% end %>
 </section>

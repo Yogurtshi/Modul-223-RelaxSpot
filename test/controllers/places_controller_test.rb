@@ -49,6 +49,44 @@ class PlacesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "availability reports active check-ins and capacity" do
+    places(:one).update!(capacity: 2)
+    CheckIn.create!(
+      place: places(:one),
+      user: users(:one),
+      started_at: 10.minutes.ago,
+      ends_at: 20.minutes.from_now
+    )
+
+    get availability_place_url(places(:one))
+
+    assert_response :success
+    assert_equal({ "active_count" => 1, "capacity" => 2 }, response.parsed_body)
+  end
+
+  test "authenticated user sees a disabled check-in control when the place is full" do
+    user = User.create!(
+      name: "Full Place User",
+      email: "full-place-user@example.com",
+      password: "secure-password"
+    )
+    place = places(:one)
+    place.update!(capacity: 1)
+    CheckIn.create!(
+      place: place,
+      user: users(:one),
+      started_at: 10.minutes.ago,
+      ends_at: 20.minutes.from_now
+    )
+
+    post session_url, params: { email: user.email, password: "secure-password" }
+    get place_url(place)
+
+    assert_response :success
+    assert_select ".action-button--disabled", text: "Place is full"
+    assert_select "a.action-button", { text: "Check in here", count: 0 }
+  end
+
   test "authenticated users can create places" do
     user = User.create!(
       name: "Place Proposer",

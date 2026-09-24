@@ -18,6 +18,15 @@ class PlacesController < ApplicationController
 
   def show
     @place = Place.find(params[:id])
+    @active_check_ins = @place.check_ins.active.count
+  end
+
+  def availability
+    place = Place.find(params[:id])
+    render json: {
+      active_count: place.check_ins.active.count,
+      capacity: place.capacity
+    }
   end
 
   def new

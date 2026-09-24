@@ -22,6 +22,23 @@ class CheckInsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "disables check-in submission when the place is full" do
+    place = places(:one)
+    place.update!(capacity: 1)
+    CheckIn.create!(
+      place: place,
+      user: User.create!(name: "Full User", email: "full-user@example.com", password: "secure-password"),
+      started_at: 10.minutes.ago,
+      ends_at: 20.minutes.from_now
+    )
+
+    get new_check_in_url, params: { place_id: place.id }
+
+    assert_response :success
+    assert_select ".capacity-notice", text: "This place is currently full."
+    assert_select "input[type=submit][disabled][value='Check in']"
+  end
+
   test "should create check-in" do
     assert_difference("CheckIn.count", 1) do
       post check_ins_url, params: {

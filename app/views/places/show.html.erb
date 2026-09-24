@@ -1,4 +1,8 @@
-<div class="place-detail-page">
+<div class="place-detail-page"
+  data-controller="place-availability"
+  data-place-availability-url-value="<%= availability_place_path(@place) %>"
+  data-place-availability-check-in-url-value="<%= new_check_in_path(place_id: @place.id) %>"
+  data-place-availability-authenticated-value="<%= current_user.present? %>">
   <div class="page-heading">
     <div>
       <p class="eyebrow"><%= @place.category.humanize %></p>
@@ -11,7 +15,7 @@
   <section class="place-details" aria-label="Place details">
     <div class="place-detail-item">
       <span class="detail-label">Capacity</span>
-      <strong><%= @place.capacity %> people</strong>
+      <strong data-place-availability-target="count"><%= @active_check_ins %>/<%= @place.capacity %> people</strong>
     </div>
     <div class="place-detail-item">
       <span class="detail-label">Location</span>
@@ -23,11 +27,15 @@
     </div>
   </section>
 
-  <div class="place-actions">
+  <div class="place-actions" data-place-availability-target="action">
     <%= link_to "Back to places", places_path, class: "secondary-button" %>
 
     <% if current_user %>
-      <%= link_to "Check in here", new_check_in_path(place_id: @place.id), class: "action-button" %>
+      <% if @active_check_ins >= @place.capacity %>
+        <span class="action-button action-button--disabled" aria-disabled="true">Place is full</span>
+      <% else %>
+        <%= link_to "Check in here", new_check_in_path(place_id: @place.id), class: "action-button" %>
+      <% end %>
     <% else %>
       <%= link_to "Log in to check in", new_session_path, class: "action-button" %>
     <% end %>

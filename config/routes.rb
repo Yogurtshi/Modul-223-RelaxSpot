@@ -3,7 +3,11 @@ Rails.application.routes.draw do
   root "places#index"
 
   resources :users, only: [ :new, :create ]
-  resources :places, only: [ :index, :show, :new, :create ]
+  resources :places, only: [ :index, :show, :new, :create ] do
+    member do
+      get :availability
+    end
+  end
   resource :session, only: [ :new, :create, :destroy ]
   resources :check_ins, only: [ :new, :create, :show ]
   resources :status_reports, only: [ :new, :create ]
