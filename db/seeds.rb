@@ -1,9 +1,38 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
+# Seed users for local development and demonstrations.
+# These passwords are intentionally documented for the seeded development accounts.
+seed_users = [
+  # Password: relaxspot-admin-2026
+  {
+    name: "RelaxSpot Admin",
+    email: "admin@relaxspot.local",
+    password: "relaxspot-admin-2026",
+    role: :admin
+  },
+  # Password: relaxspot-moderator-2026
+  {
+    name: "RelaxSpot Moderator",
+    email: "moderator@relaxspot.local",
+    password: "relaxspot-moderator-2026",
+    role: :moderator
+  },
+  # Password: relaxspot-user-one-2026
+  {
+    name: "RelaxSpot User One",
+    email: "user.one@relaxspot.local",
+    password: "relaxspot-user-one-2026",
+    role: :user
+  },
+  # Password: relaxspot-user-two-2026
+  {
+    name: "RelaxSpot User Two",
+    email: "user.two@relaxspot.local",
+    password: "relaxspot-user-two-2026",
+    role: :user
+  }
+]
+
+seed_users.each do |attributes|
+  user = User.find_or_initialize_by(email: attributes[:email])
+  user.assign_attributes(attributes)
+  user.save!
+end
