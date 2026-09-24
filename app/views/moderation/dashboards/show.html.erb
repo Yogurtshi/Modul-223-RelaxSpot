@@ -1,22 +1,97 @@
-<h1>Recent activity</h1>
+<div class="dashboard-heading">
+  <div>
+    <p class="eyebrow">Moderation space</p>
+    <h1>Dashboard</h1>
+    <p class="page-intro">Keep an eye on community activity, new suggestions, and account access.</p>
+  </div>
 
-<% if @recent_activity.present? %>
-  <ul>
-    <% @recent_activity.each do |version| %>
-      <% item = version.item %>
-      <% item_name = item.respond_to?(:name) ? item.name : version.item_type %>
-      <% action = version.event == "create" ? "created" : version.event == "update" ? "updated" : "deleted" %>
+  <% if current_user.admin? %>
+    <%= link_to "Manage all users", admin_users_path, class: "secondary-button" %>
+  <% end %>
+</div>
 
-      <li>
-        <strong><%= version.item_type %></strong>
-        <%= action %>
-        <% if item_name.present? %>
-          <span>“<%= item_name %>”</span>
+<div class="dashboard-grid">
+  <section class="dashboard-panel dashboard-panel--wide">
+    <div class="dashboard-panel__heading">
+      <div>
+        <p class="eyebrow">PaperTrail</p>
+        <h2>Recent activity</h2>
+      </div>
+      <span class="dashboard-count"><%= @recent_activity.size %></span>
+    </div>
+
+    <% if @recent_activity.present? %>
+      <ul class="activity-list">
+        <% @recent_activity.each do |version| %>
+          <% item = version.item %>
+          <% item_name = item.respond_to?(:name) ? item.name : version.item_type %>
+          <% action = version.event == "create" ? "created" : version.event == "update" ? "updated" : "deleted" %>
+
+          <li>
+            <div>
+              <strong><%= version.item_type %></strong>
+              <span><%= action %> <%= item_name.present? ? "#{item_name}" : "" %></span>
+            </div>
+            <small><%= version.created_at.strftime("%d.%m.%Y %H:%M") %></small>
+          </li>
         <% end %>
-        <small><%= version.created_at.strftime("%d.%m.%Y %H:%M") %></small>
-      </li>
+      </ul>
+    <% else %>
+      <p class="dashboard-empty">No recent activity yet.</p>
     <% end %>
-  </ul>
-<% else %>
-  <p>No recent activity yet.</p>
-<% end %>
+  </section>
+
+  <section class="dashboard-panel">
+    <div class="dashboard-panel__heading">
+      <div>
+        <p class="eyebrow">Community</p>
+        <h2>Users</h2>
+      </div>
+      <span class="dashboard-count"><%= @users.size %></span>
+    </div>
+
+    <ul class="dashboard-list">
+      <% @users.each do |user| %>
+        <li>
+          <div>
+            <strong><%= user.name %></strong>
+            <span><%= user.role.humanize %> · <%= user.locked? ? "Blocked" : "Active" %></span>
+          </div>
+          <% if current_user.admin? %>
+            <% if user.locked? %>
+              <%= button_to "Unblock", unlock_admin_user_path(user), method: :post, class: "small-button small-button--soft" %>
+            <% else %>
+              <%= button_to "Block", lock_admin_user_path(user), method: :post, class: "small-button small-button--danger" %>
+            <% end %>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </section>
+
+  <section class="dashboard-panel">
+    <div class="dashboard-panel__heading">
+      <div>
+        <p class="eyebrow">Needs review</p>
+        <h2>Place suggestions</h2>
+      </div>
+      <span class="dashboard-count"><%= @pending_places.size %></span>
+    </div>
+
+    <% if @pending_places.present? %>
+      <ul class="dashboard-list">
+        <% @pending_places.each do |place| %>
+          <li>
+            <div>
+              <strong><%= link_to place.name, moderation_place_path(place) %></strong>
+              <span><%= place.category.humanize %> · suggested by <%= place.proposed_by.name %></span>
+            </div>
+            <%= link_to "Review", moderation_place_path(place), class: "small-button small-button--soft" %>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p class="dashboard-empty">No place suggestions are waiting for review.</p>
+    <% end %>
+  </section>
+</div>
