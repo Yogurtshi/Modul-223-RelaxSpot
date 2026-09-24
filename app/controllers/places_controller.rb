@@ -11,10 +11,12 @@ class PlacesController < ApplicationController
 
   def new
     @place = Place.new
+    authorize @place, :create?
   end
 
   def create
     @place = current_user.proposed_places.build(place_params)
+    authorize @place, :create?
 
     if @place.save
       redirect_to places_path, notice: "Place suggestion submitted for review."

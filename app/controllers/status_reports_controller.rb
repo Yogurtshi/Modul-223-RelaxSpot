@@ -4,12 +4,15 @@ class StatusReportsController < ApplicationController
   def new
     @place = Place.find(params[:place_id])
     @status_report = StatusReport.new(place: @place)
+    authorize @place, :show?
+    authorize @status_report, :create?
   end
 
   def create
     @place = Place.find(params[:place_id])
     @status_report = @place.status_reports.build(status_report_params)
     @status_report.user = current_user
+    authorize @status_report, :create?
 
     if @status_report.save
       redirect_to place_path(@place), notice: "Status report submitted successfully."

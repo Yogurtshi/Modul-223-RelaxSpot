@@ -3,14 +3,17 @@ class ProfileController < ApplicationController
 
   def show
     @user = current_user
+    authorize @user, :show?, policy_class: ProfilePolicy
   end
 
   def edit
     @user = current_user
+    authorize @user, :update?, policy_class: ProfilePolicy
   end
 
   def update
     @user = current_user
+    authorize @user, :update?, policy_class: ProfilePolicy
 
     if params.dig(:user, :name).present?
       @user.name = params[:user][:name]
@@ -48,6 +51,7 @@ class ProfileController < ApplicationController
   def confirm_email
     @user = User.find_by(confirmation_token: params[:token])
     return redirect_to profile_path, alert: "Invalid confirmation token." if @user.nil?
+    authorize @user, :confirm_email?, policy_class: ProfilePolicy
 
     @user.email = @user.unconfirmed_email
     @user.unconfirmed_email = nil

@@ -3,11 +3,15 @@ class CheckInsController < ApplicationController
 
   def new
     @place = Place.find(params[:place_id])
-    @check_in = CheckIn.new
+    @check_in = CheckIn.new(place: @place, user: current_user)
+    authorize @place, :show?
+    authorize @check_in, :create?
   end
 
   def create
     @place = Place.find(check_in_params[:place_id])
+    @check_in = CheckIn.new(place: @place, user: current_user)
+    authorize @check_in, :create?
 
     @check_in = CheckIn.create_with_capacity!(
       place: @place,
@@ -24,6 +28,7 @@ class CheckInsController < ApplicationController
 
   def show
     @check_in = current_user.check_ins.find(params[:id])
+    authorize @check_in, :show?
   end
 
   private

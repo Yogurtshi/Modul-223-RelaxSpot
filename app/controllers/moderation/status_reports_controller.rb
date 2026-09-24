@@ -1,17 +1,19 @@
 class Moderation::StatusReportsController < ApplicationController
   before_action :require_authentication
-  before_action :ensure_moderator
 
   def show
     set_status_report
+    authorize @status_report, :show?
   end
 
   def edit
     set_status_report
+    authorize @status_report, :update?
   end
 
   def update
     set_status_report
+    authorize @status_report, :update?
 
     if @status_report.update(status_report_params)
       redirect_to moderation_status_report_path(@status_report), notice: "Status report updated."
@@ -22,6 +24,7 @@ class Moderation::StatusReportsController < ApplicationController
 
   def approve
     set_status_report
+    authorize @status_report, :approve?
     @status_report.update!(reviewed: true)
 
     place_updates = { status: @status_report.reported_status }
@@ -35,6 +38,7 @@ class Moderation::StatusReportsController < ApplicationController
 
   def reject
     set_status_report
+    authorize @status_report, :reject?
     @status_report.update!(reviewed: true)
 
     redirect_to moderation_status_report_path(@status_report), notice: "Status report rejected."
@@ -50,7 +54,4 @@ class Moderation::StatusReportsController < ApplicationController
     params.require(:status_report).permit(:reported_status, :reported_opening_hours)
   end
 
-  def ensure_moderator
-    redirect_to new_session_path unless current_user&.moderator? || current_user&.admin?
-  end
 end

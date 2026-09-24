@@ -1,19 +1,21 @@
 class Moderation::PlacesController < ApplicationController
   before_action :require_authentication
-  before_action :ensure_moderator
   before_action :set_place, only: [ :show, :edit, :update, :approve, :reject, :unlock ]
   before_action :ensure_not_locked_by_other_moderator, only: [ :edit, :update, :unlock ]
 
   def show
+    authorize @place, :show?
   end
 
   def edit
+    authorize @place, :update?
     if @place.locked_by_id.blank? || @place.locked_by_id == current_user.id
       @place.update!(locked_by: current_user, locked_at: Time.current)
     end
   end
 
   def update
+    authorize @place, :update?
     if @place.update(place_params)
       @place.update!(locked_by: nil, locked_at: nil)
       redirect_to moderation_place_path(@place), notice: "Place updated."
@@ -23,16 +25,19 @@ class Moderation::PlacesController < ApplicationController
   end
 
   def approve
+    authorize @place, :approve?
     @place.update!(approved: true)
     redirect_to moderation_place_path(@place), notice: "Place approved."
   end
 
   def reject
+    authorize @place, :reject?
     @place.update!(approved: false)
     redirect_to moderation_place_path(@place), notice: "Place rejected."
   end
 
   def unlock
+    authorize @place, :unlock?
     @place.update!(locked_by: nil, locked_at: nil)
     redirect_to moderation_place_path(@place), notice: "Place lock released."
   end
@@ -41,10 +46,6 @@ class Moderation::PlacesController < ApplicationController
 
   def set_place
     @place = Place.find(params[:id])
-  end
-
-  def ensure_moderator
-    redirect_to new_session_path unless current_user&.moderator? || current_user&.admin?
   end
 
   def ensure_not_locked_by_other_moderator

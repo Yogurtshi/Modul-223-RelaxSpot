@@ -1,8 +1,8 @@
 class Moderation::DashboardsController < ApplicationController
   before_action :require_authentication
-  before_action :ensure_moderator
 
   def show
+    authorize current_user, :moderate?
     @recent_activity = PaperTrail::Version
       .includes(:item)
       .order(created_at: :desc)
@@ -12,9 +12,4 @@ class Moderation::DashboardsController < ApplicationController
     @pending_status_reports = StatusReport.where(reviewed: false).includes(:place, :user).order(created_at: :desc)
   end
 
-  private
-
-  def ensure_moderator
-    redirect_to new_session_path unless current_user&.moderator? || current_user&.admin?
-  end
 end

@@ -18,4 +18,8 @@ class PlacePolicy < ApplicationPolicy
   def reject?
     moderator?
   end
+
+  def unlock?
+    moderator?
+  end
 end

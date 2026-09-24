@@ -47,6 +47,6 @@ class Moderation::DashboardsControllerTest < ActionDispatch::IntegrationTest
 
     get moderation_dashboards_show_url
 
-    assert_redirected_to new_session_url
+    assert_response :forbidden
   end
 end

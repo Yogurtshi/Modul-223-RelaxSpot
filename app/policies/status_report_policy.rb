@@ -7,6 +7,10 @@ class StatusReportPolicy < ApplicationPolicy
     user.present?
   end
 
+  def update?
+    moderator?
+  end
+
   def approve?
     moderator?
   end

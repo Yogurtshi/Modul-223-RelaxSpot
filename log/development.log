@@ -13377,3 +13377,653 @@ Processing by Moderation::PlacesController#show as HTML
 Completed 200 OK in 11ms (Views: 6.7ms | ActiveRecord: 1.0ms (3 queries, 1 cached) | GC: 0.6ms)
 
 
+Started GET "/places" for ::1 at 2026-09-24 10:49:41 +0200
+Processing by PlacesController#index as HTML
+  [1m[36mCheckIn Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) AS "count_all", "check_ins"."place_id" AS "check_ins_place_id" FROM "check_ins" WHERE (ends_at > '2026-09-24 08:49:41.971996') AND "check_ins"."place_id" IN (SELECT "places"."id" FROM "places" WHERE "places"."approved" = TRUE ORDER BY "places"."name" ASC) GROUP BY "check_ins"."place_id" /*action='index',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:5:in 'PlacesController#index'
+  Rendering layout layouts/application.html.erb
+  Rendering places/index.html.erb within layouts/application
+  [1m[36mPlace Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "places" WHERE "places"."approved" = TRUE LIMIT 1 /*action='index',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/views/places/index.html.erb:12
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."approved" = TRUE ORDER BY "places"."name" ASC /*action='index',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/views/places/index.html.erb:14
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 4 LIMIT 1 /*action='index',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/application_controller.rb:9:in 'ApplicationController#current_user'
+  Rendered places/index.html.erb within layouts/application (Duration: 8.9ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 11.1ms | GC: 0.0ms)
+Completed 200 OK in 19ms (Views: 11.4ms | ActiveRecord: 1.1ms (4 queries, 0 cached) | GC: 0.5ms)
+
+
+Started GET "/places/3" for ::1 at 2026-09-24 10:49:43 +0200
+Processing by PlacesController#show as HTML
+  Parameters: {"id" => "3"}
+  [1m[36mPlace Load (0.2ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = 3 LIMIT 1 /*action='show',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:9:in 'PlacesController#show'
+  Rendering layout layouts/application.html.erb
+  Rendering places/show.html.erb within layouts/application
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 4 LIMIT 1 /*action='show',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/application_controller.rb:9:in 'ApplicationController#current_user'
+  Rendered places/show.html.erb within layouts/application (Duration: 2.0ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 2.8ms | GC: 0.0ms)
+Completed 200 OK in 6ms (Views: 3.1ms | ActiveRecord: 0.3ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/places" for ::1 at 2026-09-24 10:49:52 +0200
+Processing by PlacesController#index as HTML
+  [1m[36mCheckIn Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) AS "count_all", "check_ins"."place_id" AS "check_ins_place_id" FROM "check_ins" WHERE (ends_at > '2026-09-24 08:49:52.249037') AND "check_ins"."place_id" IN (SELECT "places"."id" FROM "places" WHERE "places"."approved" = TRUE ORDER BY "places"."name" ASC) GROUP BY "check_ins"."place_id" /*action='index',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:5:in 'PlacesController#index'
+  Rendering layout layouts/application.html.erb
+  Rendering places/index.html.erb within layouts/application
+  [1m[36mPlace Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "places" WHERE "places"."approved" = TRUE LIMIT 1 /*action='index',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/views/places/index.html.erb:12
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."approved" = TRUE ORDER BY "places"."name" ASC /*action='index',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/views/places/index.html.erb:14
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 4 LIMIT 1 /*action='index',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/application_controller.rb:9:in 'ApplicationController#current_user'
+  Rendered places/index.html.erb within layouts/application (Duration: 2.0ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 2.5ms | GC: 0.0ms)
+Completed 200 OK in 6ms (Views: 2.6ms | ActiveRecord: 0.5ms (4 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/places/2" for ::1 at 2026-09-24 10:49:53 +0200
+Processing by PlacesController#show as HTML
+  Parameters: {"id" => "2"}
+  [1m[36mPlace Load (0.3ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = 2 LIMIT 1 /*action='show',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:9:in 'PlacesController#show'
+  Rendering layout layouts/application.html.erb
+  Rendering places/show.html.erb within layouts/application
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 4 LIMIT 1 /*action='show',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/application_controller.rb:9:in 'ApplicationController#current_user'
+  Rendered places/show.html.erb within layouts/application (Duration: 2.3ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 4.1ms | GC: 0.0ms)
+Completed 200 OK in 8ms (Views: 4.8ms | ActiveRecord: 0.5ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/places" for ::1 at 2026-09-24 10:49:57 +0200
+Processing by PlacesController#index as HTML
+  [1m[36mCheckIn Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) AS "count_all", "check_ins"."place_id" AS "check_ins_place_id" FROM "check_ins" WHERE (ends_at > '2026-09-24 08:49:57.759303') AND "check_ins"."place_id" IN (SELECT "places"."id" FROM "places" WHERE "places"."approved" = TRUE ORDER BY "places"."name" ASC) GROUP BY "check_ins"."place_id" /*action='index',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:5:in 'PlacesController#index'
+  Rendering layout layouts/application.html.erb
+  Rendering places/index.html.erb within layouts/application
+  [1m[36mPlace Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "places" WHERE "places"."approved" = TRUE LIMIT 1 /*action='index',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/views/places/index.html.erb:12
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."approved" = TRUE ORDER BY "places"."name" ASC /*action='index',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/views/places/index.html.erb:14
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 4 LIMIT 1 /*action='index',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/application_controller.rb:9:in 'ApplicationController#current_user'
+  Rendered places/index.html.erb within layouts/application (Duration: 3.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 4.0ms | GC: 0.0ms)
+Completed 200 OK in 7ms (Views: 4.1ms | ActiveRecord: 0.6ms (4 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/places/1" for ::1 at 2026-09-24 10:49:58 +0200
+Processing by PlacesController#show as HTML
+  Parameters: {"id" => "1"}
+  [1m[36mPlace Load (0.2ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = 1 LIMIT 1 /*action='show',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:9:in 'PlacesController#show'
+  Rendering layout layouts/application.html.erb
+  Rendering places/show.html.erb within layouts/application
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 4 LIMIT 1 /*action='show',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/application_controller.rb:9:in 'ApplicationController#current_user'
+  Rendered places/show.html.erb within layouts/application (Duration: 1.8ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 3.1ms | GC: 0.0ms)
+Completed 200 OK in 6ms (Views: 3.5ms | ActiveRecord: 0.3ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/places/2" for ::1 at 2026-09-24 10:49:58 +0200
+Processing by PlacesController#show as HTML
+  Parameters: {"id" => "2"}
+  [1m[36mPlace Load (0.2ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = 2 LIMIT 1 /*action='show',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:9:in 'PlacesController#show'
+  Rendering layout layouts/application.html.erb
+  Rendering places/show.html.erb within layouts/application
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 4 LIMIT 1 /*action='show',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/application_controller.rb:9:in 'ApplicationController#current_user'
+  Rendered places/show.html.erb within layouts/application (Duration: 1.4ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 2.2ms | GC: 0.0ms)
+Completed 200 OK in 5ms (Views: 2.5ms | ActiveRecord: 0.3ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/places/1" for ::1 at 2026-09-24 10:49:59 +0200
+Processing by PlacesController#show as HTML
+  Parameters: {"id" => "1"}
+  [1m[36mPlace Load (0.3ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = 1 LIMIT 1 /*action='show',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:9:in 'PlacesController#show'
+  Rendering layout layouts/application.html.erb
+  Rendering places/show.html.erb within layouts/application
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 4 LIMIT 1 /*action='show',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/application_controller.rb:9:in 'ApplicationController#current_user'
+  Rendered places/show.html.erb within layouts/application (Duration: 2.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 3.5ms | GC: 0.0ms)
+Completed 200 OK in 6ms (Views: 3.8ms | ActiveRecord: 0.4ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/places/2" for ::1 at 2026-09-24 10:49:59 +0200
+Processing by PlacesController#show as HTML
+  Parameters: {"id" => "2"}
+  [1m[36mPlace Load (0.2ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = 2 LIMIT 1 /*action='show',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:9:in 'PlacesController#show'
+  Rendering layout layouts/application.html.erb
+  Rendering places/show.html.erb within layouts/application
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 4 LIMIT 1 /*action='show',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/application_controller.rb:9:in 'ApplicationController#current_user'
+  Rendered places/show.html.erb within layouts/application (Duration: 1.8ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 3.0ms | GC: 0.0ms)
+Completed 200 OK in 5ms (Views: 3.3ms | ActiveRecord: 0.4ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/places/3" for ::1 at 2026-09-24 10:50:00 +0200
+Processing by PlacesController#show as HTML
+  Parameters: {"id" => "3"}
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = 3 LIMIT 1 /*action='show',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:9:in 'PlacesController#show'
+  Rendering layout layouts/application.html.erb
+  Rendering places/show.html.erb within layouts/application
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 4 LIMIT 1 /*action='show',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/application_controller.rb:9:in 'ApplicationController#current_user'
+  Rendered places/show.html.erb within layouts/application (Duration: 0.9ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 1.5ms | GC: 0.0ms)
+Completed 200 OK in 3ms (Views: 1.7ms | ActiveRecord: 0.2ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/profile" for ::1 at 2026-09-24 10:50:02 +0200
+Processing by ProfileController#show as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 4 LIMIT 1 /*action='show',application='Modul223RelaxSpot',controller='profile'*/[0m
+  ↳ app/controllers/application_controller.rb:9:in 'ApplicationController#current_user'
+  Rendering layout layouts/application.html.erb
+  Rendering profile/show.html.erb within layouts/application
+  Rendered profile/show.html.erb within layouts/application (Duration: 0.3ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.9ms | GC: 0.0ms)
+Completed 200 OK in 3ms (Views: 1.3ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/moderation/dashboards/show" for ::1 at 2026-09-24 10:50:03 +0200
+Processing by Moderation::DashboardsController#show as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 4 LIMIT 1 /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/controllers/application_controller.rb:9:in 'ApplicationController#current_user'
+  Rendering layout layouts/application.html.erb
+  Rendering moderation/dashboards/show.html.erb within layouts/application
+  [1m[36mPaperTrail::Version Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "versions" LIMIT 20) AS subquery_for_count /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:17
+  [1m[36mPaperTrail::Version Load (0.2ms)[0m  [1m[34mSELECT "versions".* FROM "versions" ORDER BY "versions"."created_at" DESC LIMIT 20 /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:20
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" IN (5, 4, 3, 2) /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:20
+  [1m[36mStatusReport Load (0.1ms)[0m  [1m[34mSELECT "status_reports".* FROM "status_reports" WHERE "status_reports"."id" IN (2, 1) /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:20
+  [1m[36mCheckIn Load (0.1ms)[0m  [1m[34mSELECT "check_ins".* FROM "check_ins" WHERE "check_ins"."id" = 6 /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:20
+  [1m[36mUser Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:47
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."name" ASC /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:51
+  [1m[36mPlace Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "places" WHERE "places"."approved" = FALSE /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:77
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."approved" = FALSE ORDER BY "places"."created_at" DESC /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:80
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 4 /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:80
+  [1m[36mStatusReport Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "status_reports" WHERE "status_reports"."reviewed" = FALSE /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:102
+  [1m[36mStatusReport Load (0.1ms)[0m  [1m[34mSELECT "status_reports".* FROM "status_reports" WHERE "status_reports"."reviewed" = FALSE ORDER BY "status_reports"."created_at" DESC /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:105
+  Rendered moderation/dashboards/show.html.erb within layouts/application (Duration: 19.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 20.2ms | GC: 0.0ms)
+Completed 200 OK in 29ms (Views: 19.4ms | ActiveRecord: 1.8ms (13 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/moderation/places/4" for ::1 at 2026-09-24 10:50:14 +0200
+Processing by Moderation::PlacesController#show as HTML
+  Parameters: {"id" => "4"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 4 LIMIT 1 /*action='show',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/application_controller.rb:9:in 'ApplicationController#current_user'
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = 4 LIMIT 1 /*action='show',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/moderation/places_controller.rb:43:in 'Moderation::PlacesController#set_place'
+  Rendering layout layouts/application.html.erb
+  Rendering moderation/places/show.html.erb within layouts/application
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 4 LIMIT 1[0m
+  ↳ app/views/moderation/places/show.html.erb:7
+  Rendered moderation/places/show.html.erb within layouts/application (Duration: 2.0ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 2.5ms | GC: 0.0ms)
+Completed 200 OK in 5ms (Views: 2.9ms | ActiveRecord: 0.2ms (3 queries, 1 cached) | GC: 0.0ms)
+
+
+Started GET "/admin/users/4" for ::1 at 2026-09-24 10:50:14 +0200
+Processing by Admin::UsersController#show as HTML
+  Parameters: {"id" => "4"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 4 LIMIT 1 /*action='show',application='Modul223RelaxSpot',controller='users'*/[0m
+  ↳ app/controllers/application_controller.rb:9:in 'ApplicationController#current_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 4 LIMIT 1[0m
+  ↳ app/controllers/admin/users_controller.rb:36:in 'Admin::UsersController#set_user'
+  Rendering layout layouts/application.html.erb
+  Rendering admin/users/show.html.erb within layouts/application
+  Rendered admin/users/show.html.erb within layouts/application (Duration: 0.8ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 1.3ms | GC: 0.0ms)
+Completed 200 OK in 4ms (Views: 1.7ms | ActiveRecord: 0.2ms (2 queries, 1 cached) | GC: 0.0ms)
+
+
+Started GET "/admin/users/3" for ::1 at 2026-09-24 10:50:15 +0200
+Processing by Admin::UsersController#show as HTML
+  Parameters: {"id" => "3"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 4 LIMIT 1 /*action='show',application='Modul223RelaxSpot',controller='users'*/[0m
+  ↳ app/controllers/application_controller.rb:9:in 'ApplicationController#current_user'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 3 LIMIT 1 /*action='show',application='Modul223RelaxSpot',controller='users'*/[0m
+  ↳ app/controllers/admin/users_controller.rb:36:in 'Admin::UsersController#set_user'
+  Rendering layout layouts/application.html.erb
+  Rendering admin/users/show.html.erb within layouts/application
+  Rendered admin/users/show.html.erb within layouts/application (Duration: 0.8ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 1.8ms | GC: 0.0ms)
+Completed 200 OK in 5ms (Views: 2.2ms | ActiveRecord: 0.3ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/admin/users/2" for ::1 at 2026-09-24 10:50:16 +0200
+Processing by Admin::UsersController#show as HTML
+  Parameters: {"id" => "2"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 4 LIMIT 1 /*action='show',application='Modul223RelaxSpot',controller='users'*/[0m
+  ↳ app/controllers/application_controller.rb:9:in 'ApplicationController#current_user'
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 2 LIMIT 1 /*action='show',application='Modul223RelaxSpot',controller='users'*/[0m
+  ↳ app/controllers/admin/users_controller.rb:36:in 'Admin::UsersController#set_user'
+  Rendering layout layouts/application.html.erb
+  Rendering admin/users/show.html.erb within layouts/application
+  Rendered admin/users/show.html.erb within layouts/application (Duration: 0.9ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 1.7ms | GC: 0.0ms)
+Completed 200 OK in 7ms (Views: 2.2ms | ActiveRecord: 0.4ms (2 queries, 0 cached) | GC: 0.8ms)
+
+
+Started POST "/admin/users/2/demote" for ::1 at 2026-09-24 10:50:18 +0200
+Processing by Admin::UsersController#demote as TURBO_STREAM
+  Parameters: {"authenticity_token" => "[FILTERED]", "id" => "2"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 4 LIMIT 1 /*action='demote',application='Modul223RelaxSpot',controller='users'*/[0m
+  ↳ app/controllers/application_controller.rb:9:in 'ApplicationController#current_user'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 2 LIMIT 1 /*action='demote',application='Modul223RelaxSpot',controller='users'*/[0m
+  ↳ app/controllers/admin/users_controller.rb:36:in 'Admin::UsersController#set_user'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*action='demote',application='Modul223RelaxSpot',controller='users'*/[0m
+  ↳ app/controllers/admin/users_controller.rb:19:in 'Admin::UsersController#demote'
+  [1m[36mUser Update (0.0ms)[0m  [1m[33mUPDATE "users" SET "role" = 0, "updated_at" = '2026-09-24 08:50:18.389155' WHERE "users"."id" = 2 /*action='demote',application='Modul223RelaxSpot',controller='users'*/[0m
+  ↳ app/controllers/admin/users_controller.rb:19:in 'Admin::UsersController#demote'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*action='demote',application='Modul223RelaxSpot',controller='users'*/[0m
+  ↳ app/controllers/admin/users_controller.rb:19:in 'Admin::UsersController#demote'
+Redirected to http://localhost:3000/admin/users/2
+↳ app/controllers/admin/users_controller.rb:20:in 'Admin::UsersController#demote'
+Completed 302 Found in 8ms (ActiveRecord: 1.5ms (3 queries, 0 cached) | GC: 0.5ms)
+
+
+Started GET "/admin/users/2" for ::1 at 2026-09-24 10:50:18 +0200
+Processing by Admin::UsersController#show as TURBO_STREAM
+  Parameters: {"id" => "2"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 4 LIMIT 1 /*action='show',application='Modul223RelaxSpot',controller='users'*/[0m
+  ↳ app/controllers/application_controller.rb:9:in 'ApplicationController#current_user'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 2 LIMIT 1 /*action='show',application='Modul223RelaxSpot',controller='users'*/[0m
+  ↳ app/controllers/admin/users_controller.rb:36:in 'Admin::UsersController#set_user'
+  Rendering layout layouts/application.html.erb
+  Rendering admin/users/show.html.erb within layouts/application
+  Rendered admin/users/show.html.erb within layouts/application (Duration: 0.5ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 1.4ms | GC: 0.4ms)
+Completed 200 OK in 3ms (Views: 1.7ms | ActiveRecord: 0.2ms (2 queries, 0 cached) | GC: 0.4ms)
+
+
+Started GET "/moderation/dashboards/show" for ::1 at 2026-09-24 10:50:21 +0200
+Processing by Moderation::DashboardsController#show as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 4 LIMIT 1 /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/controllers/application_controller.rb:9:in 'ApplicationController#current_user'
+  Rendering layout layouts/application.html.erb
+  Rendering moderation/dashboards/show.html.erb within layouts/application
+  [1m[36mPaperTrail::Version Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "versions" LIMIT 20) AS subquery_for_count /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:17
+  [1m[36mPaperTrail::Version Load (0.2ms)[0m  [1m[34mSELECT "versions".* FROM "versions" ORDER BY "versions"."created_at" DESC LIMIT 20 /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:20
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" IN (5, 4, 3, 2) /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:20
+  [1m[36mStatusReport Load (0.5ms)[0m  [1m[34mSELECT "status_reports".* FROM "status_reports" WHERE "status_reports"."id" IN (2, 1) /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:20
+  [1m[36mCheckIn Load (0.1ms)[0m  [1m[34mSELECT "check_ins".* FROM "check_ins" WHERE "check_ins"."id" = 6 /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:20
+  [1m[36mUser Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:47
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."name" ASC /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:51
+  [1m[36mPlace Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "places" WHERE "places"."approved" = FALSE /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:77
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."approved" = FALSE ORDER BY "places"."created_at" DESC /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:80
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 4 /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:80
+  [1m[36mStatusReport Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "status_reports" WHERE "status_reports"."reviewed" = FALSE /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:102
+  [1m[36mStatusReport Load (0.0ms)[0m  [1m[34mSELECT "status_reports".* FROM "status_reports" WHERE "status_reports"."reviewed" = FALSE ORDER BY "status_reports"."created_at" DESC /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:105
+  Rendered moderation/dashboards/show.html.erb within layouts/application (Duration: 9.7ms | GC: 0.8ms)
+  Rendered layout layouts/application.html.erb (Duration: 10.4ms | GC: 0.8ms)
+Completed 200 OK in 14ms (Views: 9.6ms | ActiveRecord: 1.5ms (13 queries, 0 cached) | GC: 0.8ms)
+
+
+Started GET "/moderation/dashboards/show" for ::1 at 2026-09-24 10:50:24 +0200
+Processing by Moderation::DashboardsController#show as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 4 LIMIT 1 /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/controllers/application_controller.rb:9:in 'ApplicationController#current_user'
+  Rendering layout layouts/application.html.erb
+  Rendering moderation/dashboards/show.html.erb within layouts/application
+  [1m[36mPaperTrail::Version Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "versions" LIMIT 20) AS subquery_for_count /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:17
+  [1m[36mPaperTrail::Version Load (0.1ms)[0m  [1m[34mSELECT "versions".* FROM "versions" ORDER BY "versions"."created_at" DESC LIMIT 20 /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:20
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" IN (5, 4, 3, 2) /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:20
+  [1m[36mStatusReport Load (0.1ms)[0m  [1m[34mSELECT "status_reports".* FROM "status_reports" WHERE "status_reports"."id" IN (2, 1) /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:20
+  [1m[36mCheckIn Load (0.1ms)[0m  [1m[34mSELECT "check_ins".* FROM "check_ins" WHERE "check_ins"."id" = 6 /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:20
+  [1m[36mUser Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:47
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."name" ASC /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:51
+  [1m[36mPlace Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "places" WHERE "places"."approved" = FALSE /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:77
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."approved" = FALSE ORDER BY "places"."created_at" DESC /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:80
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 4 /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:80
+  [1m[36mStatusReport Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "status_reports" WHERE "status_reports"."reviewed" = FALSE /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:102
+  [1m[36mStatusReport Load (0.1ms)[0m  [1m[34mSELECT "status_reports".* FROM "status_reports" WHERE "status_reports"."reviewed" = FALSE ORDER BY "status_reports"."created_at" DESC /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:105
+  Rendered moderation/dashboards/show.html.erb within layouts/application (Duration: 9.4ms | GC: 0.9ms)
+  Rendered layout layouts/application.html.erb (Duration: 10.0ms | GC: 0.9ms)
+Completed 200 OK in 12ms (Views: 9.6ms | ActiveRecord: 0.9ms (13 queries, 0 cached) | GC: 0.9ms)
+
+
+Started GET "/admin/users/5" for ::1 at 2026-09-24 10:50:39 +0200
+Processing by Admin::UsersController#show as HTML
+  Parameters: {"id" => "5"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 4 LIMIT 1 /*action='show',application='Modul223RelaxSpot',controller='users'*/[0m
+  ↳ app/controllers/application_controller.rb:9:in 'ApplicationController#current_user'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 5 LIMIT 1 /*action='show',application='Modul223RelaxSpot',controller='users'*/[0m
+  ↳ app/controllers/admin/users_controller.rb:36:in 'Admin::UsersController#set_user'
+  Rendering layout layouts/application.html.erb
+  Rendering admin/users/show.html.erb within layouts/application
+  Rendered admin/users/show.html.erb within layouts/application (Duration: 0.4ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 1.2ms | GC: 0.3ms)
+Completed 200 OK in 5ms (Views: 1.5ms | ActiveRecord: 0.3ms (2 queries, 0 cached) | GC: 0.3ms)
+
+
+Started GET "/admin/users/5" for ::1 at 2026-09-24 10:50:41 +0200
+Processing by Admin::UsersController#show as HTML
+  Parameters: {"id" => "5"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 4 LIMIT 1 /*action='show',application='Modul223RelaxSpot',controller='users'*/[0m
+  ↳ app/controllers/application_controller.rb:9:in 'ApplicationController#current_user'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 5 LIMIT 1 /*action='show',application='Modul223RelaxSpot',controller='users'*/[0m
+  ↳ app/controllers/admin/users_controller.rb:36:in 'Admin::UsersController#set_user'
+  Rendering layout layouts/application.html.erb
+  Rendering admin/users/show.html.erb within layouts/application
+  Rendered admin/users/show.html.erb within layouts/application (Duration: 0.8ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 1.3ms | GC: 0.0ms)
+Completed 200 OK in 5ms (Views: 1.8ms | ActiveRecord: 0.3ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/admin/users/4" for ::1 at 2026-09-24 10:50:42 +0200
+Processing by Admin::UsersController#show as HTML
+  Parameters: {"id" => "4"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 4 LIMIT 1 /*action='show',application='Modul223RelaxSpot',controller='users'*/[0m
+  ↳ app/controllers/application_controller.rb:9:in 'ApplicationController#current_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 4 LIMIT 1[0m
+  ↳ app/controllers/admin/users_controller.rb:36:in 'Admin::UsersController#set_user'
+  Rendering layout layouts/application.html.erb
+  Rendering admin/users/show.html.erb within layouts/application
+  Rendered admin/users/show.html.erb within layouts/application (Duration: 1.0ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 2.2ms | GC: 0.0ms)
+Completed 200 OK in 5ms (Views: 2.8ms | ActiveRecord: 0.1ms (2 queries, 1 cached) | GC: 0.2ms)
+
+
+Started GET "/admin/users/4" for ::1 at 2026-09-24 10:50:45 +0200
+Processing by Admin::UsersController#show as HTML
+  Parameters: {"id" => "4"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 4 LIMIT 1 /*action='show',application='Modul223RelaxSpot',controller='users'*/[0m
+  ↳ app/controllers/application_controller.rb:9:in 'ApplicationController#current_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 4 LIMIT 1[0m
+  ↳ app/controllers/admin/users_controller.rb:36:in 'Admin::UsersController#set_user'
+  Rendering layout layouts/application.html.erb
+  Rendering admin/users/show.html.erb within layouts/application
+  Rendered admin/users/show.html.erb within layouts/application (Duration: 0.7ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 1.5ms | GC: 0.0ms)
+Completed 200 OK in 5ms (Views: 1.9ms | ActiveRecord: 0.2ms (2 queries, 1 cached) | GC: 0.0ms)
+
+
+Started GET "/session/new" for 127.0.0.1 at 2026-09-24 11:04:03 +0200
+Processing by SessionsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/new.html.erb within layouts/application (Duration: 1.0ms | GC: 0.0ms)
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT 1 /*action='new',application='Modul223RelaxSpot',controller='sessions'*/[0m
+  ↳ app/controllers/application_controller.rb:10:in 'ApplicationController#current_user'
+  Rendered layout layouts/application.html.erb (Duration: 5.1ms | GC: 0.1ms)
+Completed 200 OK in 6ms (Views: 5.6ms | ActiveRecord: 0.4ms (1 query, 0 cached) | GC: 0.3ms)
+
+
+Started GET "/session/new" for 127.0.0.1 at 2026-09-24 11:04:03 +0200
+Processing by SessionsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/new.html.erb within layouts/application (Duration: 1.3ms | GC: 0.0ms)
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT 1 /*action='new',application='Modul223RelaxSpot',controller='sessions'*/[0m
+  ↳ app/controllers/application_controller.rb:10:in 'ApplicationController#current_user'
+  Rendered layout layouts/application.html.erb (Duration: 3.2ms | GC: 0.0ms)
+Completed 200 OK in 4ms (Views: 3.4ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at 2026-09-24 11:04:04 +0200
+Processing by UsersController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering users/new.html.erb within layouts/application
+  Rendered users/new.html.erb within layouts/application (Duration: 1.4ms | GC: 0.0ms)
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT 1 /*action='new',application='Modul223RelaxSpot',controller='users'*/[0m
+  ↳ app/controllers/application_controller.rb:10:in 'ApplicationController#current_user'
+  Rendered layout layouts/application.html.erb (Duration: 3.5ms | GC: 0.0ms)
+Completed 200 OK in 10ms (Views: 4.2ms | ActiveRecord: 0.6ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/moderation/dashboards/show" for ::1 at 2026-09-24 11:05:54 +0200
+Processing by Moderation::DashboardsController#show as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 4 LIMIT 1 /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/controllers/application_controller.rb:10:in 'ApplicationController#current_user'
+  Rendering layout layouts/application.html.erb
+  Rendering moderation/dashboards/show.html.erb within layouts/application
+  [1m[36mPaperTrail::Version Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "versions" LIMIT 20) AS subquery_for_count /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:17
+  [1m[36mPaperTrail::Version Load (0.3ms)[0m  [1m[34mSELECT "versions".* FROM "versions" ORDER BY "versions"."created_at" DESC LIMIT 20 /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:20
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" IN (5, 4, 3, 2) /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:20
+  [1m[36mStatusReport Load (0.2ms)[0m  [1m[34mSELECT "status_reports".* FROM "status_reports" WHERE "status_reports"."id" IN (2, 1) /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:20
+  [1m[36mCheckIn Load (0.1ms)[0m  [1m[34mSELECT "check_ins".* FROM "check_ins" WHERE "check_ins"."id" = 6 /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:20
+  [1m[36mUser Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:47
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."name" ASC /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:51
+  [1m[36mPlace Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "places" WHERE "places"."approved" = FALSE /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:77
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."approved" = FALSE ORDER BY "places"."created_at" DESC /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:80
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 4 /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:80
+  [1m[36mStatusReport Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "status_reports" WHERE "status_reports"."reviewed" = FALSE /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:102
+  [1m[36mStatusReport Load (0.1ms)[0m  [1m[34mSELECT "status_reports".* FROM "status_reports" WHERE "status_reports"."reviewed" = FALSE ORDER BY "status_reports"."created_at" DESC /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:105
+  Rendered moderation/dashboards/show.html.erb within layouts/application (Duration: 26.3ms | GC: 1.3ms)
+  Rendered layout layouts/application.html.erb (Duration: 28.1ms | GC: 1.3ms)
+Completed 200 OK in 53ms (Views: 27.7ms | ActiveRecord: 3.6ms (13 queries, 0 cached) | GC: 2.7ms)
+
+
+Started GET "/moderation/dashboards/show" for ::1 at 2026-09-24 11:05:56 +0200
+Processing by Moderation::DashboardsController#show as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 4 LIMIT 1 /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/controllers/application_controller.rb:10:in 'ApplicationController#current_user'
+  Rendering layout layouts/application.html.erb
+  Rendering moderation/dashboards/show.html.erb within layouts/application
+  [1m[36mPaperTrail::Version Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "versions" LIMIT 20) AS subquery_for_count /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:17
+  [1m[36mPaperTrail::Version Load (0.1ms)[0m  [1m[34mSELECT "versions".* FROM "versions" ORDER BY "versions"."created_at" DESC LIMIT 20 /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:20
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" IN (5, 4, 3, 2) /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:20
+  [1m[36mStatusReport Load (0.1ms)[0m  [1m[34mSELECT "status_reports".* FROM "status_reports" WHERE "status_reports"."id" IN (2, 1) /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:20
+  [1m[36mCheckIn Load (0.0ms)[0m  [1m[34mSELECT "check_ins".* FROM "check_ins" WHERE "check_ins"."id" = 6 /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:20
+  [1m[36mUser Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:47
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."name" ASC /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:51
+  [1m[36mPlace Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "places" WHERE "places"."approved" = FALSE /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:77
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."approved" = FALSE ORDER BY "places"."created_at" DESC /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:80
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 4 /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:80
+  [1m[36mStatusReport Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "status_reports" WHERE "status_reports"."reviewed" = FALSE /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:102
+  [1m[36mStatusReport Load (0.1ms)[0m  [1m[34mSELECT "status_reports".* FROM "status_reports" WHERE "status_reports"."reviewed" = FALSE ORDER BY "status_reports"."created_at" DESC /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:105
+  Rendered moderation/dashboards/show.html.erb within layouts/application (Duration: 7.9ms | GC: 0.4ms)
+  Rendered layout layouts/application.html.erb (Duration: 9.2ms | GC: 0.4ms)
+Completed 200 OK in 12ms (Views: 8.9ms | ActiveRecord: 0.8ms (13 queries, 0 cached) | GC: 0.4ms)
+
+
+Started GET "/places" for ::1 at 2026-09-24 11:05:56 +0200
+Processing by PlacesController#index as HTML
+  [1m[36mCheckIn Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) AS "count_all", "check_ins"."place_id" AS "check_ins_place_id" FROM "check_ins" WHERE (ends_at > '2026-09-24 09:05:56.886308') AND "check_ins"."place_id" IN (SELECT "places"."id" FROM "places" WHERE "places"."approved" = TRUE ORDER BY "places"."name" ASC) GROUP BY "check_ins"."place_id" /*action='index',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:5:in 'PlacesController#index'
+  Rendering layout layouts/application.html.erb
+  Rendering places/index.html.erb within layouts/application
+  [1m[36mPlace Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "places" WHERE "places"."approved" = TRUE LIMIT 1 /*action='index',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/views/places/index.html.erb:12
+  [1m[36mPlace Load (0.2ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."approved" = TRUE ORDER BY "places"."name" ASC /*action='index',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/views/places/index.html.erb:14
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 4 LIMIT 1 /*action='index',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/application_controller.rb:10:in 'ApplicationController#current_user'
+  Rendered places/index.html.erb within layouts/application (Duration: 5.5ms | GC: 0.3ms)
+  Rendered layout layouts/application.html.erb (Duration: 6.3ms | GC: 0.3ms)
+Completed 200 OK in 9ms (Views: 6.8ms | ActiveRecord: 0.6ms (4 queries, 0 cached) | GC: 0.3ms)
+
+
+Started GET "/places/2" for ::1 at 2026-09-24 11:05:57 +0200
+Processing by PlacesController#show as HTML
+  Parameters: {"id" => "2"}
+  [1m[36mPlace Load (0.2ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = 2 LIMIT 1 /*action='show',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:9:in 'PlacesController#show'
+  Rendering layout layouts/application.html.erb
+  Rendering places/show.html.erb within layouts/application
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 4 LIMIT 1 /*action='show',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/application_controller.rb:10:in 'ApplicationController#current_user'
+  Rendered places/show.html.erb within layouts/application (Duration: 1.6ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 2.3ms | GC: 0.0ms)
+Completed 200 OK in 5ms (Views: 2.6ms | ActiveRecord: 0.3ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/places" for ::1 at 2026-09-24 11:05:59 +0200
+Processing by PlacesController#index as HTML
+  [1m[36mCheckIn Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) AS "count_all", "check_ins"."place_id" AS "check_ins_place_id" FROM "check_ins" WHERE (ends_at > '2026-09-24 09:05:59.185642') AND "check_ins"."place_id" IN (SELECT "places"."id" FROM "places" WHERE "places"."approved" = TRUE ORDER BY "places"."name" ASC) GROUP BY "check_ins"."place_id" /*action='index',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:5:in 'PlacesController#index'
+  Rendering layout layouts/application.html.erb
+  Rendering places/index.html.erb within layouts/application
+  [1m[36mPlace Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "places" WHERE "places"."approved" = TRUE LIMIT 1 /*action='index',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/views/places/index.html.erb:12
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."approved" = TRUE ORDER BY "places"."name" ASC /*action='index',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/views/places/index.html.erb:14
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 4 LIMIT 1 /*action='index',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/application_controller.rb:10:in 'ApplicationController#current_user'
+  Rendered places/index.html.erb within layouts/application (Duration: 3.7ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 4.4ms | GC: 0.0ms)
+Completed 200 OK in 7ms (Views: 4.5ms | ActiveRecord: 0.6ms (4 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/profile" for ::1 at 2026-09-24 11:05:59 +0200
+Processing by ProfileController#show as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 4 LIMIT 1 /*action='show',application='Modul223RelaxSpot',controller='profile'*/[0m
+  ↳ app/controllers/application_controller.rb:10:in 'ApplicationController#current_user'
+  Rendering layout layouts/application.html.erb
+  Rendering profile/show.html.erb within layouts/application
+  Rendered profile/show.html.erb within layouts/application (Duration: 0.5ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 1.4ms | GC: 0.0ms)
+Completed 200 OK in 5ms (Views: 2.0ms | ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/profile/edit" for ::1 at 2026-09-24 11:06:01 +0200
+Processing by ProfileController#edit as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 4 LIMIT 1 /*action='edit',application='Modul223RelaxSpot',controller='profile'*/[0m
+  ↳ app/controllers/application_controller.rb:10:in 'ApplicationController#current_user'
+  Rendering layout layouts/application.html.erb
+  Rendering profile/edit.html.erb within layouts/application
+  Rendered profile/edit.html.erb within layouts/application (Duration: 2.3ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 3.2ms | GC: 0.0ms)
+Completed 200 OK in 6ms (Views: 3.7ms | ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/moderation/dashboards/show" for ::1 at 2026-09-24 11:06:05 +0200
+Processing by Moderation::DashboardsController#show as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 4 LIMIT 1 /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/controllers/application_controller.rb:10:in 'ApplicationController#current_user'
+  Rendering layout layouts/application.html.erb
+  Rendering moderation/dashboards/show.html.erb within layouts/application
+  [1m[36mPaperTrail::Version Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "versions" LIMIT 20) AS subquery_for_count /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:17
+  [1m[36mPaperTrail::Version Load (0.2ms)[0m  [1m[34mSELECT "versions".* FROM "versions" ORDER BY "versions"."created_at" DESC LIMIT 20 /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:20
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" IN (5, 4, 3, 2) /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:20
+  [1m[36mStatusReport Load (0.1ms)[0m  [1m[34mSELECT "status_reports".* FROM "status_reports" WHERE "status_reports"."id" IN (2, 1) /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:20
+  [1m[36mCheckIn Load (0.1ms)[0m  [1m[34mSELECT "check_ins".* FROM "check_ins" WHERE "check_ins"."id" = 6 /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:20
+  [1m[36mUser Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:47
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."name" ASC /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:51
+  [1m[36mPlace Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "places" WHERE "places"."approved" = FALSE /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:77
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."approved" = FALSE ORDER BY "places"."created_at" DESC /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:80
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 4 /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:80
+  [1m[36mStatusReport Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "status_reports" WHERE "status_reports"."reviewed" = FALSE /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:102
+  [1m[36mStatusReport Load (0.0ms)[0m  [1m[34mSELECT "status_reports".* FROM "status_reports" WHERE "status_reports"."reviewed" = FALSE ORDER BY "status_reports"."created_at" DESC /*action='show',application='Modul223RelaxSpot',controller='dashboards'*/[0m
+  ↳ app/views/moderation/dashboards/show.html.erb:105
+  Rendered moderation/dashboards/show.html.erb within layouts/application (Duration: 12.4ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 13.1ms | GC: 0.0ms)
+Completed 200 OK in 16ms (Views: 12.5ms | ActiveRecord: 1.3ms (13 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/places" for ::1 at 2026-09-24 11:06:06 +0200
+Processing by PlacesController#index as HTML
+  [1m[36mCheckIn Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) AS "count_all", "check_ins"."place_id" AS "check_ins_place_id" FROM "check_ins" WHERE (ends_at > '2026-09-24 09:06:06.233296') AND "check_ins"."place_id" IN (SELECT "places"."id" FROM "places" WHERE "places"."approved" = TRUE ORDER BY "places"."name" ASC) GROUP BY "check_ins"."place_id" /*action='index',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:5:in 'PlacesController#index'
+  Rendering layout layouts/application.html.erb
+  Rendering places/index.html.erb within layouts/application
+  [1m[36mPlace Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "places" WHERE "places"."approved" = TRUE LIMIT 1 /*action='index',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/views/places/index.html.erb:12
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."approved" = TRUE ORDER BY "places"."name" ASC /*action='index',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/views/places/index.html.erb:14
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 4 LIMIT 1 /*action='index',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/application_controller.rb:10:in 'ApplicationController#current_user'
+  Rendered places/index.html.erb within layouts/application (Duration: 3.3ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 4.1ms | GC: 0.0ms)
+Completed 200 OK in 7ms (Views: 4.2ms | ActiveRecord: 0.6ms (4 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/places/2" for ::1 at 2026-09-24 11:06:07 +0200
+Processing by PlacesController#show as HTML
+  Parameters: {"id" => "2"}
+  [1m[36mPlace Load (0.2ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = 2 LIMIT 1 /*action='show',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/places_controller.rb:9:in 'PlacesController#show'
+  Rendering layout layouts/application.html.erb
+  Rendering places/show.html.erb within layouts/application
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 4 LIMIT 1 /*action='show',application='Modul223RelaxSpot',controller='places'*/[0m
+  ↳ app/controllers/application_controller.rb:10:in 'ApplicationController#current_user'
+  Rendered places/show.html.erb within layouts/application (Duration: 1.4ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 2.2ms | GC: 0.0ms)
+Completed 200 OK in 4ms (Views: 2.5ms | ActiveRecord: 0.3ms (2 queries, 0 cached) | GC: 0.0ms)
+
+

@@ -42,4 +42,15 @@ class Admin::UsersControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to "/admin/users/#{@user.id}"
     assert @user.reload.locked
   end
+
+  test "regular user cannot access user administration" do
+    post session_path, params: {
+      email: @user.email,
+      password: "password1234"
+    }
+
+    get "/admin/users"
+
+    assert_response :forbidden
+  end
 end

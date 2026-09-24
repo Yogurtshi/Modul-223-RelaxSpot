@@ -48,6 +48,24 @@ class CheckInsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "cannot view another user's check-in" do
+    other_user = User.create!(
+      name: "Other Check-in User",
+      email: "other-check-in-user@example.com",
+      password: "secure-password"
+    )
+    check_in = CheckIn.create!(
+      place: places(:one),
+      user: other_user,
+      started_at: Time.current,
+      ends_at: 30.minutes.from_now
+    )
+
+    get check_in_url(check_in)
+
+    assert_response :not_found
+  end
+
   test "rejects check-in when the place is full" do
     place = places(:one)
     place.update!(capacity: 1)

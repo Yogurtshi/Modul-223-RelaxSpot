@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   include Pundit::Authorization
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   helper_method :current_user
 
@@ -11,5 +12,9 @@ class ApplicationController < ActionController::Base
 
   def require_authentication
     redirect_to new_session_path unless current_user
+  end
+
+  def user_not_authorized
+    head :forbidden
   end
 end
