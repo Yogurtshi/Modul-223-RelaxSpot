@@ -1,2 +1,9 @@
-<h1>Moderation::StatusReports#show</h1>
-<p>Find me in app/views/moderation/status_reports/show.html.erb</p>
+<h1>Status report</h1>
+
+<p>Place: <%= @status_report.place.name %></p>
+<p>Reported status: <%= @status_report.reported_status.humanize %></p>
+<p>Submitted by: <%= @status_report.user.name %></p>
+<p>Reviewed: <%= @status_report.reviewed? ? "Yes" : "No" %></p>
+
+<%= button_to "Approve", approve_moderation_status_report_path(@status_report), method: :post %>
+<%= button_to "Reject", reject_moderation_status_report_path(@status_report), method: :post %>

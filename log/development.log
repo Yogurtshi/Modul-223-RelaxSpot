@@ -1219,3 +1219,4 @@ Migrating to CreateVersions (20260924061114)
   [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260924061114') RETURNING "version" /*application='Modul223RelaxSpot'*/[0m
   [1m[36mTRANSACTION (9.6ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Modul223RelaxSpot'*/[0m
   [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Modul223RelaxSpot'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Modul223RelaxSpot'*/[0m

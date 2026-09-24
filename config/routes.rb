@@ -14,9 +14,12 @@ Rails.application.routes.draw do
     get "users/unlock"
   end
   namespace :moderation do
-    get "status_reports/show"
-    get "status_reports/approve"
-    get "status_reports/reject"
+    resources :status_reports, only: [ :show ] do
+      member do
+        post :approve
+        post :reject
+      end
+    end
     get "places/show"
     get "places/edit"
     get "places/update"
@@ -28,8 +31,7 @@ Rails.application.routes.draw do
   get "profile/show"
   get "profile/edit"
   get "profile/update"
-  get "status_reports/new"
-  get "status_reports/create"
+  resources :status_reports, only: [ :new, :create ]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

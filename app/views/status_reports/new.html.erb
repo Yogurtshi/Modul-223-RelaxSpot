@@ -1,2 +1,14 @@
-<h1>StatusReports#new</h1>
-<p>Find me in app/views/status_reports/new.html.erb</p>
+<h1>Report a place issue</h1>
+
+<p>Place: <%= @place.name %></p>
+
+<%= form_with model: @status_report, url: status_reports_path(place_id: @place.id), method: :post do |form| %>
+  <div>
+    <%= form.label :reported_status, "Problem" %>
+    <%= form.select :reported_status, StatusReport.reported_statuses.keys.map { |key| [key.humanize, key] } %>
+  </div>
+
+  <%= form.submit "Submit report" %>
+<% end %>
+
+<%= link_to "Back to place", place_path(@place) %>
