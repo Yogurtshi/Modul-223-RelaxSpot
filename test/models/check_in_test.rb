@@ -1,6 +1,8 @@
 require "test_helper"
 
 class CheckInTest < ActiveSupport::TestCase
+  self.use_transactional_tests = false
+
   setup do
     @place = places(:one)
     @place.update!(capacity: 2)
@@ -9,6 +11,12 @@ class CheckInTest < ActiveSupport::TestCase
       email: "model-test@example.com",
       password: "password1234"
     )
+  end
+
+  teardown do
+    CheckIn.where(user: @user).delete_all
+    @user.destroy!
+    @place.reload.update!(capacity: 4)
   end
 
   test "creates a check-in while capacity remains" do
@@ -67,5 +75,48 @@ class CheckInTest < ActiveSupport::TestCase
 
     assert_not check_in.valid?
     assert_includes check_in.errors[:ends_at], "must be after the start time"
+  end
+
+  test "concurrent check-ins cannot exceed the remaining capacity" do
+    @place.update!(capacity: 1)
+    other_user = User.create!(
+      name: "Concurrent User",
+      email: "concurrent-user@example.com",
+      password: "password1234"
+    )
+    ready = Queue.new
+    start = Queue.new
+    outcomes = Queue.new
+
+    threads = [ @user, other_user ].map do |user|
+      Thread.new do
+        ActiveRecord::Base.connection_pool.with_connection do
+          ready << true
+          start.pop
+
+          begin
+            CheckIn.create_with_capacity!(
+              place: @place,
+              user: user,
+              expected_minutes: 30
+            )
+            outcomes << :success
+          rescue CheckIn::CapacityExceeded, ActiveRecord::StatementInvalid
+            outcomes << :rejected
+          end
+        end
+      end
+    end
+
+    2.times { ready.pop }
+    2.times { start << true }
+    threads.each(&:join)
+
+    results = 2.times.map { outcomes.pop }
+    assert_equal 1, results.count(:success)
+    assert_equal 1, results.count(:rejected)
+    assert_equal 1, CheckIn.active.where(place: @place).count
+  ensure
+    other_user&.destroy!
   end
 end

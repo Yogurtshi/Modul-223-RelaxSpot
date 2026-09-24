@@ -14,7 +14,7 @@
 | User administration | `Admin::UsersController`, `UserPolicy` | `test/controllers/admin/users_controller_test.rb`, `test/policies/user_policy_test.rb` |
 | Profile and email confirmation | `ProfileController`, `ProfilePolicy` | `test/controllers/profile_controller_test.rb`, `test/policies/profile_policy_test.rb` |
 | Role-based access and HTTP 403 responses | Pundit authorization and forbidden error view | controller authorization tests and policy tests |
-| Activity history | PaperTrail on places, check-ins, and status reports | moderation controller tests |
+| Activity history | PaperTrail on users, places, check-ins, and status reports with actor attribution | `test/controllers/users_controller_test.rb`, `test/controllers/admin/users_controller_test.rb`, `test/controllers/moderation/dashboards_controller_test.rb` |
 
 ## Latest test run
 
@@ -24,7 +24,7 @@ The complete suite was run with:
 bin/rails test
 ```
 
-Result: 85 tests, 258 assertions, 0 failures, 0 errors, 0 skips.
+Result: 92 tests, 282 assertions, 0 failures, 0 errors, 0 skips.
 
 ## Test effectiveness exercise
 
