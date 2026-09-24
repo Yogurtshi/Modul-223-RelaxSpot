@@ -16,6 +16,10 @@ class Moderation::DashboardsControllerTest < ActionDispatch::IntegrationTest
 
     post session_path, params: { email: user.email, password: "password1234" }
 
+    patch moderation_place_path(place), params: {
+      place: { name: "Tracked Activity Place" }
+    }
+
     get moderation_dashboards_show_url
 
     assert_response :success
@@ -27,6 +31,7 @@ class Moderation::DashboardsControllerTest < ActionDispatch::IntegrationTest
     assert_select "a.dashboard-suggestion-card__link[href='#{moderation_place_path(place)}']"
     assert_select "a.dashboard-suggestion-card__link[href='#{moderation_status_report_path(status_report)}']"
     assert_select "a", { text: "Review", count: 0 }
+    assert_select "li", /Place updated Tracked Activity Place by Moderator User/
   end
 
   test "admin can open a user profile from the dashboard" do

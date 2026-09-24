@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   include Pundit::Authorization
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+  around_action :set_paper_trail_whodunnit
 
   helper_method :current_user
 
@@ -16,5 +17,11 @@ class ApplicationController < ActionController::Base
 
   def user_not_authorized
     render template: "errors/forbidden", status: :forbidden
+  end
+
+  def set_paper_trail_whodunnit
+    PaperTrail.request(whodunnit: current_user&.id&.to_s) do
+      yield
+    end
   end
 end

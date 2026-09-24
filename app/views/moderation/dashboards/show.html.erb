@@ -22,11 +22,12 @@
           <% item = version.item %>
           <% item_name = item.respond_to?(:name) ? item.name : version.item_type %>
           <% action = version.event == "create" ? "created" : version.event == "update" ? "updated" : "deleted" %>
+          <% actor = @activity_users[version.whodunnit]&.name || "System" %>
 
           <li>
             <div>
               <strong><%= version.item_type %></strong>
-              <span><%= action %> <%= item_name.present? ? "#{item_name}" : "" %></span>
+              <span><%= action %> <%= item_name.present? ? "#{item_name}" : "" %> by <%= actor %></span>
             </div>
             <small><%= version.created_at.strftime("%d.%m.%Y %H:%M") %></small>
           </li>
