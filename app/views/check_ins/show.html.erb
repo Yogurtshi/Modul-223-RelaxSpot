@@ -1,6 +1,13 @@
-<h1>Check-in confirmed</h1>
+<section class="check-in-confirmation">
+	<div class="confirmation-mark" aria-hidden="true">✓</div>
+	<p class="eyebrow">You are all set</p>
+	<h1>Check-in confirmed</h1>
+	<p class="confirmation-text">You are checked in at <strong><%= @check_in.place.name %></strong>.</p>
 
-<p>You are checked in at <%= @check_in.place.name %>.</p>
-<p>Your check-in ends at <%= l(@check_in.ends_at, format: :short) %>.</p>
+	<div class="confirmation-detail">
+		<span class="detail-label">Check-in ends</span>
+		<strong><%= l(@check_in.ends_at, format: :short) %></strong>
+	</div>
 
-<%= link_to "Back to places", places_path %>
+	<%= link_to "Back to places", places_path, class: "primary-button confirmation-button" %>
+</section>

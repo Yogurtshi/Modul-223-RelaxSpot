@@ -878,6 +878,105 @@ a.dashboard-user-card__link:focus-visible {
 	width: auto;
 }
 
+.check-in-page {
+	max-width: 700px;
+}
+
+.check-in-place-card {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: 14px;
+	margin-bottom: 18px;
+	padding: 20px 22px;
+	border-left: 4px solid var(--mint-100);
+	border-radius: 14px;
+	background: rgba(177, 229, 230, 0.22);
+}
+
+.check-in-place-card div {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}
+
+.check-in-place-card strong {
+	font-size: 0.95rem;
+}
+
+.check-in-form {
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+	padding: 28px;
+	border: 1px solid rgba(46, 64, 67, 0.08);
+	border-radius: 20px;
+	background: rgba(255, 255, 255, 0.58);
+	box-shadow: 0 12px 24px rgba(66, 90, 92, 0.07);
+}
+
+.check-in-form__actions {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	gap: 14px;
+}
+
+.check-in-form__actions .primary-button {
+	width: auto;
+}
+
+.check-in-confirmation {
+	max-width: 600px;
+	margin: 70px auto;
+	padding: 42px 32px;
+	border: 1px solid rgba(46, 64, 67, 0.08);
+	border-radius: 24px;
+	background: rgba(255, 255, 255, 0.62);
+	box-shadow: 0 16px 30px rgba(66, 90, 92, 0.08);
+	text-align: center;
+}
+
+.confirmation-mark {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 56px;
+	height: 56px;
+	margin: 0 auto 18px;
+	border-radius: 50%;
+	background: var(--mint-100);
+	color: #1f5c5e;
+	font-size: 1.8rem;
+	font-weight: 800;
+}
+
+.check-in-confirmation h1 {
+	margin: 0;
+	font-size: clamp(2rem, 4vw, 3rem);
+}
+
+.confirmation-text {
+	margin: 16px auto 0;
+	color: var(--ink-soft);
+	line-height: 1.6;
+}
+
+.confirmation-detail {
+	display: flex;
+	flex-direction: column;
+	gap: 7px;
+	max-width: 300px;
+	margin: 28px auto;
+	padding: 18px;
+	border-radius: 14px;
+	background: rgba(177, 229, 230, 0.22);
+}
+
+.confirmation-button {
+	display: inline-flex;
+	width: auto;
+}
+
 .auth-form {
 	display: flex;
 	flex-direction: column;
@@ -1081,6 +1180,33 @@ a.dashboard-user-card__link:focus-visible {
 
 	.report-form__actions a,
 	.report-form__actions .primary-button {
+		width: 100%;
+	}
+
+	.check-in-place-card {
+		grid-template-columns: 1fr;
+	}
+
+	.check-in-form {
+		padding: 20px 16px;
+	}
+
+	.check-in-form__actions {
+		align-items: stretch;
+		flex-direction: column-reverse;
+	}
+
+	.check-in-form__actions a,
+	.check-in-form__actions .primary-button {
+		width: 100%;
+	}
+
+	.check-in-confirmation {
+		margin: 30px auto;
+		padding: 32px 20px;
+	}
+
+	.confirmation-button {
 		width: 100%;
 	}
 }

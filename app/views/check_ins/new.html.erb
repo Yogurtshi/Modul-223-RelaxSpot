@@ -1,20 +1,48 @@
-<h1>Check in at <%= @place.name %></h1>
+<section class="form-page check-in-page">
+  <div class="form-heading">
+    <p class="eyebrow">Take your time</p>
+    <h1>Check in at <%= @place.name %></h1>
+    <p class="page-intro">Choose how long you expect to stay. You can leave whenever you are ready.</p>
+  </div>
 
-<% if @check_in.errors.any? %>
-  <ul>
-    <% @check_in.errors.full_messages.each do |message| %>
-      <li><%= message %></li>
+  <div class="check-in-place-card">
+    <div>
+      <span class="detail-label">Current spot</span>
+      <strong><%= @place.category.humanize %></strong>
+    </div>
+    <div>
+      <span class="detail-label">Capacity</span>
+      <strong><%= @place.capacity %> people</strong>
+    </div>
+    <div>
+      <span class="detail-label">Opening hours</span>
+      <strong><%= @place.opening_hours.presence || "Not specified" %></strong>
+    </div>
+  </div>
+
+  <%= form_with url: check_ins_path, scope: :check_in, class: "check-in-form" do |form| %>
+    <% if @check_in.errors.any? %>
+      <div class="form-errors">
+        <strong>We could not check you in:</strong>
+        <ul>
+          <% @check_in.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
     <% end %>
-  </ul>
-<% end %>
 
-<%= form_with url: check_ins_path, scope: :check_in do |form| %>
-  <%= form.hidden_field :place_id, value: @place.id %>
+    <%= form.hidden_field :place_id, value: @place.id %>
 
-  <%= form.label :expected_minutes, "Expected stay in minutes" %>
-  <%= form.number_field :expected_minutes, min: 1, value: 30 %>
+    <div class="field-group">
+      <%= form.label :expected_minutes, "Expected stay in minutes" %>
+      <%= form.number_field :expected_minutes, min: 1, value: 30, autofocus: true %>
+      <small class="field-help">You can check in for as little or as much time as you need.</small>
+    </div>
 
-  <%= form.submit "Check in" %>
-<% end %>
-
-<%= link_to "Back to place", place_path(@place) %>
+    <div class="check-in-form__actions">
+      <%= link_to "Back to place", place_path(@place), class: "secondary-button" %>
+      <%= form.submit "Check in", class: "primary-button" %>
+    </div>
+  <% end %>
+</section>
