@@ -23,7 +23,36 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <%= yield %>
+  <body class="app-body">
+    <div class="page-shell">
+      <header class="topbar">
+        <div class="brand-wrap">
+          <%= link_to "RelaxSpot", root_path, class: "brand" %>
+        </div>
+
+        <nav class="main-nav" aria-label="Main navigation">
+          <% if current_user %>
+            <%= link_to "Places", places_path %>
+            <%= link_to "Profile", profile_path %>
+            <%= button_to "Log out", session_path, method: :delete, class: "nav-button nav-button--danger" %>
+          <% else %>
+            <%= link_to "Log in", new_session_path %>
+            <%= link_to "Create account", new_user_path %>
+          <% end %>
+        </nav>
+      </header>
+
+      <% if flash.any? %>
+        <div class="flash-stack">
+          <% flash.each do |type, message| %>
+            <div class="flash flash--<%= type %>"><%= message %></div>
+          <% end %>
+        </div>
+      <% end %>
+
+      <main class="main-content">
+        <%= yield %>
+      </main>
+    </div>
   </body>
 </html>

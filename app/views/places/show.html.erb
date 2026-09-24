@@ -1,15 +1,31 @@
-<h1><%= @place.name %></h1>
+<div class="place-detail-page">
+  <div class="page-heading">
+    <div>
+      <p class="eyebrow"><%= @place.category.humanize %></p>
+      <h1><%= @place.name %></h1>
+      <p class="page-intro">A place to slow down, reset, and make space for yourself.</p>
+    </div>
+    <span class="spot-card__status"><%= @place.status.humanize %></span>
+  </div>
 
-<p>Category: <%= @place.category.humanize %></p>
-<p>Status: <%= @place.status.humanize %></p>
-<p>Location: <%= @place.latitude %>, <%= @place.longitude %></p>
-<p>Capacity: <%= @place.capacity %></p>
+  <section class="place-details" aria-label="Place details">
+    <div class="place-detail-item">
+      <span class="detail-label">Capacity</span>
+      <strong><%= @place.capacity %> people</strong>
+    </div>
+    <div class="place-detail-item">
+      <span class="detail-label">Location</span>
+      <strong><%= @place.latitude %>, <%= @place.longitude %></strong>
+    </div>
+  </section>
 
-<%= link_to "Back to places", places_path %>
+  <div class="place-actions">
+    <%= link_to "Back to places", places_path, class: "secondary-button" %>
 
-<% if current_user %>
-  <%= link_to "Check in here",
-              new_check_in_path(place_id: @place.id) %>
-<% else %>
-  <%= link_to "Log in to check in", new_session_path %>
-<% end %>
+    <% if current_user %>
+      <%= link_to "Check in here", new_check_in_path(place_id: @place.id), class: "action-button" %>
+    <% else %>
+      <%= link_to "Log in to check in", new_session_path, class: "action-button" %>
+    <% end %>
+  </div>
+</div>

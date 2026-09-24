@@ -1,18 +1,33 @@
-<h1>RelaxSpot places</h1>
+<div class="page-heading">
+  <div>
+    <p class="eyebrow">Find your pause</p>
+    <h1>RelaxSpot places</h1>
+    <p class="page-intro">Explore calm, approved places and find your next moment to reset.</p>
+  </div>
 
-<%= link_to "Suggest a place", new_place_path %>
+  <%= link_to "Suggest a place", new_place_path, class: "action-button" %>
+</div>
 
 <% if @places.any? %>
-  <ul>
+  <div class="spot-grid">
     <% @places.each do |place| %>
-      <li>
+      <article class="spot-card">
+        <div class="spot-card__topline">
+          <span class="spot-card__category"><%= place.category.humanize %></span>
+          <span class="spot-card__status"><%= place.status.humanize %></span>
+        </div>
+
         <h2><%= link_to place.name, place_path(place) %></h2>
-        <p>Category: <%= place.category.humanize %></p>
-        <p>Status: <%= place.status.humanize %></p>
-        <p>Capacity: <%= place.capacity %></p>
-      </li>
+        <p class="spot-card__capacity"><strong><%= place.capacity %></strong> people capacity</p>
+
+        <%= link_to "View spot", place_path(place), class: "spot-card__link" %>
+      </article>
     <% end %>
-  </ul>
+  </div>
 <% else %>
-  <p>No approved places yet.</p>
+  <div class="empty-state">
+    <h2>No approved places yet</h2>
+    <p>Be the first to suggest a peaceful place for the community.</p>
+    <%= link_to "Suggest a place", new_place_path, class: "action-button" %>
+  </div>
 <% end %>

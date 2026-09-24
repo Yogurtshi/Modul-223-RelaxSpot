@@ -1,33 +1,56 @@
-<h1>Create your account</h1>
+<section class="auth-page">
+  <div class="auth-card auth-card--wide">
+    <div class="auth-copy">
+      <p class="eyebrow">Start fresh</p>
+      <h1>Create your RelaxSpot account</h1>
+      <p class="auth-text">Join a calmer way to discover places, track your habits, and keep your routine grounded.</p>
 
-<%= form_with model: @user do |form| %>
-  <% if @user.errors.any? %>
-    <ul>
-      <% @user.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+      <div class="feature-pills">
+        <span>Personal profile</span>
+        <span>Safe check-ins</span>
+        <span>Contribute places</span>
+      </div>
+    </div>
+
+    <div class="auth-form-wrap">
+      <%= form_with model: @user, class: "auth-form" do |form| %>
+        <% if @user.errors.any? %>
+          <div class="form-errors">
+            <ul>
+              <% @user.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <div class="field-group">
+          <%= form.label :name %>
+          <%= form.text_field :name, autocomplete: "name" %>
+        </div>
+
+        <div class="field-group">
+          <%= form.label :email %>
+          <%= form.email_field :email, autocomplete: "email" %>
+        </div>
+
+        <div class="field-group">
+          <%= form.label :password %>
+          <%= form.password_field :password, autocomplete: "new-password" %>
+        </div>
+
+        <div class="field-group">
+          <%= form.label :password_confirmation %>
+          <%= form.password_field :password_confirmation, autocomplete: "new-password" %>
+        </div>
+
+        <%= form.submit "Create account", class: "primary-button" %>
       <% end %>
-    </ul>
-  <% end %>
 
-  <div>
-    <%= form.label :name %>
-    <%= form.text_field :name %>
+      <p class="auth-footer">
+        Already have an account?
+        <%= link_to "Log in", new_session_path %>
+      </p>
+    </div>
   </div>
-
-  <div>
-    <%= form.label :email %>
-    <%= form.email_field :email %>
-  </div>
-
-  <div>
-    <%= form.label :password %>
-    <%= form.password_field :password %>
-  </div>
-
-  <div>
-    <%= form.label :password_confirmation %>
-    <%= form.password_field :password_confirmation %>
-  </div>
-
-  <%= form.submit "Register" %>
-<% end %>
+</section>

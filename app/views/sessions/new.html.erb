@@ -1,15 +1,36 @@
-<h1>Log in</h1>
+<section class="auth-page">
+  <div class="auth-card auth-card--wide">
+    <div class="auth-copy">
+      <p class="eyebrow">Welcome back</p>
+      <h1>Log in to RelaxSpot</h1>
+      <p class="auth-text">Take a breath, check in to a place, and keep your routine easy and intentional.</p>
 
-<% if flash[:alert] %>
-  <p><%= flash[:alert] %></p>
-<% end %>
+      <div class="feature-pills">
+        <span>Peaceful spots</span>
+        <span>Quick check-ins</span>
+        <span>Smart updates</span>
+      </div>
+    </div>
 
-<%= form_with url: session_path do |form| %>
-  <%= form.label :email %>
-  <%= form.email_field :email %>
+    <div class="auth-form-wrap">
+      <%= form_with url: session_path, class: "auth-form" do |form| %>
+        <div class="field-group">
+          <%= form.label :email %>
+          <%= form.email_field :email, autocomplete: "email" %>
+        </div>
 
-  <%= form.label :password %>
-  <%= form.password_field :password %>
+        <div class="field-group">
+          <%= form.label :password %>
+          <%= form.password_field :password, autocomplete: "current-password" %>
+        </div>
 
-  <%= form.submit "Log in" %>
-<% end %>
+        <%= form.submit "Log in", class: "primary-button" %>
+      <% end %>
+
+      <p class="auth-footer">
+        New here?
+        <%= link_to "Create an account", new_user_path %>
+      </p>
+    </div>
+  </div>
+</section>
