@@ -79,12 +79,11 @@
     <% if @pending_places.present? %>
       <ul class="dashboard-list">
         <% @pending_places.each do |place| %>
-          <li>
-            <div>
-              <strong><%= link_to place.name, moderation_place_path(place) %></strong>
+          <li class="dashboard-suggestion-card">
+            <%= link_to moderation_place_path(place), class: "dashboard-suggestion-card__link" do %>
+              <strong><%= place.name %></strong>
               <span><%= place.category.humanize %> · suggested by <%= place.proposed_by.name %></span>
-            </div>
-            <%= link_to "Review", moderation_place_path(place), class: "small-button small-button--soft" %>
+            <% end %>
           </li>
         <% end %>
       </ul>

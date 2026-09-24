@@ -22,6 +22,8 @@ class Moderation::DashboardsControllerTest < ActionDispatch::IntegrationTest
     assert_select "li", /Place/i
     assert_select "h2", /Users/i
     assert_select "h2", /Place suggestions/i
+    assert_select "a.dashboard-suggestion-card__link[href='#{moderation_place_path(place)}']"
+    assert_select "a", { text: "Review", count: 0 }
   end
 
   test "admin can open a user profile from the dashboard" do
