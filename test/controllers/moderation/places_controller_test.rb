@@ -9,6 +9,13 @@ class Moderation::PlacesControllerTest < ActionDispatch::IntegrationTest
       role: :moderator
     )
 
+    @other_moderator = User.create!(
+      name: "Other Moderator",
+      email: "other@example.com",
+      password: "password1234",
+      role: :moderator
+    )
+
     @place = Place.create!(
       name: "Central Park Bench",
       category: :seating,
@@ -44,5 +51,18 @@ class Moderation::PlacesControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to "/moderation/places/#{@place.id}"
     assert_not @place.reload.approved
+  end
+
+  test "another moderator cannot edit a locked place" do
+    @place.update!(locked_by: @moderator, locked_at: Time.current)
+
+    post session_path, params: {
+      email: @other_moderator.email,
+      password: "password1234"
+    }
+
+    get "/moderation/places/#{@place.id}/edit"
+
+    assert_response :forbidden
   end
 end

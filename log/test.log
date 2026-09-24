@@ -14303,3 +14303,322 @@ Redirected to http://www.example.com/moderation/places/980190963
 Completed 302 Found in 3ms (ActiveRecord: 0.3ms (4 queries, 0 cached) | GC: 0.2ms)
   [1m[36mPlace Load (0.0ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
   [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.2ms)[0m  [1m[31mDELETE FROM "check_ins";
+DELETE FROM "places";
+DELETE FROM "status_reports";
+DELETE FROM "users";
+INSERT INTO "check_ins" ("id", "created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (980190962, '2026-09-24 06:37:36.425332', '2026-09-21 15:18:59', 980190962, '2026-09-21 14:18:59', '2026-09-24 06:37:36.425332', 980190962), (298486374, '2026-09-24 06:37:36.425332', '2026-09-21 15:18:59', 298486374, '2026-09-21 14:18:59', '2026-09-24 06:37:36.425332', 298486374);
+INSERT INTO "places" ("id", "approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (980190962, TRUE, 4, 0, '2026-09-24 06:37:36.427259', 47.3769, NULL, NULL, 8.5417, 'Central Bench', '08:00-20:00', 980190962, 0, '2026-09-24 06:37:36.427259'), (298486374, TRUE, 2, 2, '2026-09-24 06:37:36.427259', 47.3779, NULL, NULL, 8.5427, 'Shaded Courtyard', '09:00-18:00', 298486374, 0, '2026-09-24 06:37:36.427259');
+INSERT INTO "status_reports" ("id", "created_at", "place_id", "reported_status", "reviewed", "updated_at", "user_id") VALUES (980190962, '2026-09-24 06:37:36.427814', 980190962, 1, FALSE, '2026-09-24 06:37:36.427814', 980190962), (298486374, '2026-09-24 06:37:36.427814', 298486374, 1, FALSE, '2026-09-24 06:37:36.427814', 298486374);
+INSERT INTO "users" ("id", "confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (980190962, 'confirmation-token-one', '2026-09-24 06:37:36.428397', 'alice@example.com', FALSE, 'Alice', 'fixture-password-one', 1, NULL, '2026-09-24 06:37:36.428397'), (298486374, 'confirmation-token-two', '2026-09-24 06:37:36.428397', 'bob@example.com', FALSE, 'Bob', 'fixture-password-two', 1, NULL, '2026-09-24 06:37:36.428397')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (8.5ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_key_check[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+--------------------------------------------------------------------
+Moderation::PlacesControllerTest: test_moderator_can_approve_a_place
+--------------------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-24 06:37:36.454069"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Moderator User"], ["password_digest", "[FILTERED]"], ["role", 1], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:37:36.454069"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-24 06:37:36.457888"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Other Moderator"], ["password_digest", "[FILTERED]"], ["role", 1], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:37:36.457888"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mPlace Create (0.2ms)[0m  [1m[32mINSERT INTO "places" ("approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["approved", 0], ["capacity", 3], ["category", 0], ["created_at", "2026-09-24 06:37:36.462678"], ["latitude", 47.3769], ["locked_at", nil], ["locked_by_id", nil], ["longitude", 8.5417], ["name", "Central Park Bench"], ["opening_hours", nil], ["proposed_by_id", 980190963], ["status", 0], ["updated_at", "2026-09-24 06:37:36.462678"]]
+  [1m[36mPaperTrail::Version Create (0.1ms)[0m  [1m[32mINSERT INTO "versions" ("created_at", "event", "item_id", "item_type", "object", "whodunnit") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["created_at", "2026-09-24 06:37:36.462678"], ["event", "create"], ["item_id", 980190963], ["item_type", "Place"], ["object", nil], ["whodunnit", nil]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-24 08:37:36 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 6ms (ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+Started POST "/moderation/places/980190963/approve" for 127.0.0.1 at 2026-09-24 08:37:36 +0200
+Processing by Moderation::PlacesController#approve as HTML
+  Parameters: {"id" => "980190963"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mPlace Update (0.1ms)[0m  [1m[33mUPDATE "places" SET "approved" = ?, "updated_at" = ? WHERE "places"."id" = ?[0m  [["approved", 1], ["updated_at", "2026-09-24 06:37:36.548827"], ["id", 980190963]]
+  [1m[36mPaperTrail::Version Create (0.1ms)[0m  [1m[32mINSERT INTO "versions" ("created_at", "event", "item_id", "item_type", "object", "whodunnit") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["created_at", "2026-09-24 06:37:36.548827"], ["event", "update"], ["item_id", 980190963], ["item_type", "Place"], ["object", "---\napproved: false\nproposed_by_id: 980190963\ncapacity: 3\nid: 980190963\ncategory: 0\ncreated_at: !ruby/object:ActiveSupport::TimeWithZone\n  utc: &1 2026-09-24 06:37:36.462678000 Z\n  zone: &2 !ruby/object:ActiveSupport::TimeZone\n    name: Etc/UTC\n  time: *1\nlatitude: !ruby/object:BigDecimal 18:0.473769e2\nlocked_at:\nlocked_by_id:\nlongitude: !ruby/object:BigDecimal 18:0.85417e1\nname: Central Park Bench\nopening_hours:\nstatus: 0\nupdated_at: !ruby/object:ActiveSupport::TimeWithZone\n  utc: &3 2026-09-24 06:37:36.462678000 Z\n  zone: *2\n  time: *3\n"], ["whodunnit", nil]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://www.example.com/moderation/places/980190963
+Completed 302 Found in 5ms (ActiveRecord: 0.5ms (4 queries, 0 cached) | GC: 0.2ms)
+  [1m[36mPlace Load (0.0ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-------------------------------------------------------------------
+Moderation::PlacesControllerTest: test_moderator_can_reject_a_place
+-------------------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-24 06:37:36.555425"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Moderator User"], ["password_digest", "[FILTERED]"], ["role", 1], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:37:36.555425"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-24 06:37:36.558920"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Other Moderator"], ["password_digest", "[FILTERED]"], ["role", 1], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:37:36.558920"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mPlace Create (0.1ms)[0m  [1m[32mINSERT INTO "places" ("approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["approved", 0], ["capacity", 3], ["category", 0], ["created_at", "2026-09-24 06:37:36.559773"], ["latitude", 47.3769], ["locked_at", nil], ["locked_by_id", nil], ["longitude", 8.5417], ["name", "Central Park Bench"], ["opening_hours", nil], ["proposed_by_id", 980190963], ["status", 0], ["updated_at", "2026-09-24 06:37:36.559773"]]
+  [1m[36mPaperTrail::Version Create (0.0ms)[0m  [1m[32mINSERT INTO "versions" ("created_at", "event", "item_id", "item_type", "object", "whodunnit") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["created_at", "2026-09-24 06:37:36.559773"], ["event", "create"], ["item_id", 980190963], ["item_type", "Place"], ["object", nil], ["whodunnit", nil]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-24 08:37:36 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 2ms (ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.0ms)
+Started POST "/moderation/places/980190963/reject" for 127.0.0.1 at 2026-09-24 08:37:36 +0200
+Processing by Moderation::PlacesController#reject as HTML
+  Parameters: {"id" => "980190963"}
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mPlace Load (0.0ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+Redirected to http://www.example.com/moderation/places/980190963
+Completed 302 Found in 1ms (ActiveRecord: 0.1ms (2 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-----------------------------------------------------------------------------------
+Moderation::PlacesControllerTest: test_another_moderator_cannot_edit_a_locked_place
+-----------------------------------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-24 06:37:36.569396"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Moderator User"], ["password_digest", "[FILTERED]"], ["role", 1], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:37:36.569396"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-24 06:37:36.572450"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Other Moderator"], ["password_digest", "[FILTERED]"], ["role", 1], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:37:36.572450"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mPlace Create (0.1ms)[0m  [1m[32mINSERT INTO "places" ("approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["approved", 0], ["capacity", 3], ["category", 0], ["created_at", "2026-09-24 06:37:36.573260"], ["latitude", 47.3769], ["locked_at", nil], ["locked_by_id", nil], ["longitude", 8.5417], ["name", "Central Park Bench"], ["opening_hours", nil], ["proposed_by_id", 980190963], ["status", 0], ["updated_at", "2026-09-24 06:37:36.573260"]]
+  [1m[36mPaperTrail::Version Create (0.0ms)[0m  [1m[32mINSERT INTO "versions" ("created_at", "event", "item_id", "item_type", "object", "whodunnit") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["created_at", "2026-09-24 06:37:36.573260"], ["event", "create"], ["item_id", 980190963], ["item_type", "Place"], ["object", nil], ["whodunnit", nil]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-24 08:37:36 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 3ms (ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mPlace Update (0.4ms)[0m  [1m[33mUPDATE "places" SET "locked_at" = ?, "locked_by_id" = ?, "updated_at" = ? WHERE "places"."id" = ?[0m  [["locked_at", "2026-09-24 06:37:36.578122"], ["locked_by_id", 980190963], ["updated_at", "2026-09-24 06:37:36.578668"], ["id", 980190963]]
+  [1m[36mPaperTrail::Version Create (0.1ms)[0m  [1m[32mINSERT INTO "versions" ("created_at", "event", "item_id", "item_type", "object", "whodunnit") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["created_at", "2026-09-24 06:37:36.578668"], ["event", "update"], ["item_id", 980190963], ["item_type", "Place"], ["object", "---\nid: 980190963\napproved: false\ncapacity: 3\ncategory: 0\ncreated_at: !ruby/object:ActiveSupport::TimeWithZone\n  utc: &1 2026-09-24 06:37:36.573260000 Z\n  zone: &2 !ruby/object:ActiveSupport::TimeZone\n    name: Etc/UTC\n  time: *1\nlatitude: !ruby/object:BigDecimal 18:0.473769e2\nlocked_at:\nlocked_by_id:\nlongitude: !ruby/object:BigDecimal 18:0.85417e1\nname: Central Park Bench\nopening_hours:\nproposed_by_id: 980190963\nstatus: 0\nupdated_at: !ruby/object:ActiveSupport::TimeWithZone\n  utc: &3 2026-09-24 06:37:36.573260000 Z\n  zone: *2\n  time: *3\n"], ["whodunnit", nil]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-24 08:37:36 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 3ms (ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+Started GET "/moderation/places/980190963/edit" for 127.0.0.1 at 2026-09-24 08:37:36 +0200
+Processing by Moderation::PlacesController#edit as HTML
+  Parameters: {"id" => "980190963"}
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190964], ["LIMIT", 1]]
+  [1m[36mPlace Load (0.0ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering moderation/places/edit.html.erb within layouts/application
+  Rendered moderation/places/edit.html.erb within layouts/application (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 4.0ms | GC: 0.2ms)
+Completed 200 OK in 7ms (Views: 5.4ms | ActiveRecord: 0.1ms (2 queries, 0 cached) | GC: 0.3ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-------------------------------------------------------------------------
+Moderation::PlacesControllerTest: test_moderator_can_view_a_pending_place
+-------------------------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-24 06:37:36.596403"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Moderator User"], ["password_digest", "[FILTERED]"], ["role", 1], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:37:36.596403"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-24 06:37:36.599448"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Other Moderator"], ["password_digest", "[FILTERED]"], ["role", 1], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:37:36.599448"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mPlace Create (0.1ms)[0m  [1m[32mINSERT INTO "places" ("approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["approved", 0], ["capacity", 3], ["category", 0], ["created_at", "2026-09-24 06:37:36.600133"], ["latitude", 47.3769], ["locked_at", nil], ["locked_by_id", nil], ["longitude", 8.5417], ["name", "Central Park Bench"], ["opening_hours", nil], ["proposed_by_id", 980190963], ["status", 0], ["updated_at", "2026-09-24 06:37:36.600133"]]
+  [1m[36mPaperTrail::Version Create (0.1ms)[0m  [1m[32mINSERT INTO "versions" ("created_at", "event", "item_id", "item_type", "object", "whodunnit") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["created_at", "2026-09-24 06:37:36.600133"], ["event", "create"], ["item_id", 980190963], ["item_type", "Place"], ["object", nil], ["whodunnit", nil]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-24 08:37:36 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 3ms (ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.0ms)
+Started GET "/moderation/places/980190963" for 127.0.0.1 at 2026-09-24 08:37:36 +0200
+Processing by Moderation::PlacesController#show as HTML
+  Parameters: {"id" => "980190963"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mPlace Load (0.0ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering moderation/places/show.html.erb within layouts/application
+  Rendered moderation/places/show.html.erb within layouts/application (Duration: 0.4ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.7ms | GC: 0.0ms)
+Completed 200 OK in 2ms (Views: 0.9ms | ActiveRecord: 0.1ms (2 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.2ms)[0m  [1m[31mDELETE FROM "check_ins";
+DELETE FROM "places";
+DELETE FROM "status_reports";
+DELETE FROM "users";
+INSERT INTO "check_ins" ("id", "created_at", "ends_at", "place_id", "started_at", "updated_at", "user_id") VALUES (980190962, '2026-09-24 06:38:17.662780', '2026-09-21 15:18:59', 980190962, '2026-09-21 14:18:59', '2026-09-24 06:38:17.662780', 980190962), (298486374, '2026-09-24 06:38:17.662780', '2026-09-21 15:18:59', 298486374, '2026-09-21 14:18:59', '2026-09-24 06:38:17.662780', 298486374);
+INSERT INTO "places" ("id", "approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (980190962, TRUE, 4, 0, '2026-09-24 06:38:17.664654', 47.3769, NULL, NULL, 8.5417, 'Central Bench', '08:00-20:00', 980190962, 0, '2026-09-24 06:38:17.664654'), (298486374, TRUE, 2, 2, '2026-09-24 06:38:17.664654', 47.3779, NULL, NULL, 8.5427, 'Shaded Courtyard', '09:00-18:00', 298486374, 0, '2026-09-24 06:38:17.664654');
+INSERT INTO "status_reports" ("id", "created_at", "place_id", "reported_status", "reviewed", "updated_at", "user_id") VALUES (980190962, '2026-09-24 06:38:17.665191', 980190962, 1, FALSE, '2026-09-24 06:38:17.665191', 980190962), (298486374, '2026-09-24 06:38:17.665191', 298486374, 1, FALSE, '2026-09-24 06:38:17.665191', 298486374);
+INSERT INTO "users" ("id", "confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (980190962, 'confirmation-token-one', '2026-09-24 06:38:17.665775', 'alice@example.com', FALSE, 'Alice', 'fixture-password-one', 1, NULL, '2026-09-24 06:38:17.665775'), (298486374, 'confirmation-token-two', '2026-09-24 06:38:17.665775', 'bob@example.com', FALSE, 'Bob', 'fixture-password-two', 1, NULL, '2026-09-24 06:38:17.665775')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (8.3ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_key_check[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-------------------------------------------------------------------
+Moderation::PlacesControllerTest: test_moderator_can_reject_a_place
+-------------------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-24 06:38:17.691071"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Moderator User"], ["password_digest", "[FILTERED]"], ["role", 1], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:38:17.691071"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-24 06:38:17.694473"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Other Moderator"], ["password_digest", "[FILTERED]"], ["role", 1], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:38:17.694473"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mPlace Create (0.3ms)[0m  [1m[32mINSERT INTO "places" ("approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["approved", 0], ["capacity", 3], ["category", 0], ["created_at", "2026-09-24 06:38:17.698854"], ["latitude", 47.3769], ["locked_at", nil], ["locked_by_id", nil], ["longitude", 8.5417], ["name", "Central Park Bench"], ["opening_hours", nil], ["proposed_by_id", 980190963], ["status", 0], ["updated_at", "2026-09-24 06:38:17.698854"]]
+  [1m[36mPaperTrail::Version Create (0.1ms)[0m  [1m[32mINSERT INTO "versions" ("created_at", "event", "item_id", "item_type", "object", "whodunnit") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["created_at", "2026-09-24 06:38:17.698854"], ["event", "create"], ["item_id", 980190963], ["item_type", "Place"], ["object", nil], ["whodunnit", nil]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-24 08:38:17 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 5ms (ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+Started POST "/moderation/places/980190963/reject" for 127.0.0.1 at 2026-09-24 08:38:17 +0200
+Processing by Moderation::PlacesController#reject as HTML
+  Parameters: {"id" => "980190963"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mPlace Load (0.1ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+Redirected to http://www.example.com/moderation/places/980190963
+Completed 302 Found in 3ms (ActiveRecord: 0.1ms (2 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mPlace Load (0.0ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-------------------------------------------------------------------------
+Moderation::PlacesControllerTest: test_moderator_can_view_a_pending_place
+-------------------------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-24 06:38:17.758119"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Moderator User"], ["password_digest", "[FILTERED]"], ["role", 1], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:38:17.758119"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-24 06:38:17.761383"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Other Moderator"], ["password_digest", "[FILTERED]"], ["role", 1], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:38:17.761383"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mPlace Create (0.2ms)[0m  [1m[32mINSERT INTO "places" ("approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["approved", 0], ["capacity", 3], ["category", 0], ["created_at", "2026-09-24 06:38:17.762553"], ["latitude", 47.3769], ["locked_at", nil], ["locked_by_id", nil], ["longitude", 8.5417], ["name", "Central Park Bench"], ["opening_hours", nil], ["proposed_by_id", 980190963], ["status", 0], ["updated_at", "2026-09-24 06:38:17.762553"]]
+  [1m[36mPaperTrail::Version Create (0.1ms)[0m  [1m[32mINSERT INTO "versions" ("created_at", "event", "item_id", "item_type", "object", "whodunnit") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["created_at", "2026-09-24 06:38:17.762553"], ["event", "create"], ["item_id", 980190963], ["item_type", "Place"], ["object", nil], ["whodunnit", nil]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-24 08:38:17 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 3ms (ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.0ms)
+Started GET "/moderation/places/980190963" for 127.0.0.1 at 2026-09-24 08:38:17 +0200
+Processing by Moderation::PlacesController#show as HTML
+  Parameters: {"id" => "980190963"}
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mPlace Load (0.0ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering moderation/places/show.html.erb within layouts/application
+  Rendered moderation/places/show.html.erb within layouts/application (Duration: 0.4ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 4.3ms | GC: 0.5ms)
+Completed 200 OK in 8ms (Views: 5.5ms | ActiveRecord: 0.1ms (2 queries, 0 cached) | GC: 0.7ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+--------------------------------------------------------------------
+Moderation::PlacesControllerTest: test_moderator_can_approve_a_place
+--------------------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-24 06:38:17.781177"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Moderator User"], ["password_digest", "[FILTERED]"], ["role", 1], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:38:17.781177"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-24 06:38:17.784536"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Other Moderator"], ["password_digest", "[FILTERED]"], ["role", 1], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:38:17.784536"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mPlace Create (0.2ms)[0m  [1m[32mINSERT INTO "places" ("approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["approved", 0], ["capacity", 3], ["category", 0], ["created_at", "2026-09-24 06:38:17.785347"], ["latitude", 47.3769], ["locked_at", nil], ["locked_by_id", nil], ["longitude", 8.5417], ["name", "Central Park Bench"], ["opening_hours", nil], ["proposed_by_id", 980190963], ["status", 0], ["updated_at", "2026-09-24 06:38:17.785347"]]
+  [1m[36mPaperTrail::Version Create (0.0ms)[0m  [1m[32mINSERT INTO "versions" ("created_at", "event", "item_id", "item_type", "object", "whodunnit") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["created_at", "2026-09-24 06:38:17.785347"], ["event", "create"], ["item_id", 980190963], ["item_type", "Place"], ["object", nil], ["whodunnit", nil]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-24 08:38:17 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 2ms (ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.0ms)
+Started POST "/moderation/places/980190963/approve" for 127.0.0.1 at 2026-09-24 08:38:17 +0200
+Processing by Moderation::PlacesController#approve as HTML
+  Parameters: {"id" => "980190963"}
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mPlace Load (0.0ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mPlace Update (0.1ms)[0m  [1m[33mUPDATE "places" SET "approved" = ?, "updated_at" = ? WHERE "places"."id" = ?[0m  [["approved", 1], ["updated_at", "2026-09-24 06:38:17.791146"], ["id", 980190963]]
+  [1m[36mPaperTrail::Version Create (0.1ms)[0m  [1m[32mINSERT INTO "versions" ("created_at", "event", "item_id", "item_type", "object", "whodunnit") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["created_at", "2026-09-24 06:38:17.791146"], ["event", "update"], ["item_id", 980190963], ["item_type", "Place"], ["object", "---\napproved: false\nproposed_by_id: 980190963\ncapacity: 3\nid: 980190963\ncategory: 0\ncreated_at: !ruby/object:ActiveSupport::TimeWithZone\n  utc: &1 2026-09-24 06:38:17.785347000 Z\n  zone: &2 !ruby/object:ActiveSupport::TimeZone\n    name: Etc/UTC\n  time: *1\nlatitude: !ruby/object:BigDecimal 18:0.473769e2\nlocked_at:\nlocked_by_id:\nlongitude: !ruby/object:BigDecimal 18:0.85417e1\nname: Central Park Bench\nopening_hours:\nstatus: 0\nupdated_at: !ruby/object:ActiveSupport::TimeWithZone\n  utc: &3 2026-09-24 06:38:17.785347000 Z\n  zone: *2\n  time: *3\n"], ["whodunnit", nil]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://www.example.com/moderation/places/980190963
+Completed 302 Found in 2ms (ActiveRecord: 0.3ms (4 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mPlace Load (0.0ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-----------------------------------------------------------------------------------
+Moderation::PlacesControllerTest: test_another_moderator_cannot_edit_a_locked_place
+-----------------------------------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-24 06:38:17.796240"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Moderator User"], ["password_digest", "[FILTERED]"], ["role", 1], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:38:17.796240"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("confirmation_token", "created_at", "email", "locked", "name", "password_digest", "role", "unconfirmed_email", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["confirmation_token", "[FILTERED]"], ["created_at", "2026-09-24 06:38:17.799405"], ["email", "[FILTERED]"], ["locked", 0], ["name", "Other Moderator"], ["password_digest", "[FILTERED]"], ["role", 1], ["unconfirmed_email", "[FILTERED]"], ["updated_at", "2026-09-24 06:38:17.799405"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mPlace Create (0.1ms)[0m  [1m[32mINSERT INTO "places" ("approved", "capacity", "category", "created_at", "latitude", "locked_at", "locked_by_id", "longitude", "name", "opening_hours", "proposed_by_id", "status", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["approved", 0], ["capacity", 3], ["category", 0], ["created_at", "2026-09-24 06:38:17.800435"], ["latitude", 47.3769], ["locked_at", nil], ["locked_by_id", nil], ["longitude", 8.5417], ["name", "Central Park Bench"], ["opening_hours", nil], ["proposed_by_id", 980190963], ["status", 0], ["updated_at", "2026-09-24 06:38:17.800435"]]
+  [1m[36mPaperTrail::Version Create (0.1ms)[0m  [1m[32mINSERT INTO "versions" ("created_at", "event", "item_id", "item_type", "object", "whodunnit") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["created_at", "2026-09-24 06:38:17.800435"], ["event", "create"], ["item_id", 980190963], ["item_type", "Place"], ["object", nil], ["whodunnit", nil]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-24 08:38:17 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 3ms (ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mPlace Update (0.1ms)[0m  [1m[33mUPDATE "places" SET "locked_at" = ?, "locked_by_id" = ?, "updated_at" = ? WHERE "places"."id" = ?[0m  [["locked_at", "2026-09-24 06:38:17.805508"], ["locked_by_id", 980190963], ["updated_at", "2026-09-24 06:38:17.805961"], ["id", 980190963]]
+  [1m[36mPaperTrail::Version Create (0.1ms)[0m  [1m[32mINSERT INTO "versions" ("created_at", "event", "item_id", "item_type", "object", "whodunnit") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["created_at", "2026-09-24 06:38:17.805961"], ["event", "update"], ["item_id", 980190963], ["item_type", "Place"], ["object", "---\nid: 980190963\napproved: false\ncapacity: 3\ncategory: 0\ncreated_at: !ruby/object:ActiveSupport::TimeWithZone\n  utc: &1 2026-09-24 06:38:17.800435000 Z\n  zone: &2 !ruby/object:ActiveSupport::TimeZone\n    name: Etc/UTC\n  time: *1\nlatitude: !ruby/object:BigDecimal 18:0.473769e2\nlocked_at:\nlocked_by_id:\nlongitude: !ruby/object:BigDecimal 18:0.85417e1\nname: Central Park Bench\nopening_hours:\nproposed_by_id: 980190963\nstatus: 0\nupdated_at: !ruby/object:ActiveSupport::TimeWithZone\n  utc: &3 2026-09-24 06:38:17.800435000 Z\n  zone: *2\n  time: *3\n"], ["whodunnit", nil]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/session" for 127.0.0.1 at 2026-09-24 08:38:17 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]"}
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://www.example.com/places
+Completed 302 Found in 3ms (ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.0ms)
+Started GET "/moderation/places/980190963/edit" for 127.0.0.1 at 2026-09-24 08:38:17 +0200
+Processing by Moderation::PlacesController#edit as HTML
+  Parameters: {"id" => "980190963"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 980190964], ["LIMIT", 1]]
+  [1m[36mPlace Load (0.0ms)[0m  [1m[34mSELECT "places".* FROM "places" WHERE "places"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+Filter chain halted as :ensure_not_locked_by_other_moderator rendered or redirected
+Completed 403 Forbidden in 1ms (ActiveRecord: 0.1ms (2 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
