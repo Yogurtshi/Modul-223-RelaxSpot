@@ -11,5 +11,4 @@ class Moderation::DashboardsController < ApplicationController
     @pending_places = Place.where(approved: false).includes(:proposed_by).order(created_at: :desc)
     @pending_status_reports = StatusReport.where(reviewed: false).includes(:place, :user).order(created_at: :desc)
   end
-
 end
