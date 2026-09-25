@@ -37,5 +37,36 @@ seed_users.each do |attributes|
   user.save!
 end
 
+seed_places = [
+  {
+    name: "City Garden Bench",
+    category: :seating,
+    status: :open,
+    latitude: 47.3769,
+    longitude: 8.5417,
+    capacity: 2,
+    opening_hours: "Mo-Su 06:00-22:00",
+    approved: true,
+    proposed_by: User.find_by!(email: "user.one@relaxspot.local")
+  },
+  {
+    name: "River Walk Plaza",
+    category: :shade,
+    status: :open,
+    latitude: 47.3784,
+    longitude: 8.5362,
+    capacity: 14,
+    opening_hours: "Mo-Su 08:00-20:00",
+    approved: true,
+    proposed_by: User.find_by!(email: "user.two@relaxspot.local")
+  }
+]
+
+seed_places.each do |attributes|
+  place = Place.find_or_initialize_by(name: attributes[:name])
+  place.assign_attributes(attributes)
+  place.save!
+end
+
 # relaxspot-user-three-2026
 # relaxspot-user-three-test-2026

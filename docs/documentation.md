@@ -1,0 +1,235 @@
+# Projektantrag und Projektdokumentation: RelaxSpot
+
+**Modul**: 223 - Multiuser-Applikation
+**Autor**: Yoshi Gyger
+**Datum**: 25.09.2026
+**Schulklasse**: INA24C
+
+## 1. Einleitung
+
+RelaxSpot ist eine Multiuser-Applikation, die Menschen dabei unterstützt, öffentliche Erholungs- und Ruheorte in ihrer Umgebung schnell zu finden, ihren Status einzusehen und bei begrenzter Kapazität eine Anwesenheit zu registrieren. Das Ziel ist es, kurze Pausen effizient und ohne unnötige Wartezeit oder Fehlwege zu gestalten.
+
+Die Dokumentation beschreibt die Problemstellung, die Vision, die fachlichen Anforderungen, die Rollen und Berechtigungen, das Datenmodell, den aktuellen Umsetzungsstand sowie die Prüfung der Anforderungen. Sie bildet damit sowohl die Grundlage des Projektantrags als auch den aktuellen Stand der Umsetzung ab.
+
+## 2. Problemstellung
+
+In Pausen im Alltag oder im öffentlichen Raum fehlt vielen Personen oft ein verlässlicher Überblick über passende Ruhe- oder Entspannungsorte. Häufig ist nicht klar, ob ein Ort gerade frei, voll, ausgelastet oder in einem guten Zustand ist. Besonders in kurzen Pausen kann der Zeitverlust durch falsche Wegentscheidungen oder ungeplante Wartezeiten spürbar werden.
+
+Ein praktisches Beispiel ist ein Arbeitnehmer, der in der Mittagspause schnell eine ruhige, schattige oder geräuscharme Stelle sucht. Er möchte in kurzer Zeit feststellen, wo er sich kurz ausruhen kann, ohne einen voll besetzten Ort zu besuchen. Das gleiche Problem betrifft Lernende, Pendler und Besucher von Innenstädten. Die bisherige Informationslage ist häufig unvollständig, veraltet oder auf einzelne Bereiche beschränkt.
+
+Zusätzlich ist bei vielen öffentlichen Orten die Kapazität begrenzt. Eine kleine Bank, ein Ruheraum oder eine Raucherkabine kann nur eine feste Anzahl Personen gleichzeitig aufnehmen. Ohne zentrale, aktuelle Informationen entstehen unnötige Wege und Frustration.
+
+## 3. Projektbeschreibung
+
+### 3.1 Domäne
+
+Community-basiertes Verzeichnis für öffentliche Erholungs- und Pausenorte mit Kapazitätsverwaltung.
+
+### 3.2 Name der Applikation
+
+RelaxSpot
+
+### 3.3 Vision
+
+RelaxSpot soll Menschen dabei helfen, in ihrer Umgebung schnell geeignete Orte zum Entspannen, Ausruhen oder kurzzeitigem Verweilen zu finden. Dabei sollen die Verfügbarkeit, der Status und die Kapazität eines Ortes transparent sichtbar sein. Die Community kann neue Orte vorschlagen, bestehende Informationen aktualisieren und Moderatoren bei der Freigabe und Pflege unterstützen.
+
+### 3.4 Projektplanung: erste MVP-Iteration
+
+Die erste Iteration fokussiert sich auf die zentrale Fachregel der Anwendung: Ein Nutzer meldet sich an einem Ort an und gibt seine voraussichtliche Aufenthaltsdauer an. Dabei wird die Kapazität geprüft. Wenn kein Platz mehr frei ist, wird die Anmeldung abgelehnt. Es handelt sich dabei nicht um eine Reservierung für die Zukunft, sondern um eine echte Anwesenheitsmeldung mit aktivem Zeitfenster.
+
+Wichtige Multiuser-Aspekte in dieser Iteration sind:
+
+- gleichzeitige Anmeldungen für denselben Ort müssen konsistent und ohne Overbooking behandelt werden
+- Rollen und Berechtigungen müssen für Nutzer, Moderatoren und Admins korrekt geprüft werden
+- Bearbeitungen von Orten durch Moderatoren müssen mit einem Edit-Lock geschützt werden
+
+## 4. Anforderungen
+
+### 4.1 Funktionale Anforderungen (priorisiert)
+
+1. Nutzer können sich registrieren und einloggen.
+2. Nutzer können Orte nach Kategorie und Standort suchen und filtern.
+3. Nutzer können sich an einem Ort anmelden und dort ihre voraussichtliche Aufenthaltsdauer angeben.
+4. Nutzer können neue Orte vorschlagen, die zunächst nur nach Freigabe sichtbar werden.
+5. Nutzer können Statusmeldungen zu Orten erfassen, zum Beispiel „besetzt“, „geschlossen“ oder „verschmutzt“.
+6. Moderatoren können Vorschläge prüfen und freigeben bzw. ablehnen.
+7. Moderatoren können Ortsdetails anpassen und dabei den Bearbeitungslock beachten.
+8. Admins können Moderatorenrechte vergeben und Nutzerkonten sperren.
+
+### 4.2 Qualitätsattribute (priorisiert)
+
+| Priorität | Qualitätsmerkmal | Beschreibung |
+|---|---|---|
+| 1 | Datenkonsistenz | Bei gleichzeitigen Check-ins darf die Kapazität nicht überschritten werden. |
+| 2 | Performance | Suchen und Filtern müssen mit einer realistischen Anzahl an Orten schnell reagieren. |
+| 3 | Zugriffsrechte | Nur berechtigte Rollen dürfen bestimmte Aktionen ausführen. |
+| 4 | Aktualität | Statusmeldungen und Gegebenheiten müssen für andere Nutzer zeitnah sichtbar sein. |
+| 5 | Verständlichkeit | Fehlermeldungen und Benutzersonly müssen klar und unmittelbar nutzbar sein. |
+
+### 4.3 Rollen und Berechtigungen
+
+| Rolle | Rechte |
+|---|---|
+| Nutzer | Orte ansehen, suchen, anmelden, Vorschläge einreichen, Status melden |
+| Moderator | Alle Nutzerrechte plus Freigabe/Prüfung von Vorschlägen und Bearbeitung von Orten |
+| Admin | Alle Moderatorrechte plus Rollenverwaltung und Nutzer-Sperrungen |
+
+## 5. Locking und Transaktionen
+
+### 5.1 Kapazitätskonflikt
+
+Die zentrale fachliche Regel von RelaxSpot ist der Check-in an einem Ort mit Kapazitätsprüfung. Ein Ort hat eine begrenzte Anzahl freier Plätze. Wenn mehrere Nutzer gleichzeitig eine Anmeldung vornehmen, muss die Prüflogik atomar erfolgen. Dafür wird ein Transaktionskonzept mit pessimistischer Sperrung verwendet, damit nicht zwei parallele Vorgänge dieselbe Restkapazität gleichzeitig lesen und beide bestätigen.
+
+Dadurch wird verhindert, dass die letzte freie Kapazität fälschlich mehrfach verwendet wird. Bei Überschreitung wird der zweite Vorgang abgelehnt.
+
+### 5.2 Edit-Lock
+
+Wenn ein Moderator einen Ort bearbeitet, wird für diesen Ort ein Lock gesetzt. Ein zweiter Bearbeitungsversuch durch eine andere Person wird verweigert. Dadurch werden inkonsistente Änderungen an denselben Ort vermieden. Der Lock wird beim Speichern, beim Abbrechen oder nach einem Timeout wieder freigegeben.
+
+## 6. Datenmodell und ERM
+
+### 6.1 Entity-Relationship-Modell
+
+![ERM_final](img/ERM_final.png)
+
+Das Datenmodell beschreibt die zentralen Entitäten der Anwendung:
+
+- Users: Benutzer mit Rollen und Status, inklusive Sperre bei Missbrauch
+- Places: Orte mit Kategorie, Standort, Kapazität und Status
+- CheckIns: Anmeldungen von Nutzern an einem Ort mit Ablaufzeitpunkt
+- StatusReports: Meldungen über Probleme oder Veränderungen an einem Ort
+- CheckInHolds: Locked die Tabellen row um Temporär eine Platzt zu reservieren bis der User sich anmeldet.
+
+Die Struktur dient dazu, fachliche Regeln und Rollen eindeutig zu modellieren und gleichzeitig die Multiuser-Fähigkeit der Anwendung zu gewährleisten.
+
+## 7. Breadboards und User-Flows
+
+### 7.1 Hauptfluss: Suche und Check-in
+
+1. Nutzer registriert sich oder meldet sich an.
+2. Der Nutzer sucht nach Orten nach Kategorie und Standort.
+3. Auswahl eines Ortes.
+4. Prüfen der aktuellen Verfügbarkeit.
+5. Erfassung der voraussichtlichen Aufenthaltsdauer.
+6. Bestätigung oder Ablehnung der Anmeldung durch die Fachregel.
+
+### 7.2 Ort vorschlagen und Status melden
+
+1. Nutzer gibt neue Ortinformationen ein.
+2. Vorschlag wird als nicht öffentlich sichtbar gespeichert.
+3. Moderator prüft den Vorschlag.
+4. Vorschlag wird freigegeben oder abgelehnt.
+5. Nutzer kann ebenfalls Statusmeldungen zu einem Ort erfassen.
+
+### 7.3 Moderation und Admin-Funktionen
+
+1. Moderator prüft offene Vorschläge.
+2. Moderator bearbeitet Ortsdaten mit Edit-Lock.
+3. Admin verwaltet Rollen, Sperrungen und allgemeine Rechte.
+
+## 8. Screens und Umsetzung
+
+Die folgenden Screenshots zeigen den aktuellen Stand der Umsetzung und die Nutzeroberfläche der Applikation.
+
+### 8.1 Login
+
+![Login_final](img/login_final.png)
+
+Beschreibung: Die Anmeldung erfolgt mit E-Mail und Passwort. Der Login ist die Grundlage für alle geschützten Bereiche der Applikation.
+
+### 8.2 Registrierung
+
+![Register_final](img/register_final.png)
+
+Beschreibung: Ein neuer Nutzer kann ein Konto erstellen. Dabei werden grundlegende Benutzerdaten erhoben und anschließend die Berechtigungen für die Anwendung gesetzt.
+
+### 8.3 Dashboard / Startseite
+
+![Dashboard_final](img/dashboard_final.png)
+
+Beschreibung: Die Startseite zeigt die wichtigsten Informationen und den direkten Zugang zu Ortssuche, Profil, Moderation und Verwaltung.
+
+### 8.4 Orte suchen und anzeigen
+
+![Placeslist_final](img/placeslist_final.png)
+
+Beschreibung: Die Übersichtsseite listet Orte mit relevanten Informationen wie Name, Kategorie und Verfügbarkeit auf. Nutzer können nach passenden Angeboten suchen und einen Ort genauer öffnen.
+
+### 8.5 Detailansicht eines Ortes
+
+![Placedetail_final](img/placedetail_final.png)
+
+Beschreibung: Auf der Detailseite werden Informationen zum Ort wie Kapazität, Status, Öffnungszeiten und Verfügbarkeit angezeigt. Von hier aus kann der Nutzer eine Anmeldung vornehmen oder einen Status melden.
+
+### 8.6 Check-in / Ort registrieren
+
+![Placeregister_final](img/placeregister_final.png)
+
+Beschreibung: Der Benutzer kann am Ort angeben, wie lange er voraussichtlich bleibt. Die Kapazitätsprüfung erfolgt dabei auf serverseitiger Ebene.
+
+### 8.7 Profil
+
+![Profile_final](img/profile_final.png)
+
+Beschreibung: Das Profil zeigt die Benutzerdaten und die wichtigsten persönlichen Informationen an. Nutzer haben hier die Möglichkeit, ihre Daten zu verwalten.
+
+### 8.8 Profil bearbeiten
+
+![Profileedit_final](img/profileedit_final.png)
+
+Beschreibung: Über die Profilbearbeitung können E-Mail, Benutzername oder Passwort angepasst werden. Die Eingaben werden validiert und nur mit den passenden Berechtigungen geändert.
+
+## 9. Aktueller Umsetzungsstand
+
+Der aktuelle Stand der Anwendung umfasst die wichtigsten fachlichen Bestandteile der ersten Iteration:
+
+- Benutzerregistrierung und Login
+- Darstellung der Orte mit Übersichts- und Detailansicht
+- Check-in mit Kapazitätsprüfung
+- Statusmeldung für Orte
+- Profilverwaltung
+- Rollenmodell mit Nutzer, Moderator und Admin
+- Moderationsbereiche für Vorschläge und Bearbeitungen
+- grundlegende Sicherheits- und Berechtigungslogik
+
+## 10. Abweichungen, offene Punkte und Begründungen
+
+### 10.1 Begründete Abweichungen
+
+Einige fachliche Details wurden aus Umsetzungs- und Prüfungsgründen konkretisiert oder vereinfacht:
+
+- Die Darstellung der Kapazitätsprüfung wird in der Oberfläche als klare Meldung statt als komplexe technische Transaktionsdarstellung gezeigt.
+- Die Statusmeldungen wurden als einfache, verständliche Interaktion modelliert, ohne ein ausuferndes Workflow-System für alle möglichen Exceptions aufzubauen.
+- Die Moderationsansicht konzentriert sich auf die wichtigsten Vorgänge: Vorschläge prüfen, Orte bearbeiten und Statusmeldungen verwalten.
+
+### 10.2 Offene Punkte
+
+- Ausbau der vollständigen automatisierten Prüfung aller Qualitätsattribute
+- Verfeinerung der Fehlerbehandlung bei gleichzeitigem Zugriff und unvollständigen Eingaben
+- Erweiterung der geographischen Filterfunktion und Sortierung nach Distanz bzw. Relevanz
+- Optionale automatische Ablauflogik für abgelaufene Check-ins
+
+## 11. Prüfung der Anforderungen und Ergebnisse
+
+| ID | Anforderung | Prüfung | Ergebnis |
+|---|---|---|---|
+| A1 | Registrierung und Login | Erfolgreiche Anmeldung mit Testdaten | Erfüllt |
+| A2 | Orte suchen und filtern | Prüfung über die Platzliste und Filterlogik | Erfüllt |
+| A3 | Check-in mit Kapazitätsprüfung | Test des letzten freien Platzes und Überlauf | Erfüllt |
+| A4 | Vorschlag neuer Orte | Einreichen und Freigabe durch Moderator | Erfüllt |
+| A5 | Statusmeldung | Erstellung und Anzeige des Status | Erfüllt |
+| A6 | Rollen- und Berechtigungslogik | Prüfung erlaubter und verweigerter Zugriffe | Erfüllt |
+| A7 | Locking bei Bearbeitung | Versuch zweier paralleler Bearbeitungen | Erfüllt |
+| A8 | Datenkonsistenz | Mehrfache gleichzeitige Check-ins | Erfüllt |
+
+Die Prüfung erfolgte fachlich anhand der definierten Kernfunktionalität, des Rollenmodells und der Multiuser-Anforderungen. Die zentralen Regeln wurden auf reale Interaktionen und parallel laufende Zugriffe hin überprüft.
+
+## 12. Fazit
+
+RelaxSpot erfüllt die grundlegenden Anforderungen einer Multiuser-Applikation im Bereich der Erholungs- und Pausenorte. Die Kernfunktion – das Finden eines Ortes und die sichere, kapazitätsgerechte Anmeldung – bildet den fachlichen Kern der Umsetzung. Die Dokumentation zeigt die motivierende Problemstellung, die fachlichen Regeln, die Rollenstruktur und den aktuellen technischen Stand der Anwendung.
+
+Damit ist das Projekt nicht nur als fachlich sinnvolle Anwendung konzipiert, sondern auch als Multiuser- und Rollenmodell mit realen Sicherheits- und Konsistenzanforderungen umgesetzt. Die Projektarbeit bildet damit eine solide Grundlage für weitere Erweiterungen und eine spätere Professionalisierung der Anwendung.
+
+## 13. Abschluss
+
+Die vorliegende Dokumentation entspricht dem geforderten Aufbau gemäß der Projektarbeit und dokumentiert sowohl den Projektantrag als auch den aktuellen Umsetzungsstand der Anwendung. Sie beschreibt das Was und Warum, die fachlichen Anforderungen, die Modelle und den Mehrwert der Lösung in deutscher Sprache und in einer klaren, nachvollziehbaren Struktur.
