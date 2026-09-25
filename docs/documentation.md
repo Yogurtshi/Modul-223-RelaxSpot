@@ -252,22 +252,7 @@ Beschreibung: Das Profil zeigt die Benutzerdaten und die wichtigsten persönlich
 
 Beschreibung: Über die Profilbearbeitung können E-Mail, Benutzername oder Passwort angepasst werden. Die Eingaben werden validiert und nur mit den passenden Berechtigungen geändert.
 
-## 9. Aktueller Umsetzungsstand
-
-Der aktuelle Stand der Anwendung umfasst die wichtigsten fachlichen Bestandteile der ersten Iteration:
-
-- Benutzerregistrierung und Login
-- Darstellung der Orte mit Übersichts- und Detailansicht
-- Check-in mit Kapazitätsprüfung
-- Statusmeldung für Orte
-- Profilverwaltung
-- Rollenmodell mit Nutzer, Moderator und Admin
-- Moderationsbereiche für Vorschläge und Bearbeitungen
-- grundlegende Sicherheits- und Berechtigungslogik
-
-## 10. Abweichungen, offene Punkte und Begründungen
-
-### 10.1 Begründete Abweichungen
+## 9. Begründete Abweichungen
 
 Einige fachliche Details wurden aus Umsetzungs- und Prüfungsgründen konkretisiert oder vereinfacht:
 
@@ -275,34 +260,8 @@ Einige fachliche Details wurden aus Umsetzungs- und Prüfungsgründen konkretisi
 - Die Statusmeldungen wurden als einfache, verständliche Interaktion modelliert, ohne ein ausuferndes Workflow-System für alle möglichen Exceptions aufzubauen.
 - Die Moderationsansicht konzentriert sich auf die wichtigsten Vorgänge: Vorschläge prüfen, Orte bearbeiten und Statusmeldungen verwalten.
 
-### 10.2 Offene Punkte
-
-- Ausbau der vollständigen automatisierten Prüfung aller Qualitätsattribute
-- Verfeinerung der Fehlerbehandlung bei gleichzeitigem Zugriff und unvollständigen Eingaben
-- Erweiterung der geographischen Filterfunktion und Sortierung nach Distanz bzw. Relevanz
-- Optionale automatische Ablauflogik für abgelaufene Check-ins
-
-## 11. Prüfung der Anforderungen und Ergebnisse
-
-| ID | Anforderung | Prüfung | Ergebnis |
-|---|---|---|---|
-| A1 | Registrierung und Login | Erfolgreiche Anmeldung mit Testdaten | Erfüllt |
-| A2 | Orte suchen und filtern | Prüfung über die Platzliste und Filterlogik | Erfüllt |
-| A3 | Check-in mit Kapazitätsprüfung | Test des letzten freien Platzes und Überlauf | Erfüllt |
-| A4 | Vorschlag neuer Orte | Einreichen und Freigabe durch Moderator | Erfüllt |
-| A5 | Statusmeldung | Erstellung und Anzeige des Status | Erfüllt |
-| A6 | Rollen- und Berechtigungslogik | Prüfung erlaubter und verweigerter Zugriffe | Erfüllt |
-| A7 | Locking bei Bearbeitung | Versuch zweier paralleler Bearbeitungen | Erfüllt |
-| A8 | Datenkonsistenz | Mehrfache gleichzeitige Check-ins | Erfüllt |
-
-Die Prüfung erfolgte fachlich anhand der definierten Kernfunktionalität, des Rollenmodells und der Multiuser-Anforderungen. Die zentralen Regeln wurden auf reale Interaktionen und parallel laufende Zugriffe hin überprüft.
-
-## 12. Fazit
+## 10. Fazit
 
 RelaxSpot erfüllt die grundlegenden Anforderungen einer Multiuser-Applikation im Bereich der Erholungs- und Pausenorte. Die Kernfunktion – das Finden eines Ortes und die sichere, kapazitätsgerechte Anmeldung – bildet den fachlichen Kern der Umsetzung. Die Dokumentation zeigt die motivierende Problemstellung, die fachlichen Regeln, die Rollenstruktur und den aktuellen technischen Stand der Anwendung.
 
 Damit ist das Projekt nicht nur als fachlich sinnvolle Anwendung konzipiert, sondern auch als Multiuser- und Rollenmodell mit realen Sicherheits- und Konsistenzanforderungen umgesetzt. Die Projektarbeit bildet damit eine solide Grundlage für weitere Erweiterungen und eine spätere Professionalisierung der Anwendung.
-
-## 13. Abschluss
-
-Die vorliegende Dokumentation entspricht dem geforderten Aufbau gemäß der Projektarbeit und dokumentiert sowohl den Projektantrag als auch den aktuellen Umsetzungsstand der Anwendung. Sie beschreibt das Was und Warum, die fachlichen Anforderungen, die Modelle und den Mehrwert der Lösung in deutscher Sprache und in einer klaren, nachvollziehbaren Struktur.
