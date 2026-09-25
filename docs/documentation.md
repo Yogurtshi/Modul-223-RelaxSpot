@@ -200,59 +200,110 @@ Die Struktur dient dazu, fachliche Regeln und Rollen eindeutig zu modellieren un
 
 Die oben dargestellten Breadboards zeigen die sichtbaren Zustände und wichtigsten Handlungen der Anwendung. Sie definieren keinen kompletten technischen Ablauf, sondern die fachlichen Schritte, die mit den jeweiligen Controller-Actions und Berechtigungen umgesetzt werden müssen.
 
-## 8. Screens und Umsetzung
+## 8. Fat-Marker-Sketches der Screens
+
+### 8.1 Registrierung
+
+![Register](img/register.png)
+
+Beschreibung: Der Nutzer kann ein neues Konto anlegen. Dabei werden Name, E-Mail und Passwort erfasst. Die einfache, handgezeichnete Darstellung zeigt die grundsätzliche Interaktion ohne Detailreichtum der fertigen Oberfläche.
+
+### 8.2 Login
+
+![Login](img/login.png)
+
+Beschreibung: Die Anmeldung erfolgt mit E-Mail und Passwort. Der Login ist der erste Zugangspunkt in die geschützten Bereiche der Anwendung.
+
+### 8.3 Profil bearbeiten
+
+![UserEdit](img/useredit.png)
+
+Beschreibung: Das Profil kann nach der Registrierung bearbeitet werden. Dabei können Benutzername, E-Mail und Passwort angepasst werden.
+
+### 8.4 Orte anzeigen
+
+![PlaceList](img/placelist.png)
+
+Beschreibung: Die Übersichtsseite stellt alle Ruhe- und Erholungsorte dar. Nutzer können eine Auswahl treffen und weitere Details aufrufen.
+
+### 8.5 Check-in am Ort
+
+![PlaceRegister](img/placeregister.png)
+
+Beschreibung: Der Nutzer meldet sich an einem Ort an und gibt die voraussichtliche Aufenthaltsdauer ein. Die Kapazitätsprüfung ist dabei die fachlich zentrale Regel.
+
+### 8.6 Admin/Moderator-Bereich
+
+![Admin/ModeratorPanel](img/adminmoderatorpanel.png)
+
+Beschreibung: Im Admin-/Moderatorbereich werden Vorschläge verwaltet, Rechte kontrolliert und Nutzerkonten bearbeitet.
+
+## 9. Technologie-Stack
+
+| Bereich | Technologie |
+|---|---|
+| Backend-Framework | Ruby on Rails |
+| Sprache | Ruby |
+| Datenbank | sqlite3 |
+| Frontend | Rails Views (ERB) mit Hotwire (Turbo/Stimulus) |
+| Authentifizierung | Eigene Session- und Login-Logik |
+| Autorisierung | Pundit (rollenbasierte Policies) |
+| Testing | Minitest, Request-/System-Tests für Fachregel und Rechte |
+| Versionsverwaltung | Git / GitHub |
+
+## 10. Screens und Umsetzung
 
 Die folgenden Screenshots zeigen den aktuellen Stand der Umsetzung und die Nutzeroberfläche der Applikation.
 
-### 8.1 Login
+### 10.1 Login
 
 ![Login_final](img/login_final.png)
 
 Beschreibung: Die Anmeldung erfolgt mit E-Mail und Passwort. Der Login ist die Grundlage für alle geschützten Bereiche der Applikation.
 
-### 8.2 Registrierung
+### 10.2 Registrierung
 
 ![Register_final](img/register_final.png)
 
 Beschreibung: Ein neuer Nutzer kann ein Konto erstellen. Dabei werden grundlegende Benutzerdaten erhoben und anschließend die Berechtigungen für die Anwendung gesetzt.
 
-### 8.3 Dashboard / Startseite
+### 10.3 Dashboard / Startseite
 
 ![Dashboard_final](img/dashboard_final.png)
 
 Beschreibung: Die Startseite zeigt die wichtigsten Informationen und den direkten Zugang zu Ortssuche, Profil, Moderation und Verwaltung.
 
-### 8.4 Orte suchen und anzeigen
+### 10.4 Orte suchen und anzeigen
 
 ![Placeslist_final](img/placeslist_final.png)
 
 Beschreibung: Die Übersichtsseite listet Orte mit relevanten Informationen wie Name, Kategorie und Verfügbarkeit auf. Nutzer können nach passenden Angeboten suchen und einen Ort genauer öffnen.
 
-### 8.5 Detailansicht eines Ortes
+### 10.5 Detailansicht eines Ortes
 
 ![Placedetail_final](img/placedetail_final.png)
 
 Beschreibung: Auf der Detailseite werden Informationen zum Ort wie Kapazität, Status, Öffnungszeiten und Verfügbarkeit angezeigt. Von hier aus kann der Nutzer eine Anmeldung vornehmen oder einen Status melden.
 
-### 8.6 Check-in / Ort registrieren
+### 10.6 Check-in / Ort registrieren
 
 ![Placeregister_final](img/placeregister_final.png)
 
 Beschreibung: Der Benutzer kann am Ort angeben, wie lange er voraussichtlich bleibt. Die Kapazitätsprüfung erfolgt dabei auf serverseitiger Ebene.
 
-### 8.7 Profil
+### 10.7 Profil
 
 ![Profile_final](img/profile_final.png)
 
 Beschreibung: Das Profil zeigt die Benutzerdaten und die wichtigsten persönlichen Informationen an. Nutzer haben hier die Möglichkeit, ihre Daten zu verwalten.
 
-### 8.8 Profil bearbeiten
+### 10.8 Profil bearbeiten
 
 ![Profileedit_final](img/profileedit_final.png)
 
 Beschreibung: Über die Profilbearbeitung können E-Mail, Benutzername oder Passwort angepasst werden. Die Eingaben werden validiert und nur mit den passenden Berechtigungen geändert.
 
-## 9. Begründete Abweichungen
+## 11. Begründete Abweichungen
 
 Einige fachliche Details wurden aus Umsetzungs- und Prüfungsgründen konkretisiert oder vereinfacht:
 
@@ -260,7 +311,33 @@ Einige fachliche Details wurden aus Umsetzungs- und Prüfungsgründen konkretisi
 - Die Statusmeldungen wurden als einfache, verständliche Interaktion modelliert, ohne ein ausuferndes Workflow-System für alle möglichen Exceptions aufzubauen.
 - Die Moderationsansicht konzentriert sich auf die wichtigsten Vorgänge: Vorschläge prüfen, Orte bearbeiten und Statusmeldungen verwalten.
 
-## 10. Fazit
+## 12. Offene Punkte
+
+Die bisherige Umsetzung deckt die Kernfunktionalität der ersten Iteration ab. Einige Bereiche sind noch offen und sollen in einer weiteren Entwicklungsphase vertieft werden:
+
+- automatische Beendigung oder Bereinigung abgelaufener Check-ins
+- weiter optimierte Filter- und Sortierlogik für grössere Datenmengen
+- zusätzliche Randfalltests bei gleichzeitigen Zugriffen und unvollständigen Eingaben
+- Ausbau der Benutzerfeedbacks bei Konflikten und fehlenden Berechtigungen
+
+Diese Punkte sind keine negativen Mängel, sondern logische Erweiterungen der ersten MVP-Iteration und damit fachlich sinnvoll im Projektverlauf.
+
+## 13. Prüfung der Anforderungen und Ergebnisse
+
+| ID | Anforderung | Prüfung | Ergebnis |
+|---|---|---|---|
+| A1 | Registrierung und Login | Erfolgreiche Anmeldung mit Testdaten | Erfüllt |
+| A2 | Orte suchen und filtern | Prüfung über die Platzliste und Filterlogik | Erfüllt |
+| A3 | Check-in mit Kapazitätsprüfung | Test des letzten freien Platzes und Überlauf | Erfüllt |
+| A4 | Vorschlag neuer Orte | Einreichen und Freigabe durch Moderator | Erfüllt |
+| A5 | Statusmeldung | Erstellung und Anzeige des Status | Erfüllt |
+| A6 | Rollen- und Berechtigungslogik | Prüfung erlaubter und verweigerter Zugriffe | Erfüllt |
+| A7 | Locking bei Bearbeitung | Versuch zweier paralleler Bearbeitungen | Erfüllt |
+| A8 | Datenkonsistenz | Mehrfache gleichzeitige Check-ins | Erfüllt |
+
+Die Prüfung erfolgte fachlich anhand der definierten Kernfunktionalität, des Rollenmodells und der Multiuser-Anforderungen. Die zentralen Regeln wurden auf reale Interaktionen und parallel laufende Zugriffe hin überprüft.
+
+## 14. Fazit
 
 RelaxSpot erfüllt die grundlegenden Anforderungen einer Multiuser-Applikation im Bereich der Erholungs- und Pausenorte. Die Kernfunktion – das Finden eines Ortes und die sichere, kapazitätsgerechte Anmeldung – bildet den fachlichen Kern der Umsetzung. Die Dokumentation zeigt die motivierende Problemstellung, die fachlichen Regeln, die Rollenstruktur und den aktuellen technischen Stand der Anwendung.
 
