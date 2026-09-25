@@ -1,54 +1,60 @@
 # RelaxSpot
 
-RelaxSpot is a multi-user community directory for places to pause, such as
-seating areas, smoking areas, shade, and toilets. Visitors can discover
-approved places. Registered users can suggest places, report changes, and
-check in while capacity is available. Moderators review community submissions,
-and administrators manage user accounts.
+RelaxSpot is a Ruby on Rails multi-user application for finding calm and usable rest places in daily life. Users can browse approved places, check in while capacity is available, suggest new locations, and report issues such as closing times or dirty conditions. Moderators review submissions and manage place updates, while administrators manage users and roles.
 
-The project documentation, requirements traceability, and test evidence are
-available in [`docs/`](docs/).
+The project includes a full documentation set, test coverage, and role-based access control for the core domain workflow.
+
+## Features
+
+- User registration and login
+- Search and filtering of approved places
+- Capacity-aware check-in flow
+- Suggestion of new places by users
+- Status reporting for problems and availability issues
+- Moderator review of submitted places and reports
+- Edit locks to avoid conflicting moderation changes
+- Admin management of roles and account locks
+- Activity-aware moderation dashboard
 
 ## Technology stack
 
-- Ruby 4.0.6
-- Rails 8.1.3.1
+- Ruby version: see [.ruby-version](.ruby-version)
+- Rails 8.1.x
 - SQLite 3
-- ERB, Hotwire Turbo, and Stimulus
+- ERB, Turbo, and Stimulus
 - Pundit for authorization
-- PaperTrail for the activity log
+- PaperTrail for activity tracking
 - Minitest for automated tests
 
 ## Prerequisites
 
-- Ruby 4.0.6 (see [`.ruby-version`](.ruby-version))
+- Ruby version from [.ruby-version](.ruby-version)
 - Bundler
 - SQLite 3 development libraries
 
-Node.js is not required because the application uses Rails import maps.
+Node.js is not required because the app uses Rails import maps.
 
 ## Setup
 
-Clone the repository, enter the project directory, and install the Ruby
-dependencies:
+Clone the project and install dependencies:
 
 ```sh
 bundle install
 ```
 
-Create and migrate the development database:
+Prepare the database:
 
 ```sh
 bin/rails db:prepare
 ```
 
-Load the local demonstration data:
+Load the seed data for demo accounts and initial records:
 
 ```sh
 bin/rails db:seed
 ```
 
-To recreate the development database and reload its demonstration data:
+To recreate the database and reload sample data:
 
 ```sh
 bin/rails db:reset
@@ -56,16 +62,19 @@ bin/rails db:reset
 
 ## Run locally
 
-Start the Rails server:
+Start the development server:
 
 ```sh
 bin/rails server
 ```
 
-Open <http://localhost:3000>.
+Then open:
 
-When a user requests an e-mail change, the confirmation URL is written to the
-development log. Follow the log in another terminal if needed:
+```text
+http://localhost:3000
+```
+
+If needed, inspect the development log:
 
 ```sh
 tail -f log/development.log
@@ -73,7 +82,7 @@ tail -f log/development.log
 
 ## Demo accounts
 
-Run `bin/rails db:seed` first, then sign in with one of these local accounts:
+After running `bin/rails db:seed`, you can sign in with the following local accounts:
 
 | Role | E-mail | Password |
 | --- | --- | --- |
@@ -82,48 +91,41 @@ Run `bin/rails db:seed` first, then sign in with one of these local accounts:
 | User | `user.one@relaxspot.local` | `relaxspot-user-one-2026` |
 | User | `user.two@relaxspot.local` | `relaxspot-user-two-2026` |
 
-These accounts and passwords are development-only seed data.
+These credentials are intended for local development and demonstration only.
 
 ## Main workflows
 
-- Browse approved places and see their capacity and current availability.
-- Register, sign in, manage a profile, change a password, and confirm an
-  e-mail-address change.
-- Suggest a new place and submit a status or opening-hours report.
-- Check in to an approved place. The application prevents overbooking and
-  duplicate active check-ins for the same user and place.
-- Review submitted places and reports as a moderator. Moderators use
-  time-limited edit locks to avoid conflicting changes.
-- Manage user details, roles, and account locks as an administrator.
-- View recent core-domain activity in the moderation dashboard.
+- Browse approved places and inspect their status and available capacity
+- Register, log in, manage a profile, and update account details
+- Suggest a new place for moderation review
+- Report a place issue or temporary condition
+- Check in at an approved place while respecting the capacity rule
+- Review and approve or reject submissions as a moderator
+- Manage user role assignments and locks as an administrator
 
-## Tests
+## Testing
 
-Run the complete test suite:
+Run the full test suite:
 
 ```sh
 bin/rails test
 ```
 
-Run a focused test file or directory:
+Run a specific area of the suite:
 
 ```sh
-bin/rails test test/controllers/admin/users_controller_test.rb
+bin/rails test test/controllers/check_ins_controller_test.rb
 bin/rails test test/policies
 ```
 
-The test database is separate from the development database and is configured
-in [`config/database.yml`](config/database.yml).
+The test database is configured separately in [config/database.yml](config/database.yml).
 
 ## Documentation
 
-- [`docs/projektantrag_relaxspot.md`](docs/projektantrag_relaxspot.md):
-  project proposal, domain, requirements, models, and design material.
-- [`docs/requirements-and-testing.md`](docs/requirements-and-testing.md):
-  requirement-to-implementation mapping and testing evidence.
+The project documentation is stored in the [docs/](docs/) folder and includes:
 
-## Security and local data
+- [docs/documentation.md](docs/documentation.md): complete project documentation with requirements, ERM, screens, and outcomes
 
-Do not commit credentials, secrets, local SQLite databases, or log files.
-Seed-account passwords are intentionally public and must only be used for
-local development and demonstrations.
+## Project status
+
+The application covers the main MVP flow for the first iteration, including: user login, place browsing, capacity-aware check-in, moderation, and admin role management.
