@@ -104,28 +104,101 @@ Die Struktur dient dazu, fachliche Regeln und Rollen eindeutig zu modellieren un
 
 ## 7. Breadboards und User-Flows
 
-### 7.1 Hauptfluss: Suche und Check-in
+```text
+@Login (sessions#new)
+  - E-Mail und Passwort
+  - Anmelden (POST sessions#create)
+    Success -> @Places
+    Invalid credentials -> @Login
+  - Registrieren
+    -> @Register
 
-1. Nutzer registriert sich oder meldet sich an.
-2. Der Nutzer sucht nach Orten nach Kategorie und Standort.
-3. Auswahl eines Ortes.
-4. Prüfen der aktuellen Verfügbarkeit.
-5. Erfassung der voraussichtlichen Aufenthaltsdauer.
-6. Bestätigung oder Ablehnung der Anmeldung durch die Fachregel.
+@Register (users#new)
+  - Name, E-Mail, Passwort
+  - Konto erstellen (POST users#create)
+    Success -> @Places
+    Failure -> @Register
 
-### 7.2 Ort vorschlagen und Status melden
+@Places (places#index)
+  - Orte suchen und filtern
+  - Filter (GET places#index)
+    -> @Places
+  - Ort auswählen
+    -> @Place
+  - Neuen Ort vorschlagen
+    -> @SuggestPlace
 
-1. Nutzer gibt neue Ortinformationen ein.
-2. Vorschlag wird als nicht öffentlich sichtbar gespeichert.
-3. Moderator prüft den Vorschlag.
-4. Vorschlag wird freigegeben oder abgelehnt.
-5. Nutzer kann ebenfalls Statusmeldungen zu einem Ort erfassen.
+@Place (places#show)
+  - Name, Kategorie, Kapazität, Status, freie Plätze
+  - Check-in (POST check_ins#create)
+    Success -> @Place
+    Fully booked -> @Place
+  - Status melden
+    -> @StatusReport
+  - Zurück zur Übersicht
+    -> @Places
 
-### 7.3 Moderation und Admin-Funktionen
+@SuggestPlace (places#new)
+  - Name, Kategorie, Standort, Kapazität, Öffnungszeiten
+  - Vorschlag einreichen (POST places#create)
+    Success -> @Places
+    Failure -> @SuggestPlace
 
-1. Moderator prüft offene Vorschläge.
-2. Moderator bearbeitet Ortsdaten mit Edit-Lock.
-3. Admin verwaltet Rollen, Sperrungen und allgemeine Rechte.
+@StatusReport (status_reports#new)
+  - Status auswählen: besetzt, geschlossen, verschmutzt
+  - Melden (POST status_reports#create)
+    Success -> @Place
+    Failure -> @StatusReport
+
+@Moderation (moderation/dashboard#show)
+  - Offene Vorschläge anzeigen
+  - Vorschlag prüfen
+    -> @ModerationPlace
+  - Ort bearbeiten
+    -> @EditPlace
+  - Statusmeldung prüfen
+    -> @ModerationStatus
+
+@ModerationPlace (moderation/places#show)
+  - Vorschlagsdaten und Vorschlagender anzeigen
+  - Freigeben (POST moderation/places#approve)
+    Success -> @Moderation
+  - Ablehnen (POST moderation/places#reject)
+    Success -> @Moderation
+
+@EditPlace (moderation/places#edit)
+  - Name, Kategorie, Kapazität, Öffnungszeiten
+  - Speichern (POST moderation/places#update)
+    Success -> @Moderation
+    Locked -> @EditPlace
+  - Abbrechen
+    -> @Moderation
+
+@ModerationStatus (moderation/status_reports#show)
+  - Gemeldeter Status, Ort und Zeitpunkt anzeigen
+  - Bestätigen (POST moderation/status_reports#approve)
+    Success -> @Moderation
+  - Verwerfen (POST moderation/status_reports#reject)
+    Success -> @Moderation
+
+@Admin (admin/users#index)
+  - Alle Nutzer anzeigen
+  - Benutzer auswählen
+    -> @UserAdmin
+
+@UserAdmin (admin/users#show)
+  - Nutzername, E-Mail, Rolle, Status anzeigen
+  - Moderator ernennen (POST admin/users#promote)
+    Success -> @UserAdmin
+  - Rechte entziehen (POST admin/users#demote)
+    Success -> @UserAdmin
+  - Konto sperren (POST admin/users#lock)
+    Success -> @UserAdmin
+  - Konto entsperren (POST admin/users#unlock)
+    Success -> @UserAdmin
+```
+
+Die oben dargestellten Breadboards zeigen die sichtbaren Zustände und wichtigsten Handlungen der Anwendung. Sie definieren keinen kompletten technischen Ablauf, sondern die fachlichen Schritte, die mit den jeweiligen Controller-Actions und Berechtigungen umgesetzt werden müssen.
 
 ## 8. Screens und Umsetzung
 
